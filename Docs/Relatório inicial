@@ -1,1 +1,67 @@
+# Universidade Europeia
+# Iade
 
+# Relatório do Projeto
+### Projeto de Desenvolvimento Móvel
+
+Trabalho realizado por:
+- **Leonardo Nguyen** nº20230805
+- **Martim Conceição** nº20231206
+- **Rodrigo Freire** nº20230851
+
+---
+
+**Nome do projeto**: [SoundMarket](https://github.com/yaboyfreire/SoundMarket)  
+**Link github**: [https://github.com/yaboyfreire/SoundMarket](https://github.com/yaboyfreire/SoundMarket)
+
+---
+
+## Ideia do projeto
+
+A [SoundMarket](https://github.com/yaboyfreire/SoundMarket) começou com uma ideia de criar uma aplicação que guardasse os álbuns todos que tinha na coleção sendo eles em vinil ou em cd, e rapidamente foi colocada a ideia de fazer com que também fosse possível comprar e vender álbuns para facilitar a parte de colecionar e também para criar uma comunidade que partilhasse o mesmo interesse.
+
+
+O público alvo neste caso são todas as pessoas que tenham interesse em música no formato físico. Não só os amantes de música mais experientes mas também os que acabaram de entrar no hobby.
+
+Algumas das aplicações que são semelhantes são o olx, ebay, vinted que são todas plataformas de compra e venda de artigos, sendo eles discos ou não, dificultando às vezes o processo de procura por algo mais específico.
+
+Outra aplicação já mais completa é o Discogs que este sim já é um marketplace apenas focado em música e nos vários formatos físicos que existem. O que torna o Discogs complicado para se usar é não ser muito intuitivo ao início, não quando se procura um disco em específico mas sim quando se quer colocar à venda.
+
+Outra aplicação mais completa é o Discogs que é um marketplace só de música, tendo quase todos os álbuns e formatos disponíveis, o problema é que a aplicação tem alguns processos um pouco complicados como por exemplo a compra de discos e a colocação de discos para venda, não é nada de outro mundo mas já é complexo para o utilizador não regular da aplicação.
+
+
+## Caso de utilização do objeto “core” do projeto
+
+O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (tem 2 processos).
+
+### 1º Processo
+
+1. O utilizador vai registar-se na aplicação.
+2. Depois de se registar, faz login e é redirecionado para a home page.
+3. Na home page, vai ter uma barra de pesquisa (search bar) para encontrar o álbum.
+4. Ao encontrar e carregar no álbum, irá aparecer no topo da página a opção “add to collection”.
+5. Depois de escolher o formato e a condição, o utilizador carrega no botão que diz "add to collection" e o álbum será adicionado à coleção.
+
+### 2º Processo
+
+1. Os dois primeiros passos são iguais.
+2. O utilizador vai até ao perfil e carrega onde diz “my collection”.
+3. Ao entrar em “my collection”, vai ver um botão no topo a dizer “add to collection”.
+4. Depois, irá procurar o álbum, escolher o formato e a condição e, por fim, irá carregar no botão que diz “add to collection”.
+
+---
+
+## Explicação de como colocar um álbum à venda
+
+1. Na home page, em baixo no centro do ecrã, vai aparecer a opção “sell” e o utilizador vai carregar nesse botão.
+2. O utilizador será levado para outra página onde irá encontrar uma barra de pesquisa (search bar) para procurar o nome do álbum (aparecerão apenas os álbuns que estão presentes na coleção do utilizador), um botão para escolher o formato, outro para escolher a condição do disco, um espaço para colocar o preço de venda e ainda uma caixa de texto para adicionar uma descrição ao produto.
+3. Depois de preencher tudo, o utilizador carrega no botão que diz “list item” e o item é colocado à venda.
+
+---
+
+## Caso de utilização: Procurar um álbum e fazer uma proposta ao vendedor
+
+1. Na home page, haverá uma barra de pesquisa (search bar) e o utilizador vai procurar o álbum que deseja.
+2. Ao carregar no álbum, aparecerão várias informações sobre ele e, perto do fim da página, irá aparecer um botão com a quantidade de vendedores que naquele momento têm o disco à venda. O utilizador terá de carregar nesse botão.
+3. Após carregar no botão, o utilizador será apresentado com todas as listings desse álbum, e também com o respetivo formato, condição e preço.
+4. Depois de escolher a listing desejada, o utilizador terá de carregar num botão que o levará para um chat com o vendedor. A partir daí, ele poderá ou não negociar o preço com o vendedor e tratar de todos os detalhes para comprar o disco.
