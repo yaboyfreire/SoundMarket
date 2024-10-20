@@ -15,20 +15,26 @@ Trabalho realizado por:
 **Link github**: [https://github.com/yaboyfreire/SoundMarket](https://github.com/yaboyfreire/SoundMarket)
 
 ---
+## Palavras-chave
+
+- Vinyl  
+- Records  
+- CDs  
+- Albums  
+- Marketplace
 
 ## Ideia do projeto
 
-A [SoundMarket](https://github.com/yaboyfreire/SoundMarket) começou com uma ideia de criar uma aplicação que guardasse os álbuns todos que tinha na coleção sendo eles em vinil ou em cd, e rapidamente foi colocada a ideia de fazer com que também fosse possível comprar e vender álbuns para facilitar a parte de colecionar e também para criar uma comunidade que partilhasse o mesmo interesse.
+A SoundMarket começou com uma ideia de criar uma aplicação que guardasse os álbuns todos que tinha na coleção sendo eles em vinil ou em cd, e rapidamente foi colocada a ideia de fazer com que também fosse possível comprar e vender álbuns para facilitar a parte de colecionar e também para criar uma comunidade que partilhasse o mesmo interesse.
 
 
 O público alvo neste caso são todas as pessoas que tenham interesse em música no formato físico. Não só os amantes de música mais experientes mas também os que acabaram de entrar no hobby.
 
 Algumas das aplicações que são semelhantes são o olx, ebay, vinted que são todas plataformas de compra e venda de artigos, sendo eles discos ou não, dificultando às vezes o processo de procura por algo mais específico.
 
-Outra aplicação já mais completa é o Discogs que este sim já é um marketplace apenas focado em música e nos vários formatos físicos que existem. O que torna o Discogs complicado para se usar é não ser muito intuitivo ao início, não quando se procura um disco em específico mas sim quando se quer colocar à venda.
-
 Outra aplicação mais completa é o Discogs que é um marketplace só de música, tendo quase todos os álbuns e formatos disponíveis, o problema é que a aplicação tem alguns processos um pouco complicados como por exemplo a compra de discos e a colocação de discos para venda, não é nada de outro mundo mas já é complexo para o utilizador não regular da aplicação.
 
+Com a SoundMarket pretendemos juntar o que estes dois tipos de aplicações tem de melhor num só sítio. Trazendo a facilidade que o olx, ebay e vinted tem para procurar e comprar e fazer com que o nosso catálogo seja tão completo como o do Discogs. 
 
 ## Caso de utilização do objeto “core” do projeto
 
@@ -51,7 +57,7 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (
 
 ---
 
-## Explicação de como colocar um álbum à venda
+## Agora vamos explicar como colocar um álbum à venda
 
 1. Na home page, em baixo no centro do ecrã, vai aparecer a opção “sell” e o utilizador vai carregar nesse botão.
 2. O utilizador será levado para outra página onde irá encontrar uma barra de pesquisa (search bar) para procurar o nome do álbum (aparecerão apenas os álbuns que estão presentes na coleção do utilizador), um botão para escolher o formato, outro para escolher a condição do disco, um espaço para colocar o preço de venda e ainda uma caixa de texto para adicionar uma descrição ao produto.
@@ -65,3 +71,75 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (
 2. Ao carregar no álbum, aparecerão várias informações sobre ele e, perto do fim da página, irá aparecer um botão com a quantidade de vendedores que naquele momento têm o disco à venda. O utilizador terá de carregar nesse botão.
 3. Após carregar no botão, o utilizador será apresentado com todas as listings desse álbum, e também com o respetivo formato, condição e preço.
 4. Depois de escolher a listing desejada, o utilizador terá de carregar num botão que o levará para um chat com o vendedor. A partir daí, ele poderá ou não negociar o preço com o vendedor e tratar de todos os detalhes para comprar o disco.
+
+---
+
+## Project Charter
+
+- Programação de Desenvolvimento Móvel: 
+    Desenvolvimento da aplicação.  
+- Bases de Dados: 
+    Construção da base de dados.  
+- Programação Orientada a Objetos: 
+    Desenvolvimento do servidor da aplicação.  
+- Matemática Discreta: 
+    Estatísticas relacionadas aos dados da aplicação.  
+- Competências Comunicacionais: 
+    Desenvolvimento do vídeo e do poster da aplicação.  
+
+---
+
+## Ferramentas a utilizar/utilizadas
+
+### Aplicação
+Será utilizada a API do Spotify para acessar informações de artistas e álbuns, e também para sugerir recomendações de álbuns aos utilizadores.
+
+### Poster
+O poster foi criado no Canva, utilizando uma template, com a imagem de home screen vindo do mockup.
+
+### Vídeo
+Foram utilizados dois sites: online-video-cutter.com e promo.com para editar o vídeo. O voice-over foi feito com ChatGPT.
+
+---
+
+## Requisitos Funcionais e Não Funcionais
+
+### Requisitos Funcionais
+- Adicionar álbuns à coleção.  
+- Colocar álbuns à venda.  
+- Adicionar álbuns à wishlist.  
+- Comunicar com outros vendedores.
+
+### Requisitos Não Funcionais
+- Alterar informações não importantes do perfil (ex. foto de perfil).  
+- Alternar entre tema escuro e tema claro.
+
+---
+
+## Mockups e Interfaces
+O mockup inclui as seguintes páginas: login, register, home page, genre, album, collection, album copies, chat, sell, settings, profile e edit profile.
+
+[Link para o Mockup](https://www.figma.com/design/Q4pxEINEOY3B1p7glMqx0L/SoundMarket?node-id=3-2601&node-type=frame&t=UlXLVgEmpXikRqoW-0)
+
+---
+
+## Planificação (Gráfico de Gantt)
+As tarefas foram divididas de forma a garantir que os aspetos mais importantes estivessem concluídos a tempo da segunda entrega, com o restante a ser finalizado até a data final de entrega.
+
+---
+
+## Conclusão
+
+Com o desenvolvimento da SoundMarket, o objetivo é criar uma plataforma simples e acessível que facilite a gestão, compra e venda de álbuns em formato físico. Pretendemos conectar uma comunidade de entusiastas de música, proporcionando uma experiência eficiente para colecionadores experientes e novos utilizadores.
+
+---
+
+## Bibliografia
+
+- **Discogs**: [Discogs](https://www.discogs.com/?gad_source=1&gclid=CjwKCAjw1NK4BhAwEiwAVUHPUFWETK8eLn6yyI2wQMschx5hc1324ZFLm2U9KAnclErglRte2uR9SBoCfj4QAvD_BwE)  
+- **Gráfico de Gantt**: [ClickUp](https://clickup.com/lp?utm_source=google&utm_medium=cpc&utm_campaign=gs_cpc_emea-eea_nnc_brand_trial_all-devices_troas_lp_x_all-departments_x_brand&utm_content=all-countries_kw-target_text_all-industries_all-features_all-use-cases_clickup_broad&utm_term=b_clickup&utm_creative=651395804534_BrandChampion-03072023_rsa&utm_custom1=&utm_custom2=&gad_source=1&gclid=CjwKCAjw1NK4BhAwEiwAVUHPUKx7ZxLm1sqek3j8KZIwPzZP3qIiXJHwZRjE3u9B68My31g4Xbiy1hoCwFwQAvD_BwE)  
+- **Poster**: [Canva](https://www.canva.com/)  
+- **Vídeo**: [Online Video Cutter](https://online-video-cutter.com/), [Promo.com](https://promo.com/)  
+- **Voice-over**: [ChatGPT](https://openai.com/index/chatgpt)  
+- **Mockup**: [Figma Mockups](https://www.figma.com/files/team/1423672219666502754/recents-and-sharing/recently-viewed?fuid=1423672217439376078)
+
