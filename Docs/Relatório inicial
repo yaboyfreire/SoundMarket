@@ -92,10 +92,10 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (
 ## Ferramentas a utilizar/utilizadas
 
 ### Aplicação
-Será utilizada a API do Spotify para acessar informações de artistas e álbuns, e também para sugerir recomendações de álbuns aos utilizadores.
+Para conseguir desenvolver a aplicação vamos usar a API do spotify que nos irá permitir ter acesso a todas as informações da grande maioria dos artistas e que também pode ser utilizada se quisermos desenvolver uma secção para recomendar álbuns aos utilizadores
 
 ### Poster
-O poster foi criado no Canva, utilizando uma template, com a imagem de home screen vindo do mockup.
+A aplicação que utilizamos para fazer o poster foi o canva e para fazer o design do poster utilizamos e alteramos uma template, a imagem usada como home screen veio do mockup.
 
 ### Vídeo
 Foram utilizados dois sites: online-video-cutter.com e promo.com para editar o vídeo. O voice-over foi feito com ChatGPT.
@@ -137,7 +137,7 @@ Com o desenvolvimento da SoundMarket, o objetivo é criar uma plataforma simples
 ## Bibliografia
 
 - **Discogs**: [Discogs](https://www.discogs.com/?gad_source=1&gclid=CjwKCAjw1NK4BhAwEiwAVUHPUFWETK8eLn6yyI2wQMschx5hc1324ZFLm2U9KAnclErglRte2uR9SBoCfj4QAvD_BwE)  
-- **Gráfico de Gantt**: [ClickUp](https://clickup.com/lp?utm_source=google&utm_medium=cpc&utm_campaign=gs_cpc_emea-eea_nnc_brand_trial_all-devices_troas_lp_x_all-departments_x_brand&utm_content=all-countries_kw-target_text_all-industries_all-features_all-use-cases_clickup_broad&utm_term=b_clickup&utm_creative=651395804534_BrandChampion-03072023_rsa&utm_custom1=&utm_custom2=&gad_source=1&gclid=CjwKCAjw1NK4BhAwEiwAVUHPUKx7ZxLm1sqek3j8KZIwPzZP3qIiXJHwZRjE3u9B68My31g4Xbiy1hoCwFwQAvD_BwE)  
+- **Clickup**: [Clickup](https://clickup.com/lp)
 - **Poster**: [Canva](https://www.canva.com/)  
 - **Vídeo**: [Online Video Cutter](https://online-video-cutter.com/), [Promo.com](https://promo.com/)  
 - **Voice-over**: [ChatGPT](https://openai.com/index/chatgpt)  
