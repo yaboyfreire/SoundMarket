@@ -1,4 +1,4 @@
-![logo uni](https://creativenews.pt/wp-content/uploads/2022/11/iade-1024x637.jpg)
+![logo uni](Docs/Anexos/Logo.png)
 # Relatório do Projeto
 ### Projeto de Desenvolvimento Móvel
 
