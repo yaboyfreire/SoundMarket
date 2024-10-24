@@ -1,4 +1,4 @@
-![logo uni](Docs/Anexos/Logo.png)
+![logo uni](Anexos/Logo.png)
 # Relatório do Projeto
 ### Projeto de Desenvolvimento Móvel
 
