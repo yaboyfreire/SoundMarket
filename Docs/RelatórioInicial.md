@@ -39,8 +39,8 @@ Com a SoundMarket pretendemos juntar o que estes dois tipos de aplicações tem 
 ## Caso de utilização do objeto “core” do projeto
 
 O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (tem 2 processos).
-##Adicionar um álbum à coleção
-### 1º Processo
+###Adicionar um álbum à coleção
+#### 1º Processo
 
 1. O utilizador vai registar-se na aplicação.
 2. Depois de se registar, faz login e é redirecionado para a home page.
@@ -48,7 +48,7 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (
 4. Ao encontrar e carregar no álbum, irá aparecer no topo da página a opção “add to collection”.
 5. Depois de escolher o formato e a condição, o utilizador carrega no botão que diz "add to collection" e o álbum será adicionado à coleção.
 
-### 2º Processo
+#### 2º Processo
 
 1. Os dois primeiros passos são iguais.
 2. O utilizador vai até ao perfil e carrega onde diz “my collection”.
@@ -57,7 +57,7 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (
 
 ---
 
-##Colocar um álbum à venda
+###Colocar um álbum à venda
 
 1. Na home page, em baixo no centro do ecrã, vai aparecer a opção “sell” e o utilizador vai carregar nesse botão.
 2. O utilizador será levado para outra página onde irá encontrar uma barra de pesquisa (search bar) para procurar o nome do álbum (aparecerão apenas os álbuns que estão presentes na coleção do utilizador), um botão para escolher o formato, outro para escolher a condição do disco, um espaço para colocar o preço de venda e ainda uma caixa de texto para adicionar uma descrição ao produto.
@@ -65,7 +65,7 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (
 
 ---
 
-##Procurar um álbum e fazer uma proposta ao vendedor
+###Procurar um álbum e fazer uma proposta ao vendedor
 
 1. Na home page, haverá uma barra de pesquisa (search bar) e o utilizador vai procurar o álbum que deseja.
 2. Ao carregar no álbum, aparecerão várias informações sobre ele e, perto do fim da página, irá aparecer um botão com a quantidade de vendedores que naquele momento têm o disco à venda. O utilizador terá de carregar nesse botão.
