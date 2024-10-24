@@ -125,7 +125,7 @@ O mockup inclui as seguintes páginas: login, register, home page, genre, album,
 
 As tarefas foram divididas de forma a garantir que os aspetos mais importantes estivessem concluídos a tempo da segunda entrega, com o restante a ser finalizado até a data final de entrega.
 
-![gráfico de gantt](Anexos/gantt.png)
+![gráfico de gantt](Anexos/Gantt.png)
 ---
 
 ## Conclusão
