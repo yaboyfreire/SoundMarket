@@ -116,14 +116,16 @@ Foram utilizados dois sites: online-video-cutter.com e promo.com para editar o v
 
 ## Mockups e Interfaces
 O mockup inclui as seguintes páginas: login, register, home page, genre, album, collection, album copies, chat, sell, settings, profile e edit profile.
-
+![logo uni](Mockup/Mockup.png)
 [Link para o Mockup](https://www.figma.com/design/Q4pxEINEOY3B1p7glMqx0L/SoundMarket?node-id=3-2601&node-type=frame&t=UlXLVgEmpXikRqoW-0)
 
 ---
 
 ## Planificação (Gráfico de Gantt)
+
 As tarefas foram divididas de forma a garantir que os aspetos mais importantes estivessem concluídos a tempo da segunda entrega, com o restante a ser finalizado até a data final de entrega.
 
+![gráfico de gantt](Anexos/gantt.png)
 ---
 
 ## Conclusão
