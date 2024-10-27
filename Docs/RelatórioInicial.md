@@ -21,22 +21,22 @@ Trabalho realizado por:
 - Albums  
 - Marketplace
 
-## Ideia do projeto
+## Enquadramento do projeto
 
-A SoundMarket começou com uma ideia de criar uma aplicação que guardasse os álbuns todos que tinha na coleção sendo eles em vinil ou em cd, e rapidamente foi colocada a ideia de fazer com que também fosse possível comprar e vender álbuns para facilitar a parte de colecionar e também para criar uma comunidade que partilhasse o mesmo interesse.
+A SoundMarket começou com uma ideia de criar uma aplicação para guardar os álbuns todos que tinha na coleção sendo eles em vinil ou em cd, e rapidamente foi colocada a ideia de fazer com que também fosse possível comprar e vender álbuns para facilitar a parte de colecionar e também para criar uma comunidade que partilhasse o mesmo interesse.
 
+O público-alvo do SoundMarket é bastante diversificado, abrangendo desde os colecionadores mais experientes até aqueles que estão agora a começar a aventurar-se no universo da música em formato físico. Esta plataforma não é exclusiva para especialistas, mas também é acessível para iniciantes, que podem beneficiar das funcionalidades de pesquisa e categorização de discos. Assim, além de um marketplace, a SoundMarket tem a ambição de se tornar uma ferramenta de descoberta para aqueles que ainda estão a aprender sobre a diversidade dos formatos físicos de música.
 
-O público alvo neste caso são todas as pessoas que tenham interesse em música no formato físico. Não só os amantes de música mais experientes mas também os que acabaram de entrar no hobby.
+Atualmente, existem plataformas que oferecem algumas das funcionalidades desejadas, como o OLX, eBay e Vinted, todas conhecidas por facilitar a compra e venda de itens variados. No entanto, essas plataformas não são especializadas em música e, por isso, não possuem os filtros e categorias específicas que poderiam facilitar a procura por álbuns específicos ou edições limitadas. Para o colecionador, isso torna o processo de busca mais demorado e menos intuitivo, uma vez que esses sites não possuem as ferramentas adequadas para diferenciar as versões e informações essenciais para quem é exigente com a sua coleção.
 
-Algumas das aplicações que são semelhantes são o olx, ebay, vinted que são todas plataformas de compra e venda de artigos, sendo eles discos ou não, dificultando às vezes o processo de procura por algo mais específico.
+Em contrapartida, existe o Discogs, uma plataforma dedicada ao mercado de música que oferece um catálogo vasto e uma comunidade ativa. No entanto, apesar da sua especialização, o Discogs pode ser complicado de usar, especialmente para aqueles que não estão familiarizados com os processos mais técnicos de catalogação e venda de álbuns. A interface e os procedimentos de compra e venda podem parecer complexos e pouco intuitivos para novos usuários, o que limita a acessibilidade da plataforma e afasta potenciais colecionadores.
 
-Outra aplicação mais completa é o Discogs que é um marketplace só de música, tendo quase todos os álbuns e formatos disponíveis, o problema é que a aplicação tem alguns processos um pouco complicados como por exemplo a compra de discos e a colocação de discos para venda, não é nada de outro mundo mas já é complexo para o utilizador não regular da aplicação.
+Com o SoundMarket, pretendemos unir o melhor dos dois mundos: a simplicidade e acessibilidade de plataformas generalistas como o OLX e eBay, com a profundidade e especialização de um catálogo completo de música do Discogs. A nossa visão é criar um ambiente onde os usuários possam facilmente procurar, comprar e vender álbuns, enquanto desfrutam de uma experiência otimizada para colecionadores.
 
-Com a SoundMarket pretendemos juntar o que estes dois tipos de aplicações tem de melhor num só sítio. Trazendo a facilidade que o olx, ebay e vinted tem para procurar e comprar e fazer com que o nosso catálogo seja tão completo como o do Discogs. 
 
 ## Caso de utilização do objeto “core” do projeto
 
-O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (tem 2 processos).
+O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (existem 2 processos possíveis para este caso).
 ### Adicionar um álbum à coleção
 #### 1º Processo
 
@@ -48,10 +48,11 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (
 
 #### 2º Processo
 
-1. Os dois primeiros passos são iguais.
-2. O utilizador vai até ao perfil e carrega onde diz “my collection”.
-3. Ao entrar em “my collection”, vai ver um botão no topo a dizer “add to collection”.
-4. Depois, irá procurar o álbum, escolher o formato e a condição e, por fim, irá carregar no botão que diz “add to collection”.
+1. O utilizador vai registar-se na aplicação.
+2. Depois de se registar, faz login e é redirecionado para a home page.
+3. O utilizador vai até ao perfil e carrega onde diz “my collection”.
+4. Ao entrar em “my collection”, vai ver um botão no topo a dizer “add to collection”.
+5. Depois, irá procurar o álbum, escolher o formato e a condição e, por fim, irá carregar no botão que diz “add to collection”.
 
 ---
 
