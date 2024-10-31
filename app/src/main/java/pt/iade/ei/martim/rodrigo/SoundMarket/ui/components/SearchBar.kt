@@ -1,6 +1,7 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
@@ -28,7 +29,7 @@ fun SearchBar(
             onSearchQueryChanged(newText.text)
         },
         modifier = Modifier
-            .fillMaxWidth(), // Fill the parent width
+            .size(width = 380.dp,height=60.dp),
         shape = RoundedCornerShape(50.dp),  // Apply the rounded corners here
         placeholder = { Text(text = "Search") },
         singleLine = true,

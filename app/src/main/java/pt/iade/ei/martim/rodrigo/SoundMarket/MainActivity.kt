@@ -1,30 +1,87 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
+import HorizontalCarousel
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Column
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.HorizontalCarousel
-import pt.iade.ei.martim.rodrigo.SoundwMarket.models.Item
-import java.net.URI
-import java.time.LocalDateTime
-import java.time.ZoneOffset
+import androidx.compose.ui.unit.dp
+import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.BottomAppBar
+import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.HomeTopBar
+import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.SearchBar
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HorizontalCarousel(items = listOf("item1","item2"))
+            HomeScreen() // Display the HomeScreen
+        }
+    }
+}
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun HomeScreen() {
+    var searchQuery by remember { mutableStateOf("") } // State to hold the search query
+
+    Scaffold(
+        topBar = {
+            HomeTopBar { iconClicked ->
+                when (iconClicked) {
+                    "profile" -> {
+                        // Handle profile icon click
+                    }
+                    "notifications" -> {
+                        // Handle notifications icon click
+                    }
+                    "settings" -> {
+                        // Handle settings icon click
+                    }
+                }
+            }
+        },
+        bottomBar = {
+            BottomAppBar { iconClicked ->
+                when (iconClicked) {
+                    "home" -> {
+                        // Handle home icon click
+                    }
+                    "add" -> {
+                        // Handle sell icon click
+                    }
+                    "email" -> {
+                        // Handle chat icon click
+                    }
+                }
+            }
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .padding(horizontal = 16.dp), // Optional padding on the sides
+        ) {
+            // Add SearchBar here
+            SearchBar(onSearchQueryChanged = { query ->
+                searchQuery = query // Update the search query
+            })
+            // Add HorizontalCarousel with dynamic items and a title
+            HorizontalCarousel(
+                items = listOf("Item 1", "Item 2", "Item 3"),
+                text="Trending"
+            )
         }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun MainViewPreview() {
-    val sampleItems = listOf("Sample 1", "Sample 2", "Sample 3", "Sample 4")
-    HorizontalCarousel(items = sampleItems)
+fun PreviewHomeScreen() {
+    HomeScreen()
 }

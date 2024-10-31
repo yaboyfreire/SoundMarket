@@ -1,6 +1,4 @@
-package pt.iade.ei.martim.rodrigo.SoundMarket.ui.components
-
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.* // Ensure all necessary imports are here
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -11,15 +9,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.ButtonText
 
 @Composable
-fun HorizontalCarousel(items: List<String>) {
-    LazyRow(
-        contentPadding = PaddingValues(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+fun HorizontalCarousel(items: List<String>,text:String) {
+    Column(
+        modifier = Modifier.padding(vertical=30.dp) // Optional padding around the entire carousel
     ) {
-        items(items.size) { index ->
-            CarouselItem(item = items[index])
+        // Display the "Trending" text button above the carousel
+        ButtonText(text)
+        Spacer(modifier = Modifier.height(8.dp)) // Add spacing between the ButtonText and the carousel
+
+        LazyRow(
+            contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(items.size) { index ->
+                CarouselItem(item = items[index])
+            }
         }
     }
 }
@@ -28,9 +35,9 @@ fun HorizontalCarousel(items: List<String>) {
 fun CarouselItem(item: String) {
     Card(
         modifier = Modifier
-            .width(200.dp)
-            .height(120.dp),
-        shape = RoundedCornerShape(8.dp)
+            .width(160.dp)
+            .height(160.dp),
+        shape = RoundedCornerShape(20.dp)
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -45,5 +52,5 @@ fun CarouselItem(item: String) {
 @Composable
 fun PreviewCarouselScreen() {
     val items = listOf("Item 1", "Item 2", "Item 3", "Item 4")
-    HorizontalCarousel(items = items) // Ensure items is not null
+    HorizontalCarousel(items = items,"Trending")
 }
