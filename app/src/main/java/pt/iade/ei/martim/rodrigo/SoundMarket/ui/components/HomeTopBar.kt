@@ -26,7 +26,7 @@ import pt.iade.ei.martim.rodrigo.SoundMarket.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeTopBar(
-    onIconClick: (String) -> Unit // Callback to handle icon clicks
+    onIconClick: (String) -> Unit
 ) {
     TopAppBar(
         modifier = Modifier.padding(top=25.dp,bottom=25.dp),
@@ -43,7 +43,6 @@ fun HomeTopBar(
             }
         },
         actions = {
-            // Icons on the right
             IconButton(onClick = { onIconClick("account") }) {
                 Icon(
                     imageVector = Icons.Default.AccountCircle,
@@ -71,5 +70,5 @@ fun HomeTopBar(
 @Preview(showBackground = true)
 @Composable
 fun PreviewHomeTopBar() {
-    HomeTopBar(onIconClick = { /* No-op for preview */ })
+    HomeTopBar(onIconClick = { /* op */ })
 }

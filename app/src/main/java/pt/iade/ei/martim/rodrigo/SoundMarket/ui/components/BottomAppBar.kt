@@ -60,5 +60,5 @@ fun BottomAppBar( onIconClick: (String) -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewBottomBar() {
-    BottomAppBar(onIconClick = { /* No-op for preview */ })
+    BottomAppBar(onIconClick = { /* op */ })
 }

@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun SearchBar(
     onSearchQueryChanged: (String) -> Unit,
-    shape: Shape = RoundedCornerShape(16.dp) // Define the shape as rounded corners
+    shape: Shape = RoundedCornerShape(16.dp)
 ) {
     var query by remember { mutableStateOf(TextFieldValue("")) }
 
@@ -30,7 +30,7 @@ fun SearchBar(
         },
         modifier = Modifier
             .size(width = 380.dp,height=60.dp),
-        shape = RoundedCornerShape(50.dp),  // Apply the rounded corners here
+        shape = RoundedCornerShape(50.dp),
         placeholder = { Text(text = "Search") },
         singleLine = true,
         colors = TextFieldDefaults.textFieldColors(
