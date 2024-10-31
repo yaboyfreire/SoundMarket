@@ -91,7 +91,10 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (
 ## Ferramentas a utilizar/utilizadas
 
 ### Aplicação
-Para conseguir desenvolver a aplicação vamos usar a API do spotify que nos irá permitir ter acesso a todas as informações da grande maioria dos artistas e que também pode ser utilizada se quisermos desenvolver uma secção para recomendar álbuns aos utilizadores
+- Api do Spotify- vai ser utilizada a api do spotify para termos acesso a todas as informações dos álbuns que vamos utilizar na aplicação
+- Android Studio- Desenvolvimento da aplicação
+- MySql- Desenvolvimento da base de dados
+- Vs Code - Desenvolvimento do servidor em java
 
 ### Poster
 A aplicação que utilizamos para fazer o poster foi o canva e para fazer o design do poster utilizamos e alteramos uma template, a imagem usada como home screen veio do mockup.
@@ -104,11 +107,15 @@ Foram utilizados dois sites: online-video-cutter.com e promo.com para editar o v
 ## Requisitos Funcionais e Não Funcionais
 
 ### Requisitos Funcionais
+- Registo na aplicação
+- Login
+- Edição de perfil
+- Procura de álbuns
 - Adicionar álbuns à coleção.  
 - Colocar álbuns à venda.  
 - Adicionar álbuns à wishlist.  
 - Comunicar com outros vendedores.
-
+- Ouvir álbum (redireciona para o spotify)
 ### Requisitos Não Funcionais
 - Alterar informações não importantes do perfil (ex. foto de perfil).  
 - Alternar entre tema escuro e tema claro.
