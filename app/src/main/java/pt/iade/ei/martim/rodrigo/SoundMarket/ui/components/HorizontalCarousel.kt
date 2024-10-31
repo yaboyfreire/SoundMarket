@@ -1,4 +1,4 @@
-import androidx.compose.foundation.layout.* // Ensure all necessary imports are here
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -14,11 +14,11 @@ import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.ButtonText
 @Composable
 fun HorizontalCarousel(items: List<String>,text:String) {
     Column(
-        modifier = Modifier.padding(vertical=30.dp) // Optional padding around the entire carousel
+        modifier = Modifier.padding(top=30.dp,bottom=25.dp) //padding around the entire carousel
     ) {
-        // Display the "Trending" text button above the carousel
+
         ButtonText(text)
-        Spacer(modifier = Modifier.height(8.dp)) // Add spacing between the ButtonText and the carousel
+        Spacer(modifier = Modifier.height(8.dp)) //spacing between the ButtonText and the carousel
 
         LazyRow(
             contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
