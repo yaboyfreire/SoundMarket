@@ -9,7 +9,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,7 +21,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.Visibility
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,15 +48,12 @@ fun LoginScreen() {
     ) {
         // Logo and App Name
         Image(
-            painter = painterResource(id = R.drawable.logo), // Replace with your logo drawable
+            painter = painterResource(id = R.drawable.logo),
             contentDescription = "App Logo",
-            modifier = Modifier.size(250.dp)
+            modifier = Modifier.size(300.dp,150.dp),
+
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
-
-
-        Spacer(modifier = Modifier.height(24.dp))
 
         // Email Field
         OutlinedTextField(
@@ -91,20 +86,18 @@ fun LoginScreen() {
             }
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(50.dp))
 
         // Login Button
         Button(
-            onClick = { /* Handle login click */ },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp),
+            onClick = {  },
+            modifier = Modifier.size(300.dp, 48.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
         ) {
             Text(text = "Login", color = Color.White)
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         // Signup Link
         Text(
@@ -112,8 +105,10 @@ fun LoginScreen() {
             fontSize = 14.sp,
             color = Color.Blue,
             textAlign = TextAlign.Center,
-            modifier = Modifier.clickable { /* Handle sign up click */ }
+            modifier = Modifier.clickable {  }
         )
+
+        Spacer(modifier = Modifier.height(200.dp))
     }
 }
 
