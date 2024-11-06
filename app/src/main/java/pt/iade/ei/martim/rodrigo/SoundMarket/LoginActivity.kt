@@ -7,6 +7,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -92,7 +93,8 @@ fun LoginScreen() {
         Button(
             onClick = {  },
             modifier = Modifier.size(300.dp, 48.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black) ,
+            shape = RoundedCornerShape(30)
         ) {
             Text(text = "Login", color = Color.White)
         }
