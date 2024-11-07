@@ -1,6 +1,8 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
+import android.app.DatePickerDialog
 import android.os.Bundle
+import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +17,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,6 +36,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
+import java.util.Calendar
+import java.util.Date
 
 class RegisterActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +50,7 @@ class RegisterActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen() {
     var name by remember { mutableStateOf("") }
@@ -70,6 +77,14 @@ fun RegisterScreen() {
     else
         Icons.Filled.KeyboardArrowDown
 
+    // Birthdate
+    val calendar = Calendar.getInstance()
+    val year = calendar.get(Calendar.YEAR)
+    val month = calendar.get(Calendar.MONTH)
+    val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+    var birthdate by remember { mutableStateOf("") }
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -177,8 +192,27 @@ fun RegisterScreen() {
         }
 
 
-        Spacer(modifier = Modifier.height(50.dp))
-        //space for date picker
+        Spacer(modifier = Modifier.height(12.dp))
+
+        OutlinedTextField(
+            value = birthdate,
+            onValueChange = { birthdate = it },
+            label = { Text("Birthday") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+                    DatePickerDialog(
+                        context,
+                        { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
+                            birthdate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                        }, year, month, day
+                    ).show()
+                },
+            readOnly = true,
+            trailingIcon = {
+                Icon(imageVector = Icons.Filled.KeyboardArrowDown, contentDescription = null)
+            }
+        )
 
         Spacer(modifier = Modifier.height(50.dp))
         // Register Button
@@ -205,7 +239,9 @@ fun RegisterScreen() {
         )
 
         Spacer(modifier = Modifier.height(200.dp))
+
     }
+
 }
 
 
