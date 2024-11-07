@@ -1,6 +1,8 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -19,22 +21,27 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
-                LoginScreen()
-
+            LoginScreen(onTextClick = { navigateToRegisterActivity() })
         }
+    }
+
+    private fun navigateToRegisterActivity() {
+        val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
     }
 }
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(onTextClick: () -> Unit) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
@@ -51,10 +58,10 @@ fun LoginScreen() {
         Image(
             painter = painterResource(id = R.drawable.logo),
             contentDescription = "App Logo",
-            modifier = Modifier.size(300.dp,150.dp),
-
+            modifier = Modifier.size(300.dp, 150.dp)
         )
 
+        Spacer(modifier = Modifier.height(16.dp))
 
         // Email Field
         OutlinedTextField(
@@ -79,10 +86,11 @@ fun LoginScreen() {
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                   // Icon(
-                        //imageVector = if (passwordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
-                        //contentDescription = if (passwordVisible) "Hide password" else "Show password"
-                    //)
+                    Icon(
+                        painter = if (passwordVisible) painterResource(R.drawable.visibility)
+                        else painterResource(R.drawable.visibility_off),
+                        contentDescription = if (passwordVisible) "Hide password" else "Show password"
+                    )
                 }
             }
         )
@@ -91,9 +99,9 @@ fun LoginScreen() {
 
         // Login Button
         Button(
-            onClick = {  },
+            onClick = { /* Handle login logic here */ },
             modifier = Modifier.size(300.dp, 48.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black) ,
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black),
             shape = RoundedCornerShape(30)
         ) {
             Text(text = "Login", color = Color.White)
@@ -107,7 +115,8 @@ fun LoginScreen() {
             fontSize = 14.sp,
             color = Color.Blue,
             textAlign = TextAlign.Center,
-            modifier = Modifier.clickable {  }
+            modifier = Modifier.clickable { onTextClick() },
+            textDecoration = TextDecoration.Underline
         )
 
         Spacer(modifier = Modifier.height(200.dp))
@@ -117,5 +126,5 @@ fun LoginScreen() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewLoginScreen() {
-    LoginScreen()
+    LoginScreen(onTextClick = { /* Preview click handler */ })
 }
