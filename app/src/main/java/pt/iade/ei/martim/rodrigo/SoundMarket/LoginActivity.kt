@@ -16,6 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -97,9 +98,12 @@ fun LoginScreen(onTextClick: () -> Unit) {
 
         Spacer(modifier = Modifier.height(50.dp))
 
+        val context = LocalContext.current
+
         // Login Button
         Button(
-            onClick = { /* Handle login logic here */ },
+            onClick = {val intent = Intent(context, MainActivity::class.java)
+                context.startActivity(intent) },
             modifier = Modifier.size(300.dp, 48.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black),
             shape = RoundedCornerShape(30)
