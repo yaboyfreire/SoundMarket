@@ -68,7 +68,7 @@ fun LoginScreen(onTextClick: () -> Unit) {
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("EMAIL") },
+            label = { Text("Email") },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
@@ -80,7 +80,7 @@ fun LoginScreen(onTextClick: () -> Unit) {
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("PASSWORD") },
+            label = { Text("Password") },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
