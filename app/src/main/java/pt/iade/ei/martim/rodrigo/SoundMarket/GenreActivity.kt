@@ -31,10 +31,11 @@ class GenreActivity : ComponentActivity() {
 
 @Composable
 fun GenreScreen() {
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column {
         // App Header
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center // Center horizontally
         ) {
@@ -43,6 +44,8 @@ fun GenreScreen() {
                 contentDescription = "App Logo",
                 modifier = Modifier
                     .size(300.dp, 150.dp)
+                    .fillMaxWidth(),
+
             )
         }
 
@@ -50,17 +53,17 @@ fun GenreScreen() {
 
         // Trending Section
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-
             Text(
                 text = "Trending",
                 fontSize = 25.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(start = 24.dp, end = 24.dp)
             )
-
         }
         HorizontalDivider(
             modifier = Modifier.padding(horizontal = 16.dp),
@@ -79,7 +82,7 @@ fun GenreScreen() {
                     contentDescription = "Album Cover",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .size(90.dp)
+                        .size(120.dp)
                 )
             }
         }
@@ -88,17 +91,16 @@ fun GenreScreen() {
 
         // New Releases Section
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-
             Text(
                 text = "New Releases",
                 fontSize = 25.sp,
-                fontWeight = FontWeight.SemiBold
-
-
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(start = 24.dp, end = 24.dp)
             )
         }
         HorizontalDivider(
@@ -111,15 +113,14 @@ fun GenreScreen() {
         LazyRow(
             contentPadding = PaddingValues(horizontal = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
-        )
-        {
+        ) {
             items(5) {
                 Image(
                     painter = painterResource(id = R.drawable.country), // only test image
                     contentDescription = "Album Cover",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .size(90.dp)
+                        .size(120.dp)
                 )
             }
         }
@@ -128,14 +129,16 @@ fun GenreScreen() {
 
         // Artists Section
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = "Artists",
                 fontSize = 25.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(start = 24.dp, end = 24.dp)
             )
         }
         HorizontalDivider(
@@ -156,19 +159,14 @@ fun GenreScreen() {
                         contentDescription = "Artist",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .size(90.dp)
+                            .size(120.dp)
                             .clip(CircleShape)
                     )
                     Text(
                         text = "Test Name",
-                        fontSize = 12.sp
+                        fontSize = 16.sp,
+                        modifier = Modifier.padding(top = 8.dp) // Optional: add padding for spacing above text
                     )
-                    HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                        thickness = 1.dp,
-                        color = Color.Gray
-                    )
-
                 }
             }
         }
