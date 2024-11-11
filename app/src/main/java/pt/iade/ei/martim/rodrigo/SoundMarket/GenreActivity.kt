@@ -60,7 +60,12 @@ fun GenreScreen() {
             thickness = 1.dp,
             color = Color.Gray
         )
-        val trendingItems = listOf("Trending 1", "Trending 2", "Trending 3", "Trending 4", "Trending 5")
+        val trendingItems =
+            listOf( "Trending 1",
+                    "Trending 2",
+                    "Trending 3",
+                    "Trending 4",
+                    "Trending 5")
         HorizontalCarousel(items = trendingItems, text = "Trending")
 
         // New Releases Carousel
@@ -147,7 +152,6 @@ fun CarouselItem(item: String) {
         modifier = Modifier
             .width(150.dp)
             .height(150.dp),
-        shape = RoundedCornerShape(20.dp)
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
