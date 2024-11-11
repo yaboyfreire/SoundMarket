@@ -7,6 +7,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,103 +35,52 @@ fun GenreScreen() {
     Column {
         // App Header
         Row(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center // Center horizontally
+            horizontalArrangement = Arrangement.Center
         ) {
             Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = "App Logo",
                 modifier = Modifier
-                    .size(300.dp, 150.dp)
+                    .size(300.dp, 130.dp)
                     .fillMaxWidth(),
-
             )
         }
 
-        Spacer(modifier = Modifier.height(32.dp))
+        // Trending Carousel
+        Text(
+            text = "Trending",
+            fontSize = 25.sp,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(start = 24.dp, end = 24.dp)
+        )
+        Divider(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            thickness = 1.dp,
+            color = Color.Gray
+        )
+        val trendingItems = listOf("Trending 1", "Trending 2", "Trending 3", "Trending 4", "Trending 5")
+        HorizontalCarousel(items = trendingItems, text = "Trending")
 
-        // Trending Section
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Trending",
-                fontSize = 25.sp,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(start = 24.dp, end = 24.dp)
-            )
-        }
+        // New Releases Carousel
+        Text(
+            text = "New Releases",
+            fontSize = 25.sp,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(start = 24.dp, end = 24.dp)
+        )
         HorizontalDivider(
             modifier = Modifier.padding(horizontal = 16.dp),
             thickness = 1.dp,
             color = Color.Gray
         )
-        Spacer(modifier = Modifier.height(32.dp))
+        val newReleasesItems = listOf("Release 1", "Release 2", "Release 3", "Release 4", "Release 5")
+        HorizontalCarousel(items = newReleasesItems, text = "New Releases")
 
-        LazyRow(
-            contentPadding = PaddingValues(horizontal = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(5) {
-                Image(
-                    painter = painterResource(id = R.drawable.country), // only test image
-                    contentDescription = "Album Cover",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .size(120.dp)
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // New Releases Section
+        // Artists Carousel with Images
         Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "New Releases",
-                fontSize = 25.sp,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(start = 24.dp, end = 24.dp)
-            )
-        }
-        HorizontalDivider(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            thickness = 1.dp,
-            color = Color.Gray
-        )
-        Spacer(modifier = Modifier.height(32.dp))
-
-        LazyRow(
-            contentPadding = PaddingValues(horizontal = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(5) {
-                Image(
-                    painter = painterResource(id = R.drawable.country), // only test image
-                    contentDescription = "Album Cover",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .size(120.dp)
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Artists Section
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -146,16 +96,16 @@ fun GenreScreen() {
             thickness = 1.dp,
             color = Color.Gray
         )
-        Spacer(modifier = Modifier.height(20.dp))
 
+        val artistItems = listOf("Artist 1", "Artist 2", "Artist 3", "Artist 4", "Artist 5")
         LazyRow(
             contentPadding = PaddingValues(horizontal = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(5) {
+            items(artistItems.size) { index ->
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Image(
-                        painter = painterResource(id = R.drawable.blues), // only test image
+                        painter = painterResource(id = R.drawable.blues), // replace with dynamic resource if available
                         contentDescription = "Artist",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
@@ -163,9 +113,9 @@ fun GenreScreen() {
                             .clip(CircleShape)
                     )
                     Text(
-                        text = "Test Name",
+                        text = artistItems[index],
                         fontSize = 16.sp,
-                        modifier = Modifier.padding(top = 8.dp) // Optional: add padding for spacing above text
+                        modifier = Modifier.padding(top = 8.dp)
                     )
                 }
             }
@@ -173,6 +123,40 @@ fun GenreScreen() {
     }
 }
 
+@Composable
+fun HorizontalCarousel(items: List<String>, text: String) {
+    Column(
+        modifier = Modifier.padding(top = 30.dp, bottom = 25.dp)
+    ) {
+        Spacer(modifier = Modifier.height(8.dp))
+
+        LazyRow(
+            contentPadding = PaddingValues(horizontal = 0.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(items.size) { index ->
+                CarouselItem(item = items[index])
+            }
+        }
+    }
+}
+
+@Composable
+fun CarouselItem(item: String) {
+    Card(
+        modifier = Modifier
+            .width(150.dp)
+            .height(150.dp),
+        shape = RoundedCornerShape(20.dp)
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(text = item, style = MaterialTheme.typography.labelLarge)
+        }
+    }
+}
 
 @Preview(showBackground = true)
 @Composable
