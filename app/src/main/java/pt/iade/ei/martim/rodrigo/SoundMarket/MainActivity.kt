@@ -79,7 +79,7 @@ fun HomeScreen() {
                 HorizontalCarousel(
                 items = listOf("Item 1", "Item 2", "Item 3"),
                 text = "Trending",
-                    ImageURLs = listOf("https://luis.studentsmagestil.pt/wp-content/uploads/2022/06/Swimming_Album_Cover-600x600.jpeg","https://luis.studentsmagestil.pt/wp-content/uploads/2022/06/Swimming_Album_Cover-600x600.jpeg","https://luis.studentsmagestil.pt/wp-content/uploads/2022/06/Swimming_Album_Cover-600x600.jpeg")
+                    //ImageURLs = listOf("https://luis.studentsmagestil.pt/wp-content/uploads/2022/06/Swimming_Album_Cover-600x600.jpeg","https://luis.studentsmagestil.pt/wp-content/uploads/2022/06/Swimming_Album_Cover-600x600.jpeg","https://luis.studentsmagestil.pt/wp-content/uploads/2022/06/Swimming_Album_Cover-600x600.jpeg")
                 )
 
                 HomeGenreList(items = genreItems) { clickedItem ->
