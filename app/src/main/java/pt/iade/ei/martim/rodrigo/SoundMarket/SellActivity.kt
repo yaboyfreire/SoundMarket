@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SoundMarketForm() {
+fun SellActivity() {
     var albumName by remember { mutableStateOf("") }
     var format by remember { mutableStateOf("") }
     var condition by remember { mutableStateOf("") }
@@ -201,5 +201,5 @@ fun SoundMarketForm() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewSoundMarketForm() {
-    SoundMarketForm()
+    SellActivity()
 }
