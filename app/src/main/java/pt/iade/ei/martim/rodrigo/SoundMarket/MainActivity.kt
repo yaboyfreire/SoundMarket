@@ -74,17 +74,17 @@ fun HomeScreen() {
                 .padding(horizontal = 16.dp),
         ) {
 
-                SearchBar(onSearchQueryChanged = { query -> searchQuery = query })
+            SearchBar(onSearchQueryChanged = { query -> searchQuery = query })
 
-                HorizontalCarousel(
+            HorizontalCarousel(
                 items = listOf("Item 1", "Item 2", "Item 3"),
                 text = "Trending"
-                )
+            )
 
-                HomeGenreList(items = genreItems) { clickedItem ->
-                    println("Clicked on ${clickedItem.label}")
-                    // Handle grid item click
-                }
+            HomeGenreList(items = genreItems) { clickedItem ->
+                println("Clicked on ${clickedItem.label}")
+                // Handle grid item click
+            }
 
 
 
