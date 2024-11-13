@@ -81,6 +81,9 @@ fun SellScreen() {
             )
         }
 
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         // Album Name TextField
         OutlinedTextField(
             value = albumName,
@@ -95,7 +98,7 @@ fun SellScreen() {
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         // Format Dropdown
         OutlinedTextField(
@@ -132,7 +135,7 @@ fun SellScreen() {
             }
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         // Condition Dropdown
         OutlinedTextField(
@@ -169,7 +172,7 @@ fun SellScreen() {
             }
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         // Price TextField
         OutlinedTextField(
@@ -185,7 +188,7 @@ fun SellScreen() {
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         // Description TextField
         OutlinedTextField(
@@ -194,10 +197,10 @@ fun SellScreen() {
             label = { Text("Description") },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(120.dp)
+                .height(180.dp)
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(32.dp))
 
         // List Item Button
         Button(
