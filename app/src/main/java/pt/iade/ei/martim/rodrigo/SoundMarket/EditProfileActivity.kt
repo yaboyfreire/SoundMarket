@@ -1,21 +1,28 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
 import android.content.Intent
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -27,9 +34,21 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.toSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+
+class EditProfileActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            EditProfileScreen()
+        }
+    }
+}
 
 @Composable
 fun EditProfileScreen() {
+    val scrollState = rememberScrollState()
     var name by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -59,6 +78,7 @@ fun EditProfileScreen() {
 
     Column(
         modifier = Modifier
+            .verticalScroll(scrollState)
             .fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -72,13 +92,36 @@ fun EditProfileScreen() {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Button(
-            onClick = { },
-            modifier = Modifier.size(300.dp, 48.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black),
-            shape = RoundedCornerShape(30)
+        Box(
+            modifier = Modifier
+                .size(150.dp)
+                .clip(CircleShape)
+                .clickable {
+                    // Handle click event here
+                }
         ) {
-            Text(text = "Change Picture", color = Color.White)
+            Image(
+                painter = painterResource(id = R.drawable.latina),
+                contentDescription = "Profile Picture",
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(CircleShape),
+                contentScale = ContentScale.Crop
+            )
+
+            Icon(
+                imageVector = Icons.Default.Edit,
+                contentDescription = "Edit Profile Picture",
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .size(32.dp)
+                    .clip(CircleShape)
+                    .background(Color.LightGray)
+                    .padding(4.dp)
+                    .clickable {
+                        // Handle edit icon click event here
+                    }
+            )
         }
 
         Spacer(modifier = Modifier.height(24.dp))
