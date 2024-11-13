@@ -86,8 +86,12 @@ fun HomeScreen() {
             )
 
             HomeGenreList(items = genreItems) { clickedItem ->
-                println("Clicked on ${clickedItem.label}")
-                // Handle grid item click
+                // Create an intent to start GenreActivity with the clicked genre's information
+                val intent = Intent(context, GenreActivity::class.java).apply {
+                    putExtra("GENRE_ID", clickedItem.id)
+                    putExtra("GENRE_NAME", clickedItem.label)
+                }
+                context.startActivity(intent)
             }
 
 
