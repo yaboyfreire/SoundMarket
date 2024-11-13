@@ -1,9 +1,9 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.DatePicker
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -16,9 +16,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,27 +30,31 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import java.util.Calendar
-import java.util.Date
 
 class RegisterActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
-            RegisterScreen()
-
+            RegisterScreen(onTextClick = { navigateToLoginActivity() })
         }
+    }
+
+    private fun navigateToLoginActivity() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(onTextClick: () -> Unit) {
     var name by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
     var country  by remember { mutableStateOf("") }
@@ -235,7 +237,8 @@ fun RegisterScreen() {
             fontSize = 14.sp,
             color = Color.Blue,
             textAlign = TextAlign.Center,
-            modifier = Modifier.clickable {  }
+            modifier = Modifier.clickable { onTextClick() },
+            textDecoration = TextDecoration.Underline
         )
 
         Spacer(modifier = Modifier.height(200.dp))
@@ -249,5 +252,5 @@ fun RegisterScreen() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewRegisterScreen() {
-    RegisterScreen()
+    RegisterScreen(onTextClick = { /* Preview click handler */ })
 }

@@ -4,19 +4,21 @@ import GridItem
 import HomeGenreList
 import HorizontalCarousel
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.BottomAppBar
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.HomeTopBar
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.SearchBar
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +33,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun HomeScreen() {
     var searchQuery by remember { mutableStateOf("") }
+    val context = LocalContext.current
 
     val genreItems = listOf(
         GridItem(1, R.drawable.rock, "Rock"),
@@ -62,7 +65,8 @@ fun HomeScreen() {
             BottomAppBar { iconClicked ->
                 when (iconClicked) {
                     "home" -> { /* Handle home icon click */ }
-                    "add" -> { /* Handle sell icon click */ }
+                    "add" -> { val intent = Intent(context, SellActivity::class.java)
+                        context.startActivity(intent)}
                     "email" -> { /* Handle chat icon click */ }
                 }
             }
@@ -74,18 +78,21 @@ fun HomeScreen() {
                 .padding(horizontal = 16.dp),
         ) {
 
-                SearchBar(onSearchQueryChanged = { query -> searchQuery = query })
+            SearchBar(onSearchQueryChanged = { query -> searchQuery = query })
 
-                HorizontalCarousel(
+            HorizontalCarousel(
                 items = listOf("Item 1", "Item 2", "Item 3"),
-                text = "Trending",
-                    //ImageURLs = listOf("https://luis.studentsmagestil.pt/wp-content/uploads/2022/06/Swimming_Album_Cover-600x600.jpeg","https://luis.studentsmagestil.pt/wp-content/uploads/2022/06/Swimming_Album_Cover-600x600.jpeg","https://luis.studentsmagestil.pt/wp-content/uploads/2022/06/Swimming_Album_Cover-600x600.jpeg")
-                )
+                text = "Trending"
+            )
 
-                HomeGenreList(items = genreItems) { clickedItem ->
-                    println("Clicked on ${clickedItem.label}")
-                    // Handle grid item click
+            HomeGenreList(items = genreItems) { clickedItem ->
+                // Create an intent to start GenreActivity with the clicked genre's information
+                val intent = Intent(context, GenreActivity::class.java).apply {
+                    putExtra("GENRE_ID", clickedItem.id)
+                    putExtra("GENRE_NAME", clickedItem.label)
                 }
+                context.startActivity(intent)
+            }
 
 
 
