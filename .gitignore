@@ -13,3 +13,25 @@
 .externalNativeBuild
 .cxx
 local.properties
+# Gradle
+.gradle/
+build/
+local/
+gradle/
+
+# Android Studio
+.idea/
+
+# Cache and temporary files
+caches/
+.tmp/
+daemon/
+
+# Kotlin Profile
+kotlin-profile/
+
+# Operating system files
+Thumbs.db
+
+# Logs
+*.log
