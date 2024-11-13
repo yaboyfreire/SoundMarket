@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".EditProfileActivity" />
         <activity android:name=".SellActivity" />
         <activity android:name=".GenreActivity" />
     </application>
