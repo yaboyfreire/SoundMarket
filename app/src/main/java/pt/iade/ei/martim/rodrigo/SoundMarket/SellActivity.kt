@@ -1,5 +1,8 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,9 +23,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import androidx.compose.ui.tooling.preview.Preview
 
+class SellActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+
+            SellScreen()
+
+        }
+    }
+}
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SellActivity() {
+fun SellScreen() {
     var albumName by remember { mutableStateOf("") }
     var format by remember { mutableStateOf("") }
     var condition by remember { mutableStateOf("") }
@@ -201,5 +215,5 @@ fun SellActivity() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewSoundMarketForm() {
-    SellActivity()
+    SellScreen()
 }
