@@ -26,6 +26,7 @@
         <activity android:name=".SellActivity" />
         <activity android:name=".GenreActivity" />
         <activity android:name=".ProfileViewActivity" />
+        <activity android:name=".CollectionActivity" />
     </application>
 
 </manifest>

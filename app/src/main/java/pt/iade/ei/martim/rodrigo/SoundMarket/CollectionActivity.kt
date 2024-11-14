@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -21,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.SearchBar
@@ -36,6 +38,7 @@ class CollectionActivity : ComponentActivity() {
                 Album("DAMN.", "Kendrick Lamar", 2017),
                 Album("Dark Side of the Moon", "Pink Floyd", 1973),
                 Album("2014 Forest Hills Drive", "J. Cole", 2014),
+                Album("My Beautiful Dark Twisted Fantasy", "Kanye West", 2010),
                 Album("My Beautiful Dark Twisted Fantasy", "Kanye West", 2010)
             )
 
@@ -67,25 +70,36 @@ fun CollectionScreen(
 ) {
     var searchQuery by remember { mutableStateOf("") }
 
-    Box(modifier = Modifier.fillMaxSize()
-        .padding(horizontal = 16.dp),) {
-        Column {
-
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp)
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
             // Collection title
             Text(
                 text = "Freire's Collection",
                 style = MaterialTheme.typography.h5,
-                modifier = Modifier.padding(bottom = 16.dp,top = 16.dp).align(Alignment.CenterHorizontally)
+                modifier = Modifier
+                    .padding(bottom = 16.dp, top = 16.dp)
+                    .align(Alignment.CenterHorizontally)
             )
 
-            SearchBar(onSearchQueryChanged = { query -> searchQuery = query })
+            // Search bar
+            SearchBar(onSearchQueryChanged = { query ->
+                searchQuery = query
+                onSearchQueryChange(query)
+            })
 
+            Spacer(modifier = Modifier.height(8.dp))
 
-
-            // Scrollable list of albums
+            // Scrollable list of albums with weight to make it fill remaining space
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
+                    .weight(1f)
             ) {
                 items(albums) { album ->
                     AlbumItem(album)
@@ -93,7 +107,7 @@ fun CollectionScreen(
             }
         }
 
-        // Floating action button (green button) for adding a new album
+        // Floating action button for adding a new album
         FloatingActionButton(
             onClick = onAddAlbumClick,
             modifier = Modifier
@@ -112,27 +126,40 @@ fun AlbumItem(album: Album) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .background(Color.LightGray)
+            .background(Color.LightGray, shape = RoundedCornerShape(16.dp)) // Add rounded corners
             .height(90.dp)
     ) {
-        Row(){
-
+        Row {
             Image(
                 painter = painterResource(id = R.drawable.latina),
                 contentDescription = "Profile Picture",
                 modifier = Modifier
-                    .size(90.dp).padding(10.dp),
-
+                    .size(90.dp)
+                    .padding(10.dp)
             )
-            Column(){
-                Text(text = album.title, style = MaterialTheme.typography.h6,modifier=Modifier.padding(start=20.dp,top=25.dp))
-                Text(text = "${album.artist} • ${album.year}", style = MaterialTheme.typography.body2,modifier=Modifier.padding(start=20.dp))
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp)
+            ) {
+                // Title with one line and ellipsis if too long
+                Text(
+                    text = album.title,
+                    style = MaterialTheme.typography.h6,
+                    maxLines = 1, // Limit to 1 line
+                    overflow = TextOverflow.Ellipsis, // "..." when text overflows
+                    modifier = Modifier.padding(top = 25.dp)
+                )
+
+                // Artist and year on one line, no overflow
+                Text(
+                    text = "${album.artist} • ${album.year}",
+                    style = MaterialTheme.typography.body2,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
             }
-
-
         }
-
-
     }
 }
 
@@ -145,7 +172,8 @@ fun CollectionActivityPreview() {
         Album("DAMN.", "Kendrick Lamar", 2017),
         Album("Dark Side of the Moon", "Pink Floyd", 1973),
         Album("2014 Forest Hills Drive", "J. Cole", 2014),
-        Album("My Beautiful Dark Twisted Fantasy", "Kanye West", 2010)
+        Album("My Beautiful Dark Twisted Fantasy", "Kanye West", 2010),
+        
     )
     var filteredAlbums by remember { mutableStateOf(albums) }
 

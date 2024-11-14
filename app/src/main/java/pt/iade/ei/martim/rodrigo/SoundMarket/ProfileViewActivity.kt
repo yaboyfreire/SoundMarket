@@ -4,6 +4,7 @@ package pt.iade.ei.martim.rodrigo.SoundMarket
 import HorizontalCarousel
 import android.content.Intent
 import android.os.Bundle
+import android.service.autofill.OnClickAction
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat.startActivity
 
 
@@ -50,6 +52,7 @@ class ProfileViewActivity : ComponentActivity() {
 @Composable
 fun ProfileScreen(onClick: () -> Unit) {
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -66,7 +69,7 @@ fun ProfileScreen(onClick: () -> Unit) {
             Box(
                 modifier = Modifier
                     .size(150.dp)
-                    .clickable { onClick()},
+                    .clickable { onClick() },
                 contentAlignment = Alignment.BottomEnd
             ) {
                 Image(
@@ -108,14 +111,38 @@ fun ProfileScreen(onClick: () -> Unit) {
             )
         }
 
-        
+        Spacer(modifier = Modifier.height(16.dp))
 
-        // Collection, Wishlist, and Selling
-        HorizontalCarousel(items = listOf("Swimming", "2014 Forest Hills Drive", "DAMN"), text = "Collection")
-        HorizontalCarousel(items = listOf("DAMN"), text = "Wishlist")
-        HorizontalCarousel(items = listOf("Something"), text = "Selling")
+        // Collection, Wishlist, and Selling sections
+        HorizontalCarousel(
+            items = listOf("Swimming", "2014 Forest Hills Drive", "DAMN"),
+            text = "Collection",
+            onButtonClick = {
+                val intent = Intent(context, CollectionActivity::class.java)
+                context.startActivity(intent)
+            }
+        )
+
+        HorizontalCarousel(
+            items = listOf("DAMN"),
+            text = "Wishlist",
+            onButtonClick = {
+                val intent = Intent(context, CollectionActivity::class.java)  // Adjusted to open WishlistActivity
+                context.startActivity(intent)
+            }
+        )
+
+        HorizontalCarousel(
+            items = listOf("Something"),
+            text = "Selling",
+            onButtonClick = {
+                val intent = Intent(context, CollectionActivity::class.java)  // Adjusted to open SellingActivity
+                context.startActivity(intent)
+            }
+        )
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

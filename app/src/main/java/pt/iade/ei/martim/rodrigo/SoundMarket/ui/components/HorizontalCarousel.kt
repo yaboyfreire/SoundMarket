@@ -12,12 +12,12 @@ import androidx.compose.ui.unit.dp
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.ButtonText
 
 @Composable
-fun HorizontalCarousel(items: List<String>,text:String) {
+fun HorizontalCarousel(items: List<String>,text:String,onButtonClick: () -> Unit) {
     Column(
-        modifier = Modifier.padding(top=30.dp,bottom=25.dp) //padding around the entire carousel
+        modifier = Modifier.padding(top=15.dp,bottom=5.dp) //padding around the entire carousel
     ) {
 
-        ButtonText(text)
+        ButtonText(text = text, onClick = onButtonClick)
         Spacer(modifier = Modifier.height(8.dp)) //spacing between the ButtonText and the carousel
 
         LazyRow(
@@ -52,5 +52,7 @@ fun CarouselItem(item: String) {
 @Composable
 fun PreviewCarouselScreen() {
     val items = listOf("Item 1", "Item 2", "Item 3", "Item 4")
-    HorizontalCarousel(items = items,"Trending")
+    HorizontalCarousel(items = items,"Trending",onButtonClick = {
+        // Action to perform when the button is clicked
+    })
 }
