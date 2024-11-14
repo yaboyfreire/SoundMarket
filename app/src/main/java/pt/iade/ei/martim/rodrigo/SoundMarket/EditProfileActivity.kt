@@ -95,32 +95,27 @@ fun EditProfileScreen() {
         Box(
             modifier = Modifier
                 .size(150.dp)
-                .clip(CircleShape)
-                .clickable {
-                    // Handle click event here
-                }
+                .clickable { /*Handle click event here */},
+
+            contentAlignment = Alignment.BottomEnd
+
         ) {
             Image(
                 painter = painterResource(id = R.drawable.latina),
                 contentDescription = "Profile Picture",
                 modifier = Modifier
-                    .fillMaxSize()
+                    .size(150.dp)
                     .clip(CircleShape),
                 contentScale = ContentScale.Crop
             )
-
-            Icon(
+            androidx.compose.material3.Icon(
                 imageVector = Icons.Default.Edit,
                 contentDescription = "Edit Profile Picture",
                 modifier = Modifier
-                    .align(Alignment.BottomEnd)
                     .size(32.dp)
                     .clip(CircleShape)
                     .background(Color.LightGray)
                     .padding(4.dp)
-                    .clickable {
-                        // Handle edit icon click event here
-                    }
             )
         }
 

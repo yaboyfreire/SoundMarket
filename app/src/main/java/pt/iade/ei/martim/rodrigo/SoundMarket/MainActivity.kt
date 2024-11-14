@@ -54,7 +54,8 @@ fun HomeScreen() {
         topBar = {
             HomeTopBar { iconClicked ->
                 when (iconClicked) {
-                    "profile" -> { /* Handle profile icon click */ }
+                    "account" -> { val intent = Intent(context, ProfileViewActivity::class.java)
+                        context.startActivity(intent)}
                     "notifications" -> { /* Handle notifications icon click */ }
                     "settings" -> { /* Handle settings icon click */ }
                 }
