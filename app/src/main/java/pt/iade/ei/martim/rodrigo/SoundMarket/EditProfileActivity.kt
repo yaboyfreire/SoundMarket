@@ -238,7 +238,7 @@ fun EditProfileScreen() {
         Button(
             onClick = { },
             modifier = Modifier.size(300.dp, 48.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green),
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF4CAF50)),
             shape = RoundedCornerShape(30)
         ) {
             Text(text = "Save Changes", color = Color.White)
