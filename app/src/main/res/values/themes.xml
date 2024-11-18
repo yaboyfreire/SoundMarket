@@ -2,4 +2,5 @@
 <resources>
 
     <style name="Theme.SoundMarket" parent="android:Theme.Material.Light.NoActionBar" />
+
 </resources>
