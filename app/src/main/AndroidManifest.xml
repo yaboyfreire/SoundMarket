@@ -27,6 +27,8 @@
         <activity android:name=".GenreActivity" />
         <activity android:name=".ProfileViewActivity" />
         <activity android:name=".CollectionActivity" />
+        <activity android:name=".AddAlbumActivity" />
+
     </application>
 
 </manifest>

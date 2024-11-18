@@ -114,6 +114,7 @@ fun ProfileScreen(onClick: () -> Unit) {
         Spacer(modifier = Modifier.height(16.dp))
 
         // Collection, Wishlist, and Selling sections
+        //Filters the results from the table(Collection,WishList,Selling)
         HorizontalCarousel(
             items = listOf("Swimming", "2014 Forest Hills Drive", "DAMN"),
             text = "Collection",
