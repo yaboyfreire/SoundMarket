@@ -1,5 +1,7 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,10 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+
 
 @Composable
 fun AlbumScreen() {
@@ -94,18 +98,26 @@ fun AlbumScreen() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        val context = LocalContext.current
+
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Button(onClick = { /* handle action here */ },
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF1DB954))
 
+            Button(
+                onClick = {
+                    // Create an intent to open the Spotify link
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://open.spotify.com/album/5wtE5aLX5r7jOosmPhJhhk?si=Aendik6ZQnGl0T-10gE_ag"))
+                    context.startActivity(intent)
+                },
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF1DB954))
             ) {
                 Text(text = "Listen Here")
             }
+
             Button(
-                onClick = { /* handle action here */ },
+                onClick = { /* Handle add to collection logic here */ },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF4CAF50))
             ) {
                 Text(text = "Add to Collection")
@@ -158,7 +170,9 @@ fun AlbumScreen() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = "Release Date", fontWeight = FontWeight.Bold)
+            Text(text = "Release Date",
+                fontWeight = FontWeight.Bold
+            )
             Text(
                 text = "August 3, 2018",
                 modifier = Modifier.align(Alignment.CenterVertically)
@@ -184,9 +198,11 @@ fun AlbumScreen() {
         Button(
             onClick = { /* handle action here */ },
             modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Gray)
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
         ) {
-            Text(text = "5 Currently selling", color = Color.White)
+            Text(text = "5 Currently selling",
+                fontWeight = FontWeight.Bold,
+                color = Color.Black)
         }
     }
 }
