@@ -83,7 +83,8 @@ fun HomeScreen() {
 
             HorizontalCarousel(
                 items = listOf("Item 1", "Item 2", "Item 3"),
-                text = "Trending"
+                text = "Trending",
+                onButtonClick = {}
             )
 
             HomeGenreList(items = genreItems) { clickedItem ->
