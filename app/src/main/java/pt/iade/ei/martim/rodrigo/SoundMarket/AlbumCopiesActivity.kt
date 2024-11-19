@@ -1,3 +1,6 @@
+package pt.iade.ei.martim.rodrigo.SoundMarket
+
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,11 +15,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import pt.iade.ei.martim.rodrigo.SoundMarket.MainActivity
 import pt.iade.ei.martim.rodrigo.SoundMarket.R
 
 
@@ -89,12 +94,15 @@ fun AlbumCopiesScreen() {
                         }
 
                         // Buttons and additional image section
+                        val context = LocalContext.current
+
                         Column(
                             modifier = Modifier
                                 .padding(start = 8.dp)
                         ) {
                             Button(
-                                onClick = { /* TODO: Add talk with seller functionality */ },
+                                onClick = {val intent = Intent(context, ChatActivity::class.java)
+                                    context.startActivity(intent) },
                                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green),
                                 modifier = Modifier
                                     .size(150.dp, 35.dp)
@@ -109,7 +117,7 @@ fun AlbumCopiesScreen() {
                             Spacer(modifier = Modifier.height(4.dp))
 
                             Image(
-                                painter = painterResource(id = R.drawable.account_circle_24px),
+                                painter = painterResource(id = R.drawable.account_circle),
                                 contentDescription = "Additional Image",
                                 modifier = Modifier.size(20.dp)
                                     .align(Alignment.End)
