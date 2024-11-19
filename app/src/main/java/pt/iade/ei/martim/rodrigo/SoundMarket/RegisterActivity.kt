@@ -199,7 +199,7 @@ fun RegisterScreen(onTextClick: () -> Unit) {
         OutlinedTextField(
             value = birthdate,
             onValueChange = { birthdate = it },
-            label = { Text("Birthday") },
+            label = { Text("Birthdate") },
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable {

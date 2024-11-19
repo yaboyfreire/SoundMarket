@@ -57,7 +57,8 @@ fun HomeScreen() {
                     "account" -> { val intent = Intent(context, ProfileViewActivity::class.java)
                         context.startActivity(intent)}
                     "notifications" -> { /* Handle notifications icon click */ }
-                    "settings" -> { /* Handle settings icon click */ }
+                    "settings" -> { val intent = Intent(context, SettingsActivity::class.java)
+                        context.startActivity(intent)}
                 }
             }
 
@@ -68,7 +69,8 @@ fun HomeScreen() {
                     "home" -> { /* Handle home icon click */ }
                     "add" -> { val intent = Intent(context, SellActivity::class.java)
                         context.startActivity(intent)}
-                    "email" -> { /* Handle chat icon click */ }
+                    "email" -> { val intent = Intent(context, InboxActivity::class.java)
+                        context.startActivity(intent) }
                 }
             }
         }
@@ -83,7 +85,8 @@ fun HomeScreen() {
 
             HorizontalCarousel(
                 items = listOf("Item 1", "Item 2", "Item 3"),
-                text = "Trending"
+                text = "Trending",
+                onButtonClick = {}
             )
 
             HomeGenreList(items = genreItems) { clickedItem ->
