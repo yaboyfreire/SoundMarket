@@ -29,13 +29,13 @@ class AlbumCopiesActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AlbumCopiesScreen()
+            AlbumCopies()
         }
     }
 }
 
 @Composable
-fun AlbumCopiesScreen() {
+fun AlbumCopies() {
     val scrollState = rememberScrollState()
 
     Column(modifier = Modifier.fillMaxSize()
@@ -132,6 +132,6 @@ fun AlbumCopiesScreen() {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewAlbumCopiesScreen() {
-    AlbumCopiesScreen()
+fun PreviewAlbumCopies() {
+    AlbumCopies()
 }
