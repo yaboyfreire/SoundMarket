@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,6 +19,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,6 +54,11 @@ class CollectionActivity : ComponentActivity() {
                     // Redirect to AddAlbumActivity
                     val intent = Intent(this, AddAlbumActivity::class.java)
                     startActivity(intent)
+                },
+                onGoToAlbumClick = {
+                    // Redirect to GoToAlbumActivity
+                    val intent = Intent(this, AlbumActivity::class.java)
+                    startActivity(intent)
                 }
             )
         }
@@ -62,6 +69,7 @@ class CollectionActivity : ComponentActivity() {
 fun CollectionScreen(
     albums: List<Album>,
     onAddAlbumClick: () -> Unit,
+    onGoToAlbumClick: () -> Unit,
     onSearchQueryChange: (String) -> Unit
 ) {
     var searchQuery by remember { mutableStateOf("") }
@@ -98,7 +106,7 @@ fun CollectionScreen(
                     .weight(1f)
             ) {
                 items(albums) { album ->
-                    AlbumItem(album)
+                    AlbumItem(album,onGoToAlbumClick)
                 }
             }
         }
@@ -117,15 +125,32 @@ fun CollectionScreen(
 }
 
 @Composable
-fun AlbumItem(album: Album) {
+fun AlbumItem(album: Album,onGoToAlbumClick: () -> Unit,) {
+
+    val context = LocalContext.current
+
     Column(
+
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
             .background(Color.LightGray, shape = RoundedCornerShape(16.dp)) // Add rounded corners
             .height(90.dp)
+            .clickable {
+                // Launch the AlbumActivity
+                val intent = Intent(context, AlbumActivity::class.java).apply {
+                    putExtra("ALBUM_TITLE", album.title)
+                    putExtra("ALBUM_ARTIST", album.artist)
+                    putExtra("ALBUM_YEAR", album.year)
+                }
+                context.startActivity(intent)
+                // Optionally call the passed callback
+                onGoToAlbumClick()
+            }
     ) {
         Row {
+
+
             Image(
                 painter = painterResource(id = R.drawable.latina),
                 contentDescription = "Profile Picture",
@@ -169,8 +194,8 @@ fun CollectionActivityPreview() {
         Album("Dark Side of the Moon", "Pink Floyd", 1973),
         Album("2014 Forest Hills Drive", "J. Cole", 2014),
         Album("My Beautiful Dark Twisted Fantasy", "Kanye West", 2010),
-        
-    )
+
+        )
     var filteredAlbums by remember { mutableStateOf(albums) }
 
     CollectionScreen(
@@ -185,9 +210,12 @@ fun CollectionActivityPreview() {
         onAddAlbumClick = {
 
 
+        },
+        onGoToAlbumClick ={
+
         }
+
     )
 }
 
 data class Album(val title: String, val artist: String, val year: Int)
-

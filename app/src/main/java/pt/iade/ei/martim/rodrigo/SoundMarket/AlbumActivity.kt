@@ -2,6 +2,9 @@ package pt.iade.ei.martim.rodrigo.SoundMarket
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -19,6 +22,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+class AlbumActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            AlbumScreen()
+        }
+    }
+}
 
 @Composable
 fun AlbumScreen() {
@@ -195,8 +206,12 @@ fun AlbumScreen() {
         Spacer(modifier = Modifier.height(16.dp))
 
         // Goes To AlbumCopies
+
+
+
         Button(
-            onClick = { /* handle action here */ },
+            onClick = { val intent = Intent(context, AlbumCopiesActivity::class.java)
+                context.startActivity(intent)  },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
         ) {

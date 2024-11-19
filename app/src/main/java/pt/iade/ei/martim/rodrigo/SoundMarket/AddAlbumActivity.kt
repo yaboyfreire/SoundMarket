@@ -85,7 +85,7 @@ fun AddAlbumScreen(
                     .weight(1f)
             ) {
                 items(albums) { album ->
-                    AlbumItem(album)
+                    AlbumItem(album, onGoToAlbumClick = {})
                 }
             }
         }

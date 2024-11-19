@@ -24,14 +24,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HomeScreen()
+            HomeScreen(onButtonClick = { navigateToCollectionActivity() })
         }
+    }
+
+    private fun navigateToCollectionActivity() {
+        val intent = Intent(this, CollectionActivity::class.java)
+        startActivity(intent)
     }
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeScreen() {
+fun HomeScreen(onButtonClick: () -> Unit) {
     var searchQuery by remember { mutableStateOf("") }
     val context = LocalContext.current
 
@@ -86,7 +91,7 @@ fun HomeScreen() {
             HorizontalCarousel(
                 items = listOf("Item 1", "Item 2", "Item 3"),
                 text = "Trending",
-                onButtonClick = {}
+                onButtonClick = onButtonClick
             )
 
             HomeGenreList(items = genreItems) { clickedItem ->
@@ -107,5 +112,5 @@ fun HomeScreen() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewHomeScreen() {
-    HomeScreen()
+    HomeScreen(onButtonClick = {})
 }
