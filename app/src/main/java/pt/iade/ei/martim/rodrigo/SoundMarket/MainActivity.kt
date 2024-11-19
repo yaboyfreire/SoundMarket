@@ -69,7 +69,8 @@ fun HomeScreen() {
                     "home" -> { /* Handle home icon click */ }
                     "add" -> { val intent = Intent(context, SellActivity::class.java)
                         context.startActivity(intent)}
-                    "email" -> { /* Handle chat icon click */ }
+                    "email" -> { val intent = Intent(context, InboxActivity::class.java)
+                        context.startActivity(intent) }
                 }
             }
         }

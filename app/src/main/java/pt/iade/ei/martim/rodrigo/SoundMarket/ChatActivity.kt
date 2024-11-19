@@ -1,5 +1,8 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,6 +30,29 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 
 
+class ChatActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            ChatScreen(
+                currentTopic = "https://upload.wikimedia.org/wikipedia/en/5/5e/Mac_Miller_-_Swimming.png",
+                albumName = "Swimming",
+                artistName = "Mac Miller",
+                profileInfo = UserProfile(
+                    userName = "Martim Conceição",
+                    email = "martimC@gmail.com",
+                    profilePictureUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyzTWQoCUbRNdiyorem5Qp1zYYhpliR9q0Bw&s"
+                ),
+                messages = listOf(
+                    Message("Hey there!", "9:30 AM", "Read", true),
+                    Message("Hi! How are you?", "9:31 AM", "Received", false)
+                ),
+                onSendMessage = {},
+                onProfileClick = {}
+            )
+        }
+    }
+}
 
 @Composable
 fun ChatScreen(

@@ -2,6 +2,9 @@ package pt.iade.ei.martim.rodrigo.SoundMarket
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.ChatItem
@@ -29,6 +32,44 @@ import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.HomeTopBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.platform.LocalContext
 
+
+class InboxActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            val sampleChats = listOf(
+                ChatItem(
+                    chatId = "1",
+                    username = "John Doe",
+                    profilePictureUrl = "https://via.placeholder.com/50",
+                    lastMessage = "Hey, are you coming tonight?",
+                    lastMessageState = "Read",
+                    unreadMessages = 0
+                ),
+                ChatItem(
+                    chatId = "2",
+                    username = "Jane Smith",
+                    profilePictureUrl = "https://via.placeholder.com/50",
+                    lastMessage = "Let me know when you're free.",
+                    lastMessageState = "Sent",
+                    unreadMessages = 2
+                ),
+                ChatItem(
+                    chatId = "3",
+                    username = "MartimC",
+                    profilePictureUrl = "https://neweralive.na/wp-content/uploads/2024/06/lloyd-sikeba.jpg",
+                    lastMessage = "I'll check it out!",
+                    lastMessageState = "Received",
+                    unreadMessages = 1
+                )
+            )
+            InboxScreen(chatList = sampleChats, onChatClick = { chatId ->
+                println("Clicked on chat: $chatId")
+            })
+        }
+    }
+}
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun InboxScreen(
@@ -42,7 +83,8 @@ fun InboxScreen(
         bottomBar = {
             BottomAppBar { iconClicked ->
                 when (iconClicked) {
-                    "home" -> { /* Handle home icon click */ }
+                    "home" -> { val intent = Intent(context, MainActivity::class.java)
+                        context.startActivity(intent) }
                     "add" -> { val intent = Intent(context, SellActivity::class.java)
                         context.startActivity(intent)}
                     "email" -> { /* Handle chat icon click */ }
@@ -72,7 +114,8 @@ fun InboxScreen(
             items(chatList) { chat ->
                 ChatRow(
                     chat = chat,
-                    onClick = { onChatClick(chat.chatId) }
+                    onClick = { val intent = Intent(context, ChatActivity::class.java)
+                        context.startActivity(intent) }
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }
