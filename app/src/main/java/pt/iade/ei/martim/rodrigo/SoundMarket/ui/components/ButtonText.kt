@@ -1,11 +1,8 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket.ui.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
@@ -21,10 +18,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ButtonText(text: String) {
+fun ButtonText(text: String, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .background(color = Color.Black, shape = RoundedCornerShape(50))
+            .clickable { onClick() }  // Make the button clickable
             .padding(horizontal = 12.dp, vertical = 6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -44,10 +42,8 @@ fun ButtonText(text: String) {
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
-fun PreviewButtonText(text: String = "Trending") {
-    ButtonText(text)
-
+fun PreviewButtonText() {
+    ButtonText(text = "Trending", onClick = { /* Preview click handler */ })
 }
