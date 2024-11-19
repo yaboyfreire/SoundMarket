@@ -19,17 +19,16 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".SellActivity" />
-        <activity android:name=".GenreActivity" />
-        <activity android:name=".ProfileViewActivity" />
-        <activity android:name=".CollectionActivity" />
-        <activity android:name=".AddAlbumActivity" />
-        <activity android:name=".SettingsActivity" />
+ </application>
+    <activity android:name=".RegisterActivity" />
+    <activity android:name=".MainActivity" />
+    <activity android:name=".EditProfileActivity" />
+    <activity android:name=".SellActivity" />
+    <activity android:name=".GenreActivity" />
+    <activity android:name=".ProfileViewActivity" />
+    <activity android:name=".AlbumCopiesActivity" />
+    <activity android:name=".CollectionActivity" />
+    <activity android:name=".AddAlbumActivity" />
+    <activity android:name=".SettingsActivity" />
+</application>
 
-    </application>
-
-</manifest>
