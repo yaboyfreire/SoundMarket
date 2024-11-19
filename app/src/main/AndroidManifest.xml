@@ -19,7 +19,8 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
- </application>
+<application
+    ... >
     <activity android:name=".RegisterActivity" />
     <activity android:name=".MainActivity" />
     <activity android:name=".EditProfileActivity" />
@@ -30,5 +31,7 @@
     <activity android:name=".CollectionActivity" />
     <activity android:name=".AddAlbumActivity" />
     <activity android:name=".SettingsActivity" />
+    <activity android:name=".InboxActivity" />
+    <activity android:name=".ChatActivity" />
 </application>
 
