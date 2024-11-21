@@ -2,21 +2,21 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
-      <SelectionState runConfigName="app">
+      <SelectionState runConfigName="PreviewLoginScreen">
         <option name="selectionMode" value="DROPDOWN" />
-          <SelectionState runConfigName="PreviewGenre">
-            <option name="selectionMode" value="DROPDOWN" />
-          </SelectionState>
-          <SelectionState runConfigName="PreviewEditProfileScreen">
-            <option name="selectionMode" value="DROPDOWN" />
-          </SelectionState>
-          <SelectionState runConfigName="PreviewSoundMarketForm">
-            <option name="selectionMode" value="DROPDOWN" />
-          </SelectionState>
-          <SelectionState runConfigName="PreviewAlbumScreen">
-            <option name="selectionMode" value="DROPDOWN" />
-          </SelectionState>
-          <SelectionState runConfigName="PreviewAlbumCopiesScreen">
-            <option name="selectionMode" value="DROPDOWN" />
-          </SelectionState>
-
+      </SelectionState>
+      <SelectionState runConfigName="CollectionActivityPreview">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="PreviewAlbumScreen">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="AlbumActionsPreview">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="AlbumScreenPreview">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+    </selectionStates>
+  </component>
+</project>
