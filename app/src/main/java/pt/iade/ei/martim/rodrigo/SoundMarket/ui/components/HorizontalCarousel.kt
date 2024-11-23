@@ -10,40 +10,62 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.ButtonText
+import androidx.compose.foundation.Image
+import androidx.compose.ui.layout.ContentScale
+import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
+
 
 @Composable
-fun HorizontalCarousel(items: List<String>,text:String,onButtonClick: () -> Unit) {
+fun HorizontalCarousel(albums: List<Album>, text: String, onButtonClick: () -> Unit) {
     Column(
-        modifier = Modifier.padding(top=15.dp,bottom=5.dp) //padding around the entire carousel
+        modifier = Modifier.padding(top = 15.dp, bottom = 5.dp) // Padding around the carousel
     ) {
 
-        ButtonText(text = text, onClick = onButtonClick)
-        Spacer(modifier = Modifier.height(8.dp)) //spacing between the ButtonText and the carousel
+        ButtonText(text = text, onClick = onButtonClick)  // onButtonClick passed here
+        Spacer(modifier = Modifier.height(8.dp)) // Spacing between the ButtonText and the carousel
 
         LazyRow(
             contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(items.size) { index ->
-                CarouselItem(item = items[index])
+            items(albums.size) { index ->
+                CarouselItem(album = albums[index])
             }
         }
     }
 }
 
+
+
 @Composable
-fun CarouselItem(item: String) {
+fun CarouselItem(album: Album) {
     Card(
         modifier = Modifier
             .width(160.dp)
-            .height(160.dp),
+            .height(200.dp), // Adjusted height for album details
         shape = RoundedCornerShape(20.dp)
     ) {
-        Box(
+        Column(
             modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = item, style = MaterialTheme.typography.labelLarge)
+            Image(
+                painter = rememberAsyncImagePainter(model = album.images.firstOrNull()?.url),
+                contentDescription = album.name,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(120.dp),
+                contentScale = ContentScale.Crop
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = album.name, style = MaterialTheme.typography.labelLarge, maxLines = 1)
+            Text(
+                text = album.artists.firstOrNull()?.name ?: "Unknown Artist",
+                style = MaterialTheme.typography.labelSmall,
+                maxLines = 1
+            )
         }
     }
 }
@@ -51,8 +73,64 @@ fun CarouselItem(item: String) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewCarouselScreen() {
-    val items = listOf("Item 1", "Item 2", "Item 3", "Item 4")
-    HorizontalCarousel(items = items,"Trending",onButtonClick = {
-        // Action to perform when the button is clicked
-    })
+    // Dummy data for testing
+    val dummyAlbums = listOf(
+        Album(
+            albumType = "album",
+            artists = listOf(
+                Album.Artist(
+                    externalUrls = "https://spotify.com/artist1",
+                    href = "https://api.spotify.com/v1/artists/artist1",
+                    id = "artist1",
+                    name = "Artist 1",
+                    type = "artist",
+                    uri = "spotify:artist:artist1"
+                )
+            ),
+            availableMarkets = listOf("US", "GB", "CA"),
+            externalUrls = Album.ExternalUrls("https://spotify.com/album1"), // Correct usage here
+            href = "https://api.spotify.com/v1/albums/album1",
+            id = "album1",
+            images = listOf(
+                Album.Image(300, "https://via.placeholder.com/300", 300),
+                Album.Image(640, "https://via.placeholder.com/640", 640)
+            ),
+            name = "Album 1",
+            releaseDate = "2024-01-01",
+            releaseDatePrecision = "day",
+            totalTracks = 10,
+            type = "album",
+            uri = "spotify:album:album1"
+        ),
+        Album(
+            albumType = "album",
+            artists = listOf(
+                Album.Artist(
+                    externalUrls = "https://spotify.com/artist2",
+                    href = "https://api.spotify.com/v1/artists/artist2",
+                    id = "artist2",
+                    name = "Artist 2",
+                    type = "artist",
+                    uri = "spotify:artist:artist2"
+                )
+            ),
+            availableMarkets = listOf("US", "GB", "CA"),
+            externalUrls = Album.ExternalUrls("https://spotify.com/album2"), // Correct usage here
+            href = "https://api.spotify.com/v1/albums/album2",
+            id = "album2",
+            images = listOf(
+                Album.Image(300, "https://via.placeholder.com/300", 300),
+                Album.Image(640, "https://via.placeholder.com/640", 640)
+            ),
+            name = "Album 2",
+            releaseDate = "2024-02-01",
+            releaseDatePrecision = "day",
+            totalTracks = 12,
+            type = "album",
+            uri = "spotify:album:album2"
+        )
+    )
+
+    // Pass the dummy albums to the HorizontalCarousel
+    HorizontalCarousel(albums = dummyAlbums, text = "Trending", onButtonClick = {})
 }

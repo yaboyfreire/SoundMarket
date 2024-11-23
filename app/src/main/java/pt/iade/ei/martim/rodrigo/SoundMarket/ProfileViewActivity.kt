@@ -1,10 +1,8 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
 
-import HorizontalCarousel
 import android.content.Intent
 import android.os.Bundle
-import android.service.autofill.OnClickAction
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -29,7 +27,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.platform.LocalContext
-import androidx.core.content.ContextCompat.startActivity
 
 
 //IMPORTANT THIS IS ONLY THE UI,MOST OF THE INFORMATION DISPLAYED HERE WILL BE RECEIVED THROUGH THE DATABASE

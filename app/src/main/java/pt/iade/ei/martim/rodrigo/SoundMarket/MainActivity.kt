@@ -1,23 +1,26 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
-import GridItem
 import HomeGenreList
-import HorizontalCarousel
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.BottomAppBar
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.HomeTopBar
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.SearchBar
+import pt.iade.ei.martim.rodrigo.SoundMarket.viewmodel.AlbumViewModel
+import GridItem
+import HorizontalCarousel
+import android.annotation.SuppressLint
 
 
 class MainActivity : ComponentActivity() {
@@ -37,8 +40,15 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(onButtonClick: () -> Unit) {
-    var searchQuery by remember { mutableStateOf("") }
     val context = LocalContext.current
+    val albumViewModel: AlbumViewModel = viewModel() // Get the AlbumViewModel
+    val albums = albumViewModel.albums.value // Observe albums from the ViewModel
+
+    // Fetch new releases when the screen is first loaded
+    LaunchedEffect(Unit) {
+        val token = "Bearer BQBkgvVlA4wbJ76VH6LtWJExYVK5kb7lYlfc4VVCAMx2VnHJXBPh0u-mtV3LUqvpqMg92T9c64ga45_nbn-48eyeFvH18MqxicXnzbzFbRYzdudL5s4" // Replace with your actual token
+        albumViewModel.fetchNewReleases(token)
+    }
 
     val genreItems = listOf(
         GridItem(1, R.drawable.rock, "Rock"),
@@ -59,23 +69,30 @@ fun HomeScreen(onButtonClick: () -> Unit) {
         topBar = {
             HomeTopBar { iconClicked ->
                 when (iconClicked) {
-                    "account" -> { val intent = Intent(context, ProfileViewActivity::class.java)
-                        context.startActivity(intent)}
+                    "account" -> {
+                        val intent = Intent(context, ProfileViewActivity::class.java)
+                        context.startActivity(intent)
+                    }
                     "notifications" -> { /* Handle notifications icon click */ }
-                    "settings" -> { val intent = Intent(context, SettingsActivity::class.java)
-                        context.startActivity(intent)}
+                    "settings" -> {
+                        val intent = Intent(context, SettingsActivity::class.java)
+                        context.startActivity(intent)
+                    }
                 }
             }
-
         },
         bottomBar = {
             BottomAppBar { iconClicked ->
                 when (iconClicked) {
                     "home" -> { /* Handle home icon click */ }
-                    "add" -> { val intent = Intent(context, SellActivity::class.java)
-                        context.startActivity(intent)}
-                    "email" -> { val intent = Intent(context, InboxActivity::class.java)
-                        context.startActivity(intent) }
+                    "add" -> {
+                        val intent = Intent(context, SellActivity::class.java)
+                        context.startActivity(intent)
+                    }
+                    "email" -> {
+                        val intent = Intent(context, InboxActivity::class.java)
+                        context.startActivity(intent)
+                    }
                 }
             }
         }
@@ -86,25 +103,25 @@ fun HomeScreen(onButtonClick: () -> Unit) {
                 .padding(horizontal = 16.dp),
         ) {
 
-            SearchBar(onSearchQueryChanged = { query -> searchQuery = query })
+            SearchBar(onSearchQueryChanged = { query -> /* Handle search query change */ })
 
-            HorizontalCarousel(
-                items = listOf("Item 1", "Item 2", "Item 3"),
-                text = "Trending",
-                onButtonClick = onButtonClick
-            )
+            if (albums.isNotEmpty()) {
+                HorizontalCarousel(
+                    albums = albums, // Now using the albums from the ViewModel
+                    text = "New Releases",
+                    onButtonClick = onButtonClick,
+                )
+            } else {
+                Text("Loading albums...")
+            }
 
             HomeGenreList(items = genreItems) { clickedItem ->
-                // Create an intent to start GenreActivity with the clicked genre's information
                 val intent = Intent(context, GenreActivity::class.java).apply {
                     putExtra("GENRE_ID", clickedItem.id)
                     putExtra("GENRE_NAME", clickedItem.label)
                 }
                 context.startActivity(intent)
             }
-
-
-
         }
     }
 }

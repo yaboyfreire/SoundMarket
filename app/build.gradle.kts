@@ -71,7 +71,15 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.ui)
     implementation(libs.androidx.material)
-    implementation("io.coil-kt:coil-compose:2.4.0")
-
+    implementation(libs.coil.compose)
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.okhttp)
+    implementation (libs.androidx.lifecycle.runtime.ktx.v261)
+    implementation(libs.logging.interceptor)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.runtime.ktx.v287)
+    implementation(libs.androidx.activity.compose.v170)
+    implementation (libs.okhttp3.logging.interceptor)
 
 }

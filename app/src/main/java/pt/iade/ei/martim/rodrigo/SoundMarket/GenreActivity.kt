@@ -1,5 +1,6 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -7,7 +8,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,6 +33,7 @@ class GenreActivity : ComponentActivity() {
 
 @Composable
 fun GenreScreen() {
+    val context = LocalContext.current
     Column {
         // App Header
         Row(
@@ -66,7 +68,10 @@ fun GenreScreen() {
                     "Trending 3",
                     "Trending 4",
                     "Trending 5")
-        HorizontalCarousel(items = trendingItems, text = "Trending")
+        HorizontalCarousel(items = trendingItems, text = "Trending", onButtonClick = {
+            val intent = Intent(context, CollectionActivity::class.java)
+            context.startActivity(intent)
+        })
 
         // New Releases Carousel
         Text(
@@ -81,7 +86,10 @@ fun GenreScreen() {
             color = Color.Gray
         )
         val newReleasesItems = listOf("Release 1", "Release 2", "Release 3", "Release 4", "Release 5")
-        HorizontalCarousel(items = newReleasesItems, text = "New Releases")
+        HorizontalCarousel(items = newReleasesItems, text = "New Releases", onButtonClick = {
+            val intent = Intent(context, CollectionActivity::class.java)
+            context.startActivity(intent)
+        })
 
         // Artists Carousel with Images
         Row(
@@ -129,7 +137,7 @@ fun GenreScreen() {
 }
 
 @Composable
-fun HorizontalCarousel(items: List<String>, text: String) {
+fun HorizontalCarousel(items: List<String>, text: String, onButtonClick: () -> Unit) {
     Column(
         modifier = Modifier.padding(top = 30.dp, bottom = 25.dp)
     ) {
