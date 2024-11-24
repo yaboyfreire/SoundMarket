@@ -14,6 +14,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.HorizontalAlign
+import pt.iade.ei.martim.rodrigo.SoundMarket.AddToCollectionFromAlbumActivity
+import pt.iade.ei.martim.rodrigo.SoundMarket.AddToCollectionFromAlbumScreen
+import pt.iade.ei.martim.rodrigo.SoundMarket.AddToCollectionFromCollectionActivity
+import pt.iade.ei.martim.rodrigo.SoundMarket.CollectionActivity
 
 @Composable
 fun AlbumActions() {
@@ -39,7 +43,8 @@ fun AlbumActions() {
         }
 
         androidx.compose.material.Button(
-            onClick = { /* Handle add to collection logic here */ },
+            onClick = { val intent = Intent(context, AddToCollectionFromCollectionActivity::class.java)
+                context.startActivity(intent) },
             colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF4CAF50))
         ) {
             androidx.compose.material.Text(text = "Add to Collection")
