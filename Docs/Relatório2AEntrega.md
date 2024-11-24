@@ -37,7 +37,7 @@ Com o SoundMarket, pretendemos unir o melhor dos dois mundos: a simplicidade e a
 
 ![Persona1](Anexos/Persona1JoaoSilva.png)
 
-![Persona2](Anexos/Persona2-Maria_Costa.png)
+![Persona2](Anexos/Persona2MariaCosta.png)
 
 ## Caso de utilização do objeto “core” do projeto
 
@@ -45,7 +45,7 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (
 ### Adicionar um álbum à coleção
 #### 1º Processo
 
-1. O utilizador vai registar-se na aplicação.
+1. O utilizador João Silva vai registar-se na aplicação.
 2. Depois de se registar, faz login e é redirecionado para a home page.
 3. Na home page, vai ter uma barra de pesquisa (search bar) para encontrar o álbum.
 4. Ao encontrar e carregar no álbum, irá aparecer no topo da página a opção “add to collection”.
@@ -53,9 +53,9 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (
 
 #### 2º Processo
 
-1. O utilizador vai registar-se na aplicação.
-2. Depois de se registar, faz login e é redirecionado para a home page.
-3. O utilizador vai até ao perfil e carrega onde diz “my collection”.
+1. A utilizadora Maria Costa vai registar-se na aplicação.
+2. Depois de se registar, faz login e é redirecionada para a home page.
+3. A utilizadora vai até ao perfil e carrega onde diz “my collection”.
 4. Ao entrar em “my collection”, vai ver um botão redondo no canto inferior direito com um símbolo "+"
 5. Depois de carregar no botão irá procurar o álbum, escolher o formato e a condição e, por fim, irá carregar no botão que diz “add to collection”.
 
@@ -63,18 +63,18 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (
 
 ### Colocar um álbum à venda
 
-1. Na home page, em baixo no centro do ecrã, vai aparecer a opção “sell” e o utilizador vai carregar nesse botão.
+1. Na home page, em baixo no centro do ecrã, vai aparecer a opção “sell” e o utilizador João Silva vai carregar nesse botão.
 2. O utilizador será levado para outra página onde irá encontrar uma barra de pesquisa (search bar) para procurar o nome do álbum (aparecerão apenas os álbuns que estão presentes na coleção do utilizador), um botão para escolher o formato, outro para escolher a condição do disco, um espaço para colocar o preço de venda e ainda uma caixa de texto para adicionar uma descrição ao produto.
-3. Depois de preencher tudo, o utilizador carrega no botão que diz “list item” e o item é colocado à venda.
+3. Depois de preencher tudo, o João carrega no botão que diz “list item” e o item é colocado à venda.
 
 ---
 
 ### Procurar um álbum e fazer uma proposta ao vendedor
 
-1. Na home page, haverá uma barra de pesquisa (search bar) e o utilizador vai procurar o álbum que deseja.
-2. Ao carregar no álbum, aparecerão várias informações sobre ele e, perto do fim da página, irá aparecer um botão com a quantidade de vendedores que naquele momento têm o disco à venda. O utilizador terá de carregar nesse botão.
-3. Após carregar no botão, o utilizador será apresentado com todas as listings desse álbum, e também com o respetivo formato, condição e preço.
-4. Depois de escolher a listing desejada, o utilizador terá de carregar num botão que o levará para um chat com o vendedor. A partir daí, ele poderá ou não negociar o preço com o vendedor e tratar de todos os detalhes para comprar o disco.
+1. Na home page, haverá uma barra de pesquisa (search bar) e a utilizadora Maria Costa vai procurar o álbum que deseja.
+2. Ao carregar no álbum, aparecerão várias informações sobre ele e, perto do fim da página, irá aparecer um botão com a quantidade de vendedores que naquele momento têm o disco à venda. A utilizadora terá de carregar nesse botão.
+3. Após carregar no botão, Maria será apresentada com todas as listings desse álbum, e também com o respetivo formato, condição e preço.
+4. Depois de escolher a listing desejada, ela terá de carregar num botão que a levará para um chat com o vendedor. A partir daí, ela poderá ou não negociar o preço com o vendedor e tratar de todos os detalhes para comprar o disco.
 
 ---
 
@@ -140,6 +140,11 @@ As tarefas foram divididas de forma a garantir que os aspetos mais importantes e
 
 ![gráfico de gantt](Anexos/Gantt.png)
 ---
+
+## Modelo Entidade-Relação
+![MER]()
+
+## Guia de dados
 
 ## Conclusão
 
