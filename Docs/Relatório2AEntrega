@@ -33,6 +33,10 @@ Em contrapartida, existe o Discogs, uma plataforma dedicada ao mercado de músic
 
 Com o SoundMarket, pretendemos unir o melhor dos dois mundos: a simplicidade e acessibilidade de plataformas generalistas como o OLX e eBay, com a profundidade e especialização de um catálogo completo de música do Discogs. A nossa visão é criar um ambiente onde os usuários possam facilmente procurar, comprar e vender álbuns, enquanto desfrutam de uma experiência otimizada para colecionadores.
 
+##Personas
+![Persona1](Anexos/Persona1- João Silva.png)
+
+![Persona2](Anexos/Persona2- Maria Costa.png)
 
 ## Caso de utilização do objeto “core” do projeto
 
@@ -51,8 +55,8 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (
 1. O utilizador vai registar-se na aplicação.
 2. Depois de se registar, faz login e é redirecionado para a home page.
 3. O utilizador vai até ao perfil e carrega onde diz “my collection”.
-4. Ao entrar em “my collection”, vai ver um botão no topo a dizer “add to collection”.
-5. Depois, irá procurar o álbum, escolher o formato e a condição e, por fim, irá carregar no botão que diz “add to collection”.
+4. Ao entrar em “my collection”, vai ver um botão redondo no canto inferior direito com um símbolo "+"
+5. Depois de carregar no botão irá procurar o álbum, escolher o formato e a condição e, por fim, irá carregar no botão que diz “add to collection”.
 
 ---
 
