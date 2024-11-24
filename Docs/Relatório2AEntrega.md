@@ -141,11 +141,28 @@ As tarefas foram divididas de forma a garantir que os aspetos mais importantes e
 ![gráfico de gantt](Anexos/Gantt.png)
 ---
 
-## Modelo Entidade-Relação
-![MER]()
+## Diagrama de classes
+![Diagrama de classes](Anexos/Diagramadeclasses.png)
+
+---
+## Dicionário de dados
+![Tabela_User](Anexos/BibliotecaDeDados/BD_USER.png)
+![Tabela_admin](Anexos/BibliotecaDeDados/BD_ADMINISTRATOR.png)
+![Tabela_Wishlist](Anexos/BibliotecaDeDados/BD_WISHLIST.png)
+![Tabela_Album](Anexos/BibliotecaDeDados/BD_ALBUM.png)
+![Tabela_Selling](Anexos/BibliotecaDeDados/BD_SELLING.png)
+![Tabela_Buy](Anexos/BibliotecaDeDados/BD_BUY.png)
+![Tabela_Chat](Anexos/BibliotecaDeDados/BD_CHAT.png)
+![Tabela_Message](Anexos/BibliotecaDeDados/BD_MESSAGE.png)
+![Tabela_Status](Anexos/BibliotecaDeDados/BD_STATUS.png)
+![Tabela_Buy_Status](Anexos/BibliotecaDeDados/BD_BUY_STATUS.png)
+
+
 
 ## Guia de dados
+![MER](Anexos/MER.png)
 
+--- 
 ## Conclusão
 
 Com o desenvolvimento da SoundMarket, o objetivo é criar uma plataforma simples e acessível que facilite a gestão, compra e venda de álbuns em formato físico. Pretendemos conectar uma comunidade de entusiastas de música, proporcionando uma experiência eficiente para colecionadores experientes e novos utilizadores.
