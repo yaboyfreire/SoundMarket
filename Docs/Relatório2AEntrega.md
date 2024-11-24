@@ -34,7 +34,7 @@ Em contrapartida, existe o Discogs, uma plataforma dedicada ao mercado de músic
 Com o SoundMarket, pretendemos unir o melhor dos dois mundos: a simplicidade e acessibilidade de plataformas generalistas como o OLX e eBay, com a profundidade e especialização de um catálogo completo de música do Discogs. A nossa visão é criar um ambiente onde os usuários possam facilmente procurar, comprar e vender álbuns, enquanto desfrutam de uma experiência otimizada para colecionadores.
 
 ##Personas
-![Persona1](Anexos/Persona1-Joao_Silva.png)
+![Persona1](Anexos/Persona1JoaoSilva.png)
 
 ![Persona2](Anexos/Persona2-Maria_Costa.png)
 
