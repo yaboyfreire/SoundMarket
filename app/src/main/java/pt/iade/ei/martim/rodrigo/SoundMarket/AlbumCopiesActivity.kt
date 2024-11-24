@@ -39,7 +39,7 @@ fun AlbumCopies() {
     val scrollState = rememberScrollState()
 
     Column(modifier = Modifier.fillMaxSize()
-                              .verticalScroll(scrollState)) {
+        .verticalScroll(scrollState)) {
 
         // App Logo
         Image(
