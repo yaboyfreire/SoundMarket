@@ -144,6 +144,25 @@ As tarefas foram divididas de forma a garantir que os aspetos mais importantes e
 ## Diagrama de classes
 ![Diagrama de classes](Anexos/Diagramadeclasses.png)
 
+## Documentação Rest 
+Documentação da nossa API
+
+![Register](Anexos/API/Register.png)
+![RegisterExampleRequest](Anexos/API/RegisterExampleRequest.png)
+![Get_Login](Anexos/API/GetLogin.png)
+![Get_LoginExampleRequest](Anexos/API/GetLoginExampleRequest.png)
+
+Documentação da API do spotify
+
+![Get_Token](Anexos/API/GetToken.png)
+![Get_TokenExampleRequest](Anexos/API/GetTokenExampleRequest.png)
+![Get_AlbunsByName](Anexos/API/GetAlbunsByName.png)
+![Get_AlbunsByNameExampleRequest](Anexos/API/GetAlbunsByNameExampleRequest.png)
+![Get_TrackInfo](Anexos/API/GetTrackInfo.png)
+![Get_TrackInfoExampleRequest](Anexos/API/GetTrackInfoExampleRequest.png)
+![Get_NewReleases](Anexos/API/GetNewReleases.png)
+![Get_NewReleasesExampleRequest](Anexos/API/GetNewReleasesExampleRequest.png)
+
 ---
 ## Dicionário de dados
 ![Tabela_User](Anexos/BibliotecaDeDados/BD_USER.png)
