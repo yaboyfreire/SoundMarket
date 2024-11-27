@@ -1,6 +1,7 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -31,7 +32,8 @@ fun SearchBar(
             onSearchQueryChanged(newText.text)
         },
         modifier = Modifier
-            .size(width = 380.dp,height=60.dp),
+            .fillMaxWidth() // Make sure the search bar takes the full width
+            .padding(bottom = 16.dp), // Add padding at the bottom of the SearchBar
         shape = RoundedCornerShape(50.dp),
         placeholder = { Text(text = "Search") },
         singleLine = true,

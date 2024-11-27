@@ -4,51 +4,44 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.runtime.Composable
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.BottomAppBar
+import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.HomeTopBar
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.SearchBar
+import pt.iade.ei.martim.rodrigo.SoundMarket.viewmodel.NewReleasesCollectionViewModel
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
+import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.AlbumItem
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 class CollectionActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            val albums = listOf(
-                Album("Swimming", "Mac Miller", 2018),
-                Album("Nevermind", "Nirvana", 1991),
-                Album("DAMN.", "Kendrick Lamar", 2017),
-                Album("Dark Side of the Moon", "Pink Floyd", 1973),
-                Album("2014 Forest Hills Drive", "J. Cole", 2014),
-                Album("My Beautiful Dark Twisted Fantasy", "Kanye West", 2010)
-            )
 
-            var filteredAlbums by remember { mutableStateOf(albums) }
+        // Set content with the NewReleasesCollectionViewModel
+        setContent {
+            val newReleasesCollectionViewModel: NewReleasesCollectionViewModel = viewModel()  // Get the NewReleasesCollectionViewModel
+            val albums = newReleasesCollectionViewModel.albums.collectAsState().value  // Observe albums from the ViewModel
+
+            // Fetch new releases when the screen is first loaded
+            LaunchedEffect(Unit) {
+                val token = "Bearer BQCi07hKO1eotGgMRqfUxWOFHXytiAc1q2j0zVWVblr1fkfPax8S3ATZ2MYEmAnKxp_ht6i_anHYCwsjQ1oYVYNdxTS6Q6mmmAX4bvw0CEjEQDIWxzM" // Replace with your actual token
+                newReleasesCollectionViewModel.fetchNewReleases(token)
+            }
 
             CollectionScreen(
-                albums = filteredAlbums,
+                albums = albums,
                 onSearchQueryChange = { query ->
-                    filteredAlbums = if (query.isBlank()) {
-                        albums
-                    } else {
-                        albums.filter { it.title.contains(query, ignoreCase = true) }
-                    }
+                    // Handle search query if needed
                 },
                 onAddAlbumClick = {
                     // Redirect to AddAlbumActivity
@@ -68,117 +61,66 @@ class CollectionActivity : ComponentActivity() {
 @Composable
 fun CollectionScreen(
     albums: List<Album>,
+    onSearchQueryChange: (String) -> Unit,
     onAddAlbumClick: () -> Unit,
-    onGoToAlbumClick: () -> Unit,
-    onSearchQueryChange: (String) -> Unit
+    onGoToAlbumClick: (Album) -> Unit
 ) {
-    var searchQuery by remember { mutableStateOf("") }
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp)
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            // Collection title
-            Text(
-                text = "Freire's Collection",
-                style = MaterialTheme.typography.h5,
-                modifier = Modifier
-                    .padding(bottom = 16.dp, top = 16.dp)
-                    .align(Alignment.CenterHorizontally)
-            )
-
-            // Search bar
-            SearchBar(onSearchQueryChanged = { query ->
-                searchQuery = query
-                onSearchQueryChange(query)
-            })
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            // Scrollable list of albums with weight to make it fill remaining space
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-            ) {
-                items(albums) { album ->
-                    AlbumItem(album,onGoToAlbumClick)
-                }
-            }
-        }
-
-        // Floating action button for adding a new album
-        FloatingActionButton(
-            onClick = onAddAlbumClick,
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp),
-            backgroundColor = Color.Green
-        ) {
-            Icon(Icons.Default.Add, contentDescription = "Add Album")
-        }
-    }
-}
-
-@Composable
-fun AlbumItem(album: Album,onGoToAlbumClick: () -> Unit,) {
-
     val context = LocalContext.current
 
-    Column(
-
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
-            .background(Color.LightGray, shape = RoundedCornerShape(16.dp)) // Add rounded corners
-            .height(90.dp)
-            .clickable {
-                // Launch the AlbumActivity
-                val intent = Intent(context, AlbumActivity::class.java).apply {
-                    putExtra("ALBUM_TITLE", album.title)
-                    putExtra("ALBUM_ARTIST", album.artist)
-                    putExtra("ALBUM_YEAR", album.year)
+    Scaffold(
+        topBar = {
+            HomeTopBar { iconClicked ->
+                when (iconClicked) {
+                    "account" -> {
+                        val intent = Intent(context, ProfileViewActivity::class.java)
+                        context.startActivity(intent)
+                    }
+                    "notifications" -> { /* Handle notifications icon click */ }
+                    "settings" -> {
+                        val intent = Intent(context, SettingsActivity::class.java)
+                        context.startActivity(intent)
+                    }
                 }
-                context.startActivity(intent)
-                // Optionally call the passed callback
-                onGoToAlbumClick()
             }
-    ) {
-        Row {
+        },
+        bottomBar = {
+            BottomAppBar { iconClicked ->
+                when (iconClicked) {
+                    "home" -> { /* Handle home icon click */ }
+                    "add" -> {
+                        val intent = Intent(context, SellActivity::class.java)
+                        context.startActivity(intent)
+                    }
+                    "email" -> {
+                        val intent = Intent(context, InboxActivity::class.java)
+                        context.startActivity(intent)
+                    }
+                }
+            }
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .padding(horizontal = 16.dp),
+        ) {
 
+            SearchBar(onSearchQueryChanged = onSearchQueryChange)
 
-            Image(
-                painter = painterResource(id = R.drawable.latina),
-                contentDescription = "Profile Picture",
-                modifier = Modifier
-                    .size(90.dp)
-                    .padding(10.dp)
-            )
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 20.dp)
-            ) {
-                // Title with one line and ellipsis if too long
-                Text(
-                    text = album.title,
-                    style = MaterialTheme.typography.h6,
-                    maxLines = 1, // Limit to 1 line
-                    overflow = TextOverflow.Ellipsis, // "..." when text overflows
-                    modifier = Modifier.padding(top = 25.dp)
-                )
-
-                // Artist and year on one line, no overflow
-                Text(
-                    text = "${album.artist} • ${album.year}",
-                    style = MaterialTheme.typography.body2,
-                    modifier = Modifier.padding(top = 4.dp)
-                )
+            // If albums are loaded, display them
+            if (albums.isNotEmpty()) {
+                LazyColumn(
+                    contentPadding = PaddingValues(bottom = 56.dp)
+                ) {
+                    items(albums) { album ->
+                        AlbumItem(
+                            album = album,
+                            onGoToAlbumClick = { onGoToAlbumClick(album) }
+                        )
+                    }
+                }
+            } else {
+                Text("Loading albums...")
             }
         }
     }
@@ -186,36 +128,11 @@ fun AlbumItem(album: Album,onGoToAlbumClick: () -> Unit,) {
 
 @Preview(showBackground = true)
 @Composable
-fun CollectionActivityPreview() {
-    val albums = listOf(
-        Album("Swimming", "Mac Miller", 2018),
-        Album("Nevermind", "Nirvana", 1991),
-        Album("DAMN.", "Kendrick Lamar", 2017),
-        Album("Dark Side of the Moon", "Pink Floyd", 1973),
-        Album("2014 Forest Hills Drive", "J. Cole", 2014),
-        Album("My Beautiful Dark Twisted Fantasy", "Kanye West", 2010),
-
-        )
-    var filteredAlbums by remember { mutableStateOf(albums) }
-
+fun PreviewCollectionScreen() {
     CollectionScreen(
-        albums = filteredAlbums,
-        onSearchQueryChange = { query ->
-            filteredAlbums = if (query.isBlank()) {
-                albums
-            } else {
-                albums.filter { it.title.contains(query, ignoreCase = true) }
-            }
-        },
-        onAddAlbumClick = {
-
-
-        },
-        onGoToAlbumClick ={
-
-        }
-
+        albums = listOf(),
+        onSearchQueryChange = {},
+        onAddAlbumClick = {},
+        onGoToAlbumClick = {}
     )
 }
-
-data class Album(val title: String, val artist: String, val year: Int)

@@ -21,17 +21,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import pt.iade.ei.martim.rodrigo.SoundMarket.Album
+import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
 import pt.iade.ei.martim.rodrigo.SoundMarket.AlbumActivity
 import pt.iade.ei.martim.rodrigo.SoundMarket.R
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 
 @Composable
-fun AlbumItem(album: Album, onGoToAlbumClick: () -> Unit,) {
-
+fun AlbumItem(album: Album, onGoToAlbumClick: () -> Unit) {
     val context = LocalContext.current
 
     Column(
-
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
@@ -40,9 +40,9 @@ fun AlbumItem(album: Album, onGoToAlbumClick: () -> Unit,) {
             .clickable {
                 // Launch the AlbumActivity
                 val intent = Intent(context, AlbumActivity::class.java).apply {
-                    putExtra("ALBUM_TITLE", album.title)
-                    putExtra("ALBUM_ARTIST", album.artist)
-                    putExtra("ALBUM_YEAR", album.year)
+                    putExtra("ALBUM_TITLE", album.name)
+                    putExtra("ALBUM_ARTIST", album.artists.firstOrNull()?.name ?: "Unknown Artist")
+                    putExtra("ALBUM_YEAR", album.releaseDate)
                 }
                 context.startActivity(intent)
                 // Optionally call the passed callback
@@ -50,11 +50,11 @@ fun AlbumItem(album: Album, onGoToAlbumClick: () -> Unit,) {
             }
     ) {
         Row {
-
-
+            // Use Coil to load the album image dynamically
+            val imageUrl = album.images.firstOrNull()?.url ?: "" // Replace with the correct URL property from your Album model
             Image(
-                painter = painterResource(id = R.drawable.latina),
-                contentDescription = "Profile Picture",
+                painter = rememberAsyncImagePainter(imageUrl),
+                contentDescription = "Album Image",
                 modifier = Modifier
                     .size(90.dp)
                     .padding(10.dp)
@@ -67,7 +67,7 @@ fun AlbumItem(album: Album, onGoToAlbumClick: () -> Unit,) {
             ) {
                 // Title with one line and ellipsis if too long
                 Text(
-                    text = album.title,
+                    text = album.name,
                     style = MaterialTheme.typography.h6,
                     maxLines = 1, // Limit to 1 line
                     overflow = TextOverflow.Ellipsis, // "..." when text overflows
@@ -76,7 +76,7 @@ fun AlbumItem(album: Album, onGoToAlbumClick: () -> Unit,) {
 
                 // Artist and year on one line, no overflow
                 Text(
-                    text = "${album.artist} • ${album.year}",
+                    text = "${album.artists.firstOrNull()?.name ?: "Unknown Artist"} • ${album.releaseDate}",
                     style = MaterialTheme.typography.body2,
                     modifier = Modifier.padding(top = 4.dp)
                 )
@@ -85,18 +85,25 @@ fun AlbumItem(album: Album, onGoToAlbumClick: () -> Unit,) {
     }
 }
 
-
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun AlbumItemPreview() {
     AlbumItem(
         album = Album(
-            title = "Test Album",
-            artist = "Test Artist",
-            year = 2023
+            albumType = "album",
+            artists = listOf(Album.Artist("spotify_url", "href", "id", "Test Artist", "artist", "uri")),
+            availableMarkets = listOf("US", "UK"),
+            externalUrls = Album.ExternalUrls("spotify_url"),
+            href = "album_href",
+            id = "album_id",
+            images = listOf(Album.Image(200, "https://via.placeholder.com/90", 200)),
+            name = "Test Album",
+            releaseDate = "2023",
+            releaseDatePrecision = "day",
+            totalTracks = 10,
+            type = "album",
+            uri = "album_uri"
         ),
         onGoToAlbumClick = {}
     )
 }
-
-

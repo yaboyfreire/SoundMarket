@@ -32,7 +32,9 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun navigateToCollectionActivity() {
-        val intent = Intent(this, CollectionActivity::class.java)
+        val intent = Intent(this, CollectionActivity::class.java).apply {
+            putExtra("COLLECTION_TYPE", "NewReleases")
+        }
         startActivity(intent)
     }
 }
@@ -46,7 +48,7 @@ fun HomeScreen(onButtonClick: () -> Unit) {
 
     // Fetch new releases when the screen is first loaded
     LaunchedEffect(Unit) {
-        val token = "Bearer BQBkgvVlA4wbJ76VH6LtWJExYVK5kb7lYlfc4VVCAMx2VnHJXBPh0u-mtV3LUqvpqMg92T9c64ga45_nbn-48eyeFvH18MqxicXnzbzFbRYzdudL5s4" // Replace with your actual token
+        val token = "Bearer BQCi07hKO1eotGgMRqfUxWOFHXytiAc1q2j0zVWVblr1fkfPax8S3ATZ2MYEmAnKxp_ht6i_anHYCwsjQ1oYVYNdxTS6Q6mmmAX4bvw0CEjEQDIWxzM" // Replace with your actual token
         albumViewModel.fetchNewReleases(token)
     }
 

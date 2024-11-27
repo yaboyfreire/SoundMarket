@@ -6,13 +6,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.AlbumItem
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.SearchBar
 
@@ -21,14 +21,37 @@ class AddAlbumActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val defaultAlbums = listOf(
-                Album("To Pimp a Butterfly", "Kendrick Lamar", 2015),
-                Album("The Wall", "Pink Floyd", 1979),
-                Album("The Eminem Show", "Eminem", 2002),
-                Album("Lover", "Taylor Swift", 2019),
-                Album("Good Kid, M.A.A.D City", "Kendrick Lamar", 2012),
-                Album("1989", "Taylor Swift", 2014),
-                Album("Thriller", "Michael Jackson", 1982)
-
+                Album(
+                    albumType = "album",
+                    artists = listOf(Album.Artist("https://spotify.com", "href", "1", "Kendrick Lamar", "artist", "uri")),
+                    availableMarkets = listOf("US", "GB"),
+                    externalUrls = Album.ExternalUrls("https://spotify.com"),
+                    href = "https://api.spotify.com/v1/albums/1",
+                    id = "1",
+                    images = listOf(Album.Image(640, "https://link-to-image.jpg", 640)),
+                    name = "To Pimp a Butterfly",
+                    releaseDate = "2015-03-15",
+                    releaseDatePrecision = "day",
+                    totalTracks = 16,
+                    type = "album",
+                    uri = "spotify:album:1"
+                ),
+                Album(
+                    albumType = "album",
+                    artists = listOf(Album.Artist("https://spotify.com", "href", "2", "Pink Floyd", "artist", "uri")),
+                    availableMarkets = listOf("US", "GB"),
+                    externalUrls = Album.ExternalUrls("https://spotify.com"),
+                    href = "https://api.spotify.com/v1/albums/2",
+                    id = "2",
+                    images = listOf(Album.Image(640, "https://link-to-image2.jpg", 640)),
+                    name = "The Wall",
+                    releaseDate = "1979-11-30",
+                    releaseDatePrecision = "day",
+                    totalTracks = 26,
+                    type = "album",
+                    uri = "spotify:album:2"
+                )
+                // Add more albums as needed...
             )
 
             var filteredAlbums by remember { mutableStateOf(defaultAlbums) }
@@ -39,7 +62,7 @@ class AddAlbumActivity : ComponentActivity() {
                     filteredAlbums = if (query.isBlank()) {
                         defaultAlbums
                     } else {
-                        defaultAlbums.filter { it.title.contains(query, ignoreCase = true) }
+                        defaultAlbums.filter { it.name.contains(query, ignoreCase = true) }
                     }
                 }
             )
@@ -79,7 +102,6 @@ fun AddAlbumScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -97,12 +119,37 @@ fun AddAlbumScreen(
 @Composable
 fun AddAlbumActivityPreview() {
     val defaultAlbums = listOf(
-        Album("To Pimp a Butterfly", "Kendrick Lamar", 2015),
-        Album("The Wall", "Pink Floyd", 1979),
-        Album("The Eminem Show", "Eminem", 2002),
-        Album("Lover", "Taylor Swift", 2019),
-        Album("Good Kid, M.A.A.D City", "Kendrick Lamar", 2012),
-        Album("1989", "Taylor Swift", 2014),
+        Album(
+            albumType = "album",
+            artists = listOf(Album.Artist("https://spotify.com", "href", "1", "Kendrick Lamar", "artist", "uri")),
+            availableMarkets = listOf("US", "GB"),
+            externalUrls = Album.ExternalUrls("https://spotify.com"),
+            href = "https://api.spotify.com/v1/albums/1",
+            id = "1",
+            images = listOf(Album.Image(640, "https://link-to-image.jpg", 640)),
+            name = "To Pimp a Butterfly",
+            releaseDate = "2015-03-15",
+            releaseDatePrecision = "day",
+            totalTracks = 16,
+            type = "album",
+            uri = "spotify:album:1"
+        ),
+        Album(
+            albumType = "album",
+            artists = listOf(Album.Artist("https://spotify.com", "href", "2", "Pink Floyd", "artist", "uri")),
+            availableMarkets = listOf("US", "GB"),
+            externalUrls = Album.ExternalUrls("https://spotify.com"),
+            href = "https://api.spotify.com/v1/albums/2",
+            id = "2",
+            images = listOf(Album.Image(640, "https://link-to-image2.jpg", 640)),
+            name = "The Wall",
+            releaseDate = "1979-11-30",
+            releaseDatePrecision = "day",
+            totalTracks = 26,
+            type = "album",
+            uri = "spotify:album:2"
+        )
+        // Add more albums as needed...
     )
     var filteredAlbums by remember { mutableStateOf(defaultAlbums) }
 
@@ -112,7 +159,7 @@ fun AddAlbumActivityPreview() {
             filteredAlbums = if (query.isBlank()) {
                 defaultAlbums
             } else {
-                defaultAlbums.filter { it.title.contains(query, ignoreCase = true) }
+                defaultAlbums.filter { it.name.contains(query, ignoreCase = true) }
             }
         }
     )
