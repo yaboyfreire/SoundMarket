@@ -1,8 +1,7 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.State
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,25 +11,37 @@ import pt.iade.ei.martim.rodrigo.SoundMarket.repository.SpotifyRepository
 
 class NewReleasesCollectionViewModel : ViewModel() {
 
-    private val spotifyRepository = SpotifyRepository()  // Assuming you have this
+    private val spotifyRepository = SpotifyRepository()
 
-    // StateFlow to hold the albums list
     private val _albums = MutableStateFlow<List<Album>>(emptyList())
     val albums: StateFlow<List<Album>> = _albums
 
-    // Fetch new releases from Spotify using the repository
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage
+
     fun fetchNewReleases(token: String, limit: Int = 10) {
         viewModelScope.launch {
+            _isLoading.value = true
+            _errorMessage.value = null  // Reset error message on new request
             try {
-                val response = spotifyRepository.getNewReleases(token, limit)  // Call to the repository
+                val response = spotifyRepository.getNewReleases(token, limit)
                 if (response.isSuccessful) {
                     val newReleases = response.body()?.albums?.items ?: emptyList()
+
+                    // Log the new releases to check for releaseDate
+                    Log.d("NewReleasesViewModel", "New Releases: $newReleases")
+
                     _albums.value = newReleases  // Update the albums list
                 } else {
-                    // Handle unsuccessful response (e.g., show error)
+                    _errorMessage.value = "Error: ${response.message()}"
                 }
             } catch (e: Exception) {
-                // Handle network or other errors
+                _errorMessage.value = "Exception: ${e.message}"
+            } finally {
+                _isLoading.value = false
             }
         }
     }

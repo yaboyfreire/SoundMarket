@@ -30,9 +30,9 @@ class AddAlbumActivity : ComponentActivity() {
                     id = "1",
                     images = listOf(Album.Image(640, "https://link-to-image.jpg", 640)),
                     name = "To Pimp a Butterfly",
-                    releaseDate = "2015-03-15",
-                    releaseDatePrecision = "day",
-                    totalTracks = 16,
+                    release_date = "2015-03-15",
+                    release_date_precision = "day",
+                    total_tracks = 16,
                     type = "album",
                     uri = "spotify:album:1"
                 ),
@@ -45,9 +45,9 @@ class AddAlbumActivity : ComponentActivity() {
                     id = "2",
                     images = listOf(Album.Image(640, "https://link-to-image2.jpg", 640)),
                     name = "The Wall",
-                    releaseDate = "1979-11-30",
-                    releaseDatePrecision = "day",
-                    totalTracks = 26,
+                    release_date = "1979-11-30",
+                    release_date_precision = "day",
+                    total_tracks = 26,
                     type = "album",
                     uri = "spotify:album:2"
                 )
@@ -128,9 +128,9 @@ fun AddAlbumActivityPreview() {
             id = "1",
             images = listOf(Album.Image(640, "https://link-to-image.jpg", 640)),
             name = "To Pimp a Butterfly",
-            releaseDate = "2015-03-15",
-            releaseDatePrecision = "day",
-            totalTracks = 16,
+            release_date = "2015-03-15",
+            release_date_precision = "day",
+            total_tracks = 16,
             type = "album",
             uri = "spotify:album:1"
         ),
@@ -143,9 +143,9 @@ fun AddAlbumActivityPreview() {
             id = "2",
             images = listOf(Album.Image(640, "https://link-to-image2.jpg", 640)),
             name = "The Wall",
-            releaseDate = "1979-11-30",
-            releaseDatePrecision = "day",
-            totalTracks = 26,
+            release_date = "1979-11-30",
+            release_date_precision = "day",
+            total_tracks = 26,
             type = "album",
             uri = "spotify:album:2"
         )

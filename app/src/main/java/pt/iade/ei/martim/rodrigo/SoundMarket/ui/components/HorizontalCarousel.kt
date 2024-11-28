@@ -13,7 +13,6 @@ import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.ButtonText
 import androidx.compose.foundation.Image
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 
 
@@ -96,9 +95,9 @@ fun PreviewCarouselScreen() {
                 Album.Image(640, "https://via.placeholder.com/640", 640)
             ),
             name = "Album 1",
-            releaseDate = "2024-01-01",
-            releaseDatePrecision = "day",
-            totalTracks = 10,
+            release_date = "2024-01-01",
+            release_date_precision = "day",
+            total_tracks = 10,
             type = "album",
             uri = "spotify:album:album1"
         ),
@@ -123,9 +122,9 @@ fun PreviewCarouselScreen() {
                 Album.Image(640, "https://via.placeholder.com/640", 640)
             ),
             name = "Album 2",
-            releaseDate = "2024-02-01",
-            releaseDatePrecision = "day",
-            totalTracks = 12,
+            release_date = "2024-02-01",
+            release_date_precision = "day",
+            total_tracks = 12,
             type = "album",
             uri = "spotify:album:album2"
         )

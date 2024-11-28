@@ -17,14 +17,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import pt.iade.ei.martim.rodrigo.SoundMarket.AlbumActivity
-import pt.iade.ei.martim.rodrigo.SoundMarket.R
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 
 @Composable
@@ -42,7 +39,7 @@ fun AlbumItem(album: Album, onGoToAlbumClick: () -> Unit) {
                 val intent = Intent(context, AlbumActivity::class.java).apply {
                     putExtra("ALBUM_TITLE", album.name)
                     putExtra("ALBUM_ARTIST", album.artists.firstOrNull()?.name ?: "Unknown Artist")
-                    putExtra("ALBUM_YEAR", album.releaseDate)
+                    putExtra("ALBUM_YEAR", album.release_date)
                 }
                 context.startActivity(intent)
                 // Optionally call the passed callback
@@ -76,7 +73,7 @@ fun AlbumItem(album: Album, onGoToAlbumClick: () -> Unit) {
 
                 // Artist and year on one line, no overflow
                 Text(
-                    text = "${album.artists.firstOrNull()?.name ?: "Unknown Artist"} • ${album.releaseDate}",
+                    text = "${album.artists.firstOrNull()?.name ?: "Unknown Artist"} • ${album.release_date}",
                     style = MaterialTheme.typography.body2,
                     modifier = Modifier.padding(top = 4.dp)
                 )
@@ -98,9 +95,9 @@ fun AlbumItemPreview() {
             id = "album_id",
             images = listOf(Album.Image(200, "https://via.placeholder.com/90", 200)),
             name = "Test Album",
-            releaseDate = "2023",
-            releaseDatePrecision = "day",
-            totalTracks = 10,
+            release_date = "2023",
+            release_date_precision = "day",
+            total_tracks = 10,
             type = "album",
             uri = "album_uri"
         ),

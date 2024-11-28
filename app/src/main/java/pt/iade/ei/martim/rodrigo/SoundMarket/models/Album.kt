@@ -9,9 +9,9 @@ data class Album(
     val id: String,
     val images: List<Image>,
     val name: String,
-    val releaseDate: String,
-    val releaseDatePrecision: String,
-    val totalTracks: Int,
+    val release_date: String,
+    val release_date_precision: String,
+    val total_tracks: Int,
     val type: String,
     val uri: String
 ) {

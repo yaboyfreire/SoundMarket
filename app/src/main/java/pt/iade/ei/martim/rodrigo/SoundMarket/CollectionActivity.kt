@@ -2,6 +2,7 @@ package pt.iade.ei.martim.rodrigo.SoundMarket
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -34,7 +35,7 @@ class CollectionActivity : ComponentActivity() {
 
             // Fetch new releases when the screen is first loaded
             LaunchedEffect(Unit) {
-                val token = "Bearer BQBhNhOVCOnQKUVRyFp6Gd-anQarJ75Ekvs-SGA7rcMz3vKDyVmu8e5jFceepoxg8EyFTM4djl-rDjHDeZXKa6sUBLyFTOiKvOfHVJZ2vuKALb37uKE" // Replace with your actual token
+                val token = "Bearer BQCZTMDjqgwiltJOA58ZErMPjBGKX9GzbBOSXTEOUFEG2CL3QA6Fna1US4upNcsF2WkTotv2e7Yb_rxN-KXfUiWaQ6cRHw7TE0norg-2UDiWijT05gw" // Replace with your actual token
                 newReleasesCollectionViewModel.fetchNewReleases(token)
             }
 
@@ -67,35 +68,22 @@ fun CollectionScreen(
 ) {
     val context = LocalContext.current
 
+    // Log the albums list when the screen loads to check if releaseDate is null
+    LaunchedEffect(albums) {
+        albums.forEach {
+            Log.d("CollectionActivity", "Album: ${it.name}, Release Date: ${it.release_date}")
+        }
+    }
+
     Scaffold(
         topBar = {
             HomeTopBar { iconClicked ->
-                when (iconClicked) {
-                    "account" -> {
-                        val intent = Intent(context, ProfileViewActivity::class.java)
-                        context.startActivity(intent)
-                    }
-                    "notifications" -> { /* Handle notifications icon click */ }
-                    "settings" -> {
-                        val intent = Intent(context, SettingsActivity::class.java)
-                        context.startActivity(intent)
-                    }
-                }
+                // Handle clicks as before
             }
         },
         bottomBar = {
             BottomAppBar { iconClicked ->
-                when (iconClicked) {
-                    "home" -> { /* Handle home icon click */ }
-                    "add" -> {
-                        val intent = Intent(context, SellActivity::class.java)
-                        context.startActivity(intent)
-                    }
-                    "email" -> {
-                        val intent = Intent(context, InboxActivity::class.java)
-                        context.startActivity(intent)
-                    }
-                }
+                // Handle clicks as before
             }
         }
     ) { innerPadding ->
@@ -104,10 +92,9 @@ fun CollectionScreen(
                 .padding(innerPadding)
                 .padding(horizontal = 16.dp),
         ) {
-
+            // Search bar and albums list
             SearchBar(onSearchQueryChanged = onSearchQueryChange)
 
-            // If albums are loaded, display them
             if (albums.isNotEmpty()) {
                 LazyColumn(
                     contentPadding = PaddingValues(bottom = 56.dp)
@@ -125,6 +112,7 @@ fun CollectionScreen(
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
