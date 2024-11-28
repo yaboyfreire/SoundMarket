@@ -19,3 +19,14 @@ object RetrofitClient {
         retrofitInstance.create(SpotifyApiService::class.java)
     }
 }
+
+object RetrofitClientSoundMarket {
+    private const val BASE_URL = "http://192.168.56.1:8080"
+
+    val instance: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+}

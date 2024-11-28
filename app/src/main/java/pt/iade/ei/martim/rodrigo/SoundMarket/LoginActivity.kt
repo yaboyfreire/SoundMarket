@@ -25,6 +25,10 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.AuthService
+import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.RetrofitClientSoundMarket
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.LoginRequestDTO
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.ResponseDTO
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +49,9 @@ fun LoginScreen(onTextClick: () -> Unit) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var loginError by remember { mutableStateOf("") }
+    val context = LocalContext.current
+    val authService = RetrofitClientSoundMarket.instance.create(AuthService::class.java)
 
     Column(
         modifier = Modifier
@@ -95,14 +102,42 @@ fun LoginScreen(onTextClick: () -> Unit) {
             }
         )
 
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
-        val context = LocalContext.current
+        if (loginError.isNotEmpty()) {
+            Text(
+                text = loginError,
+                color = Color.Red,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
+            )
+        }
+
+        Spacer(modifier = Modifier.height(50.dp))
 
         // Login Button
         Button(
-            onClick = {val intent = Intent(context, MainActivity::class.java)
-                context.startActivity(intent) },
+            onClick = {
+                authService.login(LoginRequestDTO(email, password)).enqueue(object : retrofit2.Callback<ResponseDTO> {
+                    override fun onResponse(
+                        call: retrofit2.Call<ResponseDTO>,
+                        response: retrofit2.Response<ResponseDTO>
+                    ) {
+                        if (response.isSuccessful) {
+                            val token = response.body()?.token
+                            // Save token and navigate
+                            val intent = Intent(context, MainActivity::class.java)
+                            context.startActivity(intent)
+                        } else {
+                            loginError = "Login failed: ${response.code()}"
+                        }
+                    }
+
+                    override fun onFailure(call: retrofit2.Call<ResponseDTO>, t: Throwable) {
+                        loginError = "Network error: ${t.message}"
+                    }
+                })
+            },
             modifier = Modifier.size(300.dp, 48.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black),
             shape = RoundedCornerShape(30)
@@ -125,6 +160,7 @@ fun LoginScreen(onTextClick: () -> Unit) {
         Spacer(modifier = Modifier.height(200.dp))
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
