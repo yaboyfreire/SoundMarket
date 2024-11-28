@@ -1,6 +1,5 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff
 
-
 import pt.iade.ei.martim.rodrigo.SoundMarket.network.SpotifyApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,7 +20,8 @@ object RetrofitClient {
 }
 
 object RetrofitClientSoundMarket {
-    private const val BASE_URL = "http://192.168.56.1:8080"
+    // Replace this with the correct IP address of your development machine
+    private const val BASE_URL = "http://10.72.159.251:8080"  // Corrected IP address
 
     val instance: Retrofit by lazy {
         Retrofit.Builder()
