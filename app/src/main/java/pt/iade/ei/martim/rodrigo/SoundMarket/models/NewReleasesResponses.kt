@@ -4,6 +4,4 @@ data class NewReleasesResponse(
     val albums: Albums
 )
 
-data class Albums(
-    val items: List<Album>
-)
+

@@ -3,6 +3,7 @@ package pt.iade.ei.martim.rodrigo.SoundMarket
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.DatePicker
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -42,6 +43,7 @@ import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.RetrofitClientSoundMarket
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.LoginRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.RegisterRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.ResponseDTO
+import retrofit2.Call
 import java.util.Calendar
 
 class RegisterActivity : ComponentActivity() {
@@ -262,22 +264,24 @@ fun RegisterScreen(onTextClick: () -> Unit) {
             // Register Button
             Button(
                 onClick = { authService.register(RegisterRequestDTO(email,password,name,selectedGender,username,selectedCountry)).enqueue(object : retrofit2.Callback<ResponseDTO> {
-                    override fun onResponse(
-                        call: retrofit2.Call<ResponseDTO>,
-                        response: retrofit2.Response<ResponseDTO>
-                    ) {
+                    override fun onResponse(call: Call<ResponseDTO>, response: retrofit2.Response<ResponseDTO>) {
                         if (response.isSuccessful) {
                             val token = response.body()?.token
                             // Save token and navigate
                             val intent = Intent(context, MainActivity::class.java)
                             context.startActivity(intent)
                         } else {
-                            registerError = "Register failed: ${response.code()}"
+                            // Log the error for debugging purposes
+                            registerError = "Register failed: ${response.code()} - ${response.message()}"
+                            response.errorBody()?.let {
+                                // Optionally, you can also parse the error body to show more specific errors
+                                Log.e("RegisterError", it.string())
+                            }
                         }
                     }
 
-                    override fun onFailure(call: retrofit2.Call<ResponseDTO>, t: Throwable) {
-                        registerError = "Network error: ${t.message}"
+                    override fun onFailure(call: Call<ResponseDTO>, t: Throwable) {
+                        registerError = "Network error: ${t.localizedMessage}"
                     }
                 })},
                 modifier = Modifier.size(300.dp, 48.dp),

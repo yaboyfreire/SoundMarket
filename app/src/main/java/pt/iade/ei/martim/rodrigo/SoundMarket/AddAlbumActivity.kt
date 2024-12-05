@@ -51,7 +51,7 @@ class AddAlbumActivity : ComponentActivity() {
                     type = "album",
                     uri = "spotify:album:2"
                 )
-                // Add more albums as needed...
+                // Add more albums as needed
             )
 
             var filteredAlbums by remember { mutableStateOf(defaultAlbums) }
@@ -95,10 +95,12 @@ fun AddAlbumScreen(
             )
 
             // Search bar
-            SearchBar(onSearchQueryChanged = { query ->
-                searchQuery = query
-                onSearchQueryChange(query)
-            })
+            SearchBar(
+                onSearchQueryChanged = { query ->
+                    searchQuery = query
+                    onSearchQueryChange(query) // Update the parent with the query
+                }
+            )
 
             Spacer(modifier = Modifier.height(8.dp))
 

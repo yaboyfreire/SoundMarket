@@ -8,8 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -22,35 +21,33 @@ import pt.iade.ei.martim.rodrigo.SoundMarket.viewmodel.NewReleasesCollectionView
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.AlbumItem
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.room.util.query
 
 class CollectionActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Set content with the NewReleasesCollectionViewModel
         setContent {
-            val newReleasesCollectionViewModel: NewReleasesCollectionViewModel = viewModel()  // Get the NewReleasesCollectionViewModel
-            val albums = newReleasesCollectionViewModel.albums.collectAsState().value  // Observe albums from the ViewModel
+            val newReleasesCollectionViewModel: NewReleasesCollectionViewModel = viewModel()
+            val albums by newReleasesCollectionViewModel.albums.collectAsState(initial = emptyList())
+            var searchQuery by remember { mutableStateOf("") }  // Manage search query state
 
             // Fetch new releases when the screen is first loaded
             LaunchedEffect(Unit) {
-                val token = "Bearer BQCZTMDjqgwiltJOA58ZErMPjBGKX9GzbBOSXTEOUFEG2CL3QA6Fna1US4upNcsF2WkTotv2e7Yb_rxN-KXfUiWaQ6cRHw7TE0norg-2UDiWijT05gw" // Replace with your actual token
+                val token = "Bearer BQC_moOmtD4BSJhAZaJOfaxWmCv0Uh0c2LN_yc_mAfwJOdGo_AYcJK3raQOYG4hIsx_AZ_GK1gP-EYh4JRC1Wc02u9Fowh2kARy3TC9aWHxGujE7esc"
                 newReleasesCollectionViewModel.fetchNewReleases(token)
             }
 
             CollectionScreen(
                 albums = albums,
-                onSearchQueryChange = { query ->
-                    // Handle search query if needed
-                },
+                query = searchQuery,  // Pass searchQuery to CollectionScreen
+                onSearchQueryChange = { query -> searchQuery = query },  // Update search query state
                 onAddAlbumClick = {
-                    // Redirect to AddAlbumActivity
                     val intent = Intent(this, AddAlbumActivity::class.java)
                     startActivity(intent)
                 },
                 onGoToAlbumClick = {
-                    // Redirect to GoToAlbumActivity
                     val intent = Intent(this, AlbumActivity::class.java)
                     startActivity(intent)
                 }
@@ -62,44 +59,36 @@ class CollectionActivity : ComponentActivity() {
 @Composable
 fun CollectionScreen(
     albums: List<Album>,
+    query: String,  // Use query passed from CollectionActivity
     onSearchQueryChange: (String) -> Unit,
     onAddAlbumClick: () -> Unit,
     onGoToAlbumClick: (Album) -> Unit
 ) {
-    val context = LocalContext.current
-
-    // Log the albums list when the screen loads to check if releaseDate is null
-    LaunchedEffect(albums) {
-        albums.forEach {
-            Log.d("CollectionActivity", "Album: ${it.name}, Release Date: ${it.release_date}")
-        }
-    }
+    val filteredAlbums = albums.filter { it.name.contains(query, ignoreCase = true) } // Filter albums by query
 
     Scaffold(
         topBar = {
-            HomeTopBar { iconClicked ->
-                // Handle clicks as before
-            }
+            HomeTopBar { iconClicked -> /* Handle clicks as before */ }
         },
         bottomBar = {
-            BottomAppBar { iconClicked ->
-                // Handle clicks as before
-            }
+            BottomAppBar { iconClicked -> /* Handle clicks as before */ }
         }
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding)
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 16.dp)
         ) {
-            // Search bar and albums list
-            SearchBar(onSearchQueryChanged = onSearchQueryChange)
+            // Pass the query and search change handler to the SearchBar
+            SearchBar(onSearchQueryChanged = { newQuery ->
+                onSearchQueryChange(newQuery) // Update the search query in CollectionActivity
+            })
 
-            if (albums.isNotEmpty()) {
+            if (filteredAlbums.isNotEmpty()) {
                 LazyColumn(
                     contentPadding = PaddingValues(bottom = 56.dp)
                 ) {
-                    items(albums) { album ->
+                    items(filteredAlbums) { album ->
                         AlbumItem(
                             album = album,
                             onGoToAlbumClick = { onGoToAlbumClick(album) }
@@ -114,13 +103,3 @@ fun CollectionScreen(
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewCollectionScreen() {
-    CollectionScreen(
-        albums = listOf(),
-        onSearchQueryChange = {},
-        onAddAlbumClick = {},
-        onGoToAlbumClick = {}
-    )
-}
