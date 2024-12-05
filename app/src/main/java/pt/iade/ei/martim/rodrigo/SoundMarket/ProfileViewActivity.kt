@@ -1,6 +1,5 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
-
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -19,26 +18,46 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.ui.platform.LocalContext
-
-
-//IMPORTANT THIS IS ONLY THE UI,MOST OF THE INFORMATION DISPLAYED HERE WILL BE RECEIVED THROUGH THE DATABASE
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
+import HorizontalCarousel
+import androidx.compose.ui.tooling.preview.Preview
 
 class ProfileViewActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Dummy data for albums
+        val dummyAlbums = listOf(
+            Album(
+                albumType = "album",
+                artists = listOf(Album.Artist(name = "Artist 1")),
+                images = listOf(Album.Image(url = "https://via.placeholder.com/300")),
+                name = "Album 1",
+                release_date = "2024-01-01"
+            ),
+            Album(
+                albumType = "album",
+                artists = listOf(Album.Artist(name = "Artist 2")),
+                images = listOf(Album.Image(url = "https://via.placeholder.com/300")),
+                name = "Album 2",
+                release_date = "2024-02-01"
+            )
+        )
+
         setContent {
-            ProfileScreen(onClick = { navigateToEditProfileActivity() })
+            ProfileScreen(
+                onClick = { navigateToEditProfileActivity() },
+                albums = dummyAlbums
+            )
         }
     }
-
 
     private fun navigateToEditProfileActivity() {
         val intent = Intent(this, EditProfileActivity::class.java)
@@ -47,7 +66,7 @@ class ProfileViewActivity : ComponentActivity() {
 }
 
 @Composable
-fun ProfileScreen(onClick: () -> Unit) {
+fun ProfileScreen(onClick: () -> Unit, albums: List<Album>) {
     val scrollState = rememberScrollState()
     val context = LocalContext.current
 
@@ -110,10 +129,9 @@ fun ProfileScreen(onClick: () -> Unit) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Collection, Wishlist, and Selling sections
-        //Filters the results from the table(Collection,WishList,Selling)
+        // Carousel Sections
         HorizontalCarousel(
-            items = listOf("Swimming", "2014 Forest Hills Drive", "DAMN"),
+            albums = albums,
             text = "Collection",
             onButtonClick = {
                 val intent = Intent(context, CollectionActivity::class.java)
@@ -122,20 +140,18 @@ fun ProfileScreen(onClick: () -> Unit) {
         )
 
         HorizontalCarousel(
-            items = listOf("DAMN"),
+            albums = albums.take(1), // Example for Wishlist
             text = "Wishlist",
             onButtonClick = {
-                val intent = Intent(context, CollectionActivity::class.java)  // Adjusted to open WishlistActivity
-                context.startActivity(intent)
+
             }
         )
 
         HorizontalCarousel(
-            items = listOf("Something"),
+            albums = albums.take(1), // Example for Selling
             text = "Selling",
             onButtonClick = {
-                val intent = Intent(context, CollectionActivity::class.java)  // Adjusted to open SellingActivity
-                context.startActivity(intent)
+
             }
         )
     }
@@ -145,5 +161,24 @@ fun ProfileScreen(onClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun ProfileScreenPreview() {
-    ProfileScreen(onClick = { /* Preview click handler */ })
+    // Create dummy albums for the preview
+    val dummyAlbums = listOf(
+        Album(
+            albumType = "album",
+            artists = listOf(Album.Artist(name = "Artist 1")),
+            images = listOf(Album.Image(url = "https://via.placeholder.com/300")),
+            name = "Album 1",
+            release_date = "2024-01-01"
+        ),
+        Album(
+            albumType = "album",
+            artists = listOf(Album.Artist(name = "Artist 2")),
+            images = listOf(Album.Image(url = "https://via.placeholder.com/300")),
+            name = "Album 2",
+            release_date = "2024-02-01"
+        )
+    )
+
+    // Pass the dummy albums to ProfileScreen
+    ProfileScreen(albums = dummyAlbums, onClick = { /* Preview click handler */ })
 }

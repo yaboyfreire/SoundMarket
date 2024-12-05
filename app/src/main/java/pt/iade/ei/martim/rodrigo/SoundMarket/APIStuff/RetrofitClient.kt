@@ -18,10 +18,9 @@ object RetrofitClient {
         retrofitInstance.create(SpotifyApiService::class.java)
     }
 }
-
 object RetrofitClientSoundMarket {
     // Replace this with the correct IP address of your development machine
-    private const val BASE_URL = "http://192.168.1.102:8080"  // Corrected IP address
+    private const val BASE_URL = "http://10.36.226.128:8080"
 
     val instance: Retrofit by lazy {
         Retrofit.Builder()

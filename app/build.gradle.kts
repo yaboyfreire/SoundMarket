@@ -83,5 +83,4 @@ dependencies {
     implementation(libs.androidx.activity.compose.v170)
     implementation (libs.okhttp3.logging.interceptor)
 
-
 }

@@ -43,7 +43,7 @@ fun CarouselItem(album: Album) {
     Card(
         modifier = Modifier
             .width(160.dp)
-            .height(200.dp), // Adjusted height for album details
+            .height(180.dp), // Adjusted height for album details
         shape = RoundedCornerShape(20.dp)
     ) {
         Column(
