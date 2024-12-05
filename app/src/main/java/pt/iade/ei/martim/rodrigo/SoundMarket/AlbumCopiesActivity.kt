@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import pt.iade.ei.martim.rodrigo.SoundMarket.MainActivity
 import pt.iade.ei.martim.rodrigo.SoundMarket.R
+import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.AlbumCopiesCard
 
 
 class AlbumCopiesActivity : ComponentActivity() {
@@ -52,86 +53,22 @@ fun AlbumCopies() {
 
         // Album list section
         Column(modifier = Modifier.padding(16.dp)) {
-            repeat(7) {
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    shape = RoundedCornerShape(8.dp),
-                    elevation = 4.dp
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        // Image Section
-                        Image(
-                            painter = painterResource(id = R.drawable.latina),
-                            contentDescription = "Album Cover",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .size(80.dp)
-                                .padding(end = 8.dp)
-                        )
+                AlbumCopiesCard()
 
-                        Column(
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(
-                                text = "Condition: Good",
-                                fontWeight = FontWeight.Bold,
-                                color = Color.Blue,
-                                fontSize = 16.sp
-                            )
-                            Spacer(modifier = Modifier.height(4.dp))
-                            Text(
-                                text = "Plays very well",
-                                fontSize = 14.sp,
-                                color = Color.Gray
-                            )
-                        }
 
-                        // Buttons and additional image section
-                        val context = LocalContext.current
 
-                        Column(
-                            modifier = Modifier
-                                .padding(start = 8.dp)
-                        ) {
-                            Button(
-                                onClick = {val intent = Intent(context, ChatActivity::class.java)
-                                    context.startActivity(intent) },
-                                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green),
-                                modifier = Modifier
-                                    .size(150.dp, 35.dp)
-                            ) {
-                                Text(
-                                    text = "Talk With Seller",
-                                    color = Color.White,
-                                    fontSize = 14.sp
-                                )
-                            }
 
-                            Spacer(modifier = Modifier.height(4.dp))
-
-                            Image(
-                                painter = painterResource(id = R.drawable.account_circle),
-                                contentDescription = "Additional Image",
-                                modifier = Modifier.size(20.dp)
-                                    .align(Alignment.End)
-                            )
-                        }
-                    }
-                }
-            }
         }
     }
 }
 
+
+
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewAlbumCopies() {
-    AlbumCopies()
+    AlbumCopies(
+    )
+
 }
