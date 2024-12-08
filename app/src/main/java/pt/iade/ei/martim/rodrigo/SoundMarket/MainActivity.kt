@@ -17,7 +17,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.BottomAppBar
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.HomeTopBar
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.SearchBar
-import pt.iade.ei.martim.rodrigo.SoundMarket.viewmodel.AlbumViewModel
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels.AlbumViewModel
 import GridItem
 import HorizontalCarousel
 import android.annotation.SuppressLint
@@ -48,7 +48,7 @@ fun HomeScreen(onButtonClick: () -> Unit) {
 
     // Fetch new releases when the screen is first loaded
     LaunchedEffect(Unit) {
-        val token = "Bearer BQBK-dtSgWA8oyD1V77S0RaQ1NV-7wvIh8hhrwc4_GU9Jj5qtFug0FxjYfUPCIIdtcGVpDA1sJJlGotXsQ89yjIt1ELP6_29YFXa3YHTZzQaO-C7HaY" // Replace with your actual token
+        val token = "Bearer BQCShJ8w4y3j1EV-eDrZXfRwG2j6yPR5FeIdBN1AKlFPTnYX8ZdsQcDflxay4--wJgeW8egeOxLrNeTJbekXRXxrJo-_Kydaibc5EeyyMfZBtkIfPL4" // Replace with your actual token
         albumViewModel.fetchNewReleases(token)
     }
 

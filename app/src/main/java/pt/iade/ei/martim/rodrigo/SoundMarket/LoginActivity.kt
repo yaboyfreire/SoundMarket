@@ -2,6 +2,7 @@ package pt.iade.ei.martim.rodrigo.SoundMarket
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -29,12 +30,20 @@ import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.AuthService
 import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.RetrofitClientSoundMarket
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.LoginRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.ResponseDTO
+import pt.iade.ei.martim.rodrigo.SoundMarket.utils.SessionManager
 
 class LoginActivity : ComponentActivity() {
+
+    private lateinit var sessionManager: SessionManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        sessionManager = SessionManager(this) // Initialize session manager
+
         setContent {
-            LoginScreen(onTextClick = { navigateToRegisterActivity() })
+            // Pass the sessionManager to the composable
+            LoginScreen(onTextClick = { navigateToRegisterActivity() }, sessionManager = sessionManager)
         }
     }
 
@@ -45,7 +54,7 @@ class LoginActivity : ComponentActivity() {
 }
 
 @Composable
-fun LoginScreen(onTextClick: () -> Unit) {
+fun LoginScreen(onTextClick: () -> Unit, sessionManager: SessionManager) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
@@ -125,9 +134,21 @@ fun LoginScreen(onTextClick: () -> Unit) {
                     ) {
                         if (response.isSuccessful) {
                             val token = response.body()?.token
-                            // Save token and navigate
-                            val intent = Intent(context, MainActivity::class.java)
-                            context.startActivity(intent)
+                            val userId = response.body()?.userId
+
+                            if (token != null && userId != null) {
+                                // Save token and userId in SessionManager
+                                sessionManager.saveAuthToken(token)
+                                sessionManager.saveUserId(userId) // Save the userId received from the backend
+
+                                Log.d("Login", "Token: $token, User ID: $userId")
+
+                                // Proceed to the MainActivity after login
+                                val intent = Intent(context, MainActivity::class.java)
+                                context.startActivity(intent)
+                            } else {
+                                loginError = "Login failed: Missing token or user ID"
+                            }
                         } else {
                             loginError = "Login failed: ${response.code()}"
                         }
@@ -165,5 +186,8 @@ fun LoginScreen(onTextClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewLoginScreen() {
-    LoginScreen(onTextClick = { /* Preview click handler */ })
+    // Pass the sessionManager to the preview
+    val sessionManager = SessionManager(LocalContext.current)
+    LoginScreen(onTextClick = { /* Preview click handler */ }, sessionManager = sessionManager)
 }
+

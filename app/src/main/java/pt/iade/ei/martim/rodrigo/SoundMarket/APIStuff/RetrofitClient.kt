@@ -19,8 +19,7 @@ object RetrofitClient {
     }
 }
 object RetrofitClientSoundMarket {
-    // Replace this with the correct IP address of your development machine
-    private const val BASE_URL = "http://10.36.226.128:8080"
+    private const val BASE_URL = "http://192.168.1.102:8080"
 
     val instance: Retrofit by lazy {
         Retrofit.Builder()
@@ -28,4 +27,9 @@ object RetrofitClientSoundMarket {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
+    val authService: AuthService by lazy {
+        instance.create(AuthService::class.java)
+    }
+
 }
