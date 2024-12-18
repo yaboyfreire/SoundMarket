@@ -89,7 +89,7 @@ fun ProfileScreen(onClick: () -> Unit, albums: List<Album>) {
                 contentAlignment = Alignment.BottomEnd
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.latina),
+                    painter = painterResource(id = R.drawable.defaultpfp),
                     contentDescription = "Profile Picture",
                     modifier = Modifier
                         .size(150.dp)

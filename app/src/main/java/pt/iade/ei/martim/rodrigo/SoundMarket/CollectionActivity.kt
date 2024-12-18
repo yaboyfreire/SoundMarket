@@ -21,7 +21,7 @@ import pt.iade.ei.martim.rodrigo.SoundMarket.viewmodel.NewReleasesCollectionView
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.AlbumItem
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.room.util.query
+
 
 class CollectionActivity : ComponentActivity() {
 
@@ -35,7 +35,7 @@ class CollectionActivity : ComponentActivity() {
 
             // Fetch new releases when the screen is first loaded
             LaunchedEffect(Unit) {
-                val token = "Bearer BQBK-dtSgWA8oyD1V77S0RaQ1NV-7wvIh8hhrwc4_GU9Jj5qtFug0FxjYfUPCIIdtcGVpDA1sJJlGotXsQ89yjIt1ELP6_29YFXa3YHTZzQaO-C7HaY"
+                val token = "Bearer BQCNbB81uYvLSsROby0NaPCM1E159niIcCloQt0TYBOyAKd4_Lstk6kwF7GWQxqjpMIhb505CxeolsJJ9b6UYBYOA5fIhfkmERGb23qkkkggK_NK2tk"
                 newReleasesCollectionViewModel.fetchNewReleases(token)
             }
 
