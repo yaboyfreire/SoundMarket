@@ -1,4 +1,4 @@
-package pt.iade.ei.martim.rodrigo.SoundMarket.viewmodel
+package pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
