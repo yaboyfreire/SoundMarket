@@ -32,4 +32,21 @@ class AlbumViewModel : ViewModel() {
             }
         }
     }
+
+    // Fetch albums based on a genre
+    fun fetchAlbumsByGenre(token: String, genreName: String) {
+        viewModelScope.launch {
+            try {
+                val response = spotifyRepository.searchAlbums(token, genreName)  // Call to the repository
+                if (response.isSuccessful) {
+                    val albumsByGenre = response.body()?.albums?.items ?: emptyList()
+                    _albums.value = albumsByGenre  // Update the albums list
+                } else {
+                    // Handle unsuccessful response (e.g., show error)
+                }
+            } catch (e: Exception) {
+                // Handle network or other errors
+            }
+        }
+    }
 }

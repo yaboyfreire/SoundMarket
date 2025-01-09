@@ -101,7 +101,7 @@ fun EditProfileScreen() {
 
         ) {
             Image(
-                painter = painterResource(id = R.drawable.latina),
+                painter = painterResource(id = R.drawable.defaultpfp),
                 contentDescription = "Profile Picture",
                 modifier = Modifier
                     .size(150.dp)

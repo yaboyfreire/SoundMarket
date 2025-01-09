@@ -2,6 +2,7 @@ package pt.iade.ei.martim.rodrigo.SoundMarket
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -10,14 +11,17 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.BottomAppBar
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.HomeTopBar
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.SearchBar
-import pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels.NewReleasesCollectionViewModel
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.AlbumItem
 import androidx.lifecycle.viewmodel.compose.viewModel
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels.NewReleasesCollectionViewModel
+
 
 class CollectionActivity : ComponentActivity() {
 
@@ -31,7 +35,7 @@ class CollectionActivity : ComponentActivity() {
 
             // Fetch new releases when the screen is first loaded
             LaunchedEffect(Unit) {
-                val token = "Bearer BQCWd2x1qm0oqFLJyQ-Y4hUFXaWaA2Abmo4cJFDAetDxWijIY7c6qAJiz9f5Eq8fTKA1Har7vTxCafOa49ea1IXG2c9YOnOitNjp6cqVlffVzj7FpZM"
+                val token = "Bearer BQAay7OufkW4jNgJZIl1MJ-hQmyQd39EnqCWJKXNrcdnYX_SX9G5Qh5qjIGh81NhW9OS-FCAiFhsDPoVdIhN27l43b4356gsIsfDMRSH5wRCS47nqiU"
                 newReleasesCollectionViewModel.fetchNewReleases(token)
             }
 
