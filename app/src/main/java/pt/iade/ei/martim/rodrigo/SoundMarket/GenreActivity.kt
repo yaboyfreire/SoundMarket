@@ -1,7 +1,7 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -15,10 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,8 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
-import pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels.AlbumViewModel
-import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
+import pt.iade.ei.martim.rodrigo.SoundMarket.R
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels.PlaylistViewModel
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.Playlist
 
 class GenreActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +35,12 @@ class GenreActivity : ComponentActivity() {
         val genreId = intent.getStringExtra("GENRE_ID") ?: ""
         val genreName = intent.getStringExtra("GENRE_NAME") ?: ""
 
+        if (genreId.isEmpty() || genreName.isEmpty()) {
+            Log.e("GenreActivity", "Genre ID or Genre Name missing!")
+            return
+        }
+
         setContent {
-            // Pass genreId and genreName as parameters to GenreScreen
             GenreScreen(genreId = genreId, genreName = genreName)
         }
     }
@@ -46,38 +48,27 @@ class GenreActivity : ComponentActivity() {
 
 @Composable
 fun GenreScreen(genreId: String, genreName: String) {
-    val context = LocalContext.current
+    val playlistViewModel: PlaylistViewModel = viewModel()
+    val playlist = playlistViewModel.playlist.value
 
-    // Access the AlbumViewModel
-    val albumViewModel: AlbumViewModel = viewModel()
-    val albums = albumViewModel.albums.value
+    // Fetch the playlist when genreId changes
+    LaunchedEffect(genreId) {
+        val token = "Bearer BQAy5039FuyxfUTQFXV6ZYpgapYEOtDOjSzfkF3xLW0MSfi36Vx_vBu6PJf2y4HdUg3RSQILBdqFPm5opHRuc_obeMz734wUUz5r7Y7zauYbJ19ChYI" // Replace with your actual token
 
-    // Fetch albums for the specific genre
-    LaunchedEffect(genreName) {
-        val token = "Bearer BQAay7OufkW4jNgJZIl1MJ-hQmyQd39EnqCWJKXNrcdnYX_SX9G5Qh5qjIGh81NhW9OS-FCAiFhsDPoVdIhN27l43b4356gsIsfDMRSH5wRCS47nqiU" // Replace with your actual token
-        albumViewModel.fetchAlbumsByGenre(token, genreName)
+        // Check if the token is valid before making the request
+        if (token.isNotEmpty()) {
+            val playlistId = getPlaylistIdForGenre(genreId)
+            playlistViewModel.getPlaylist(token, playlistId)
+        } else {
+            Log.e("GenreScreen", "Token is empty or invalid!")
+        }
     }
 
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())  // Making the page scrollable
-    ){
-        // App Header
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = "App Logo",
-                modifier = Modifier
-                    .size(300.dp, 130.dp)
-                    .fillMaxWidth(),
-            )
-        }
-
+            .verticalScroll(rememberScrollState()) // Making the page scrollable
+    ) {
         // Genre Name
         Text(
             text = genreName,
@@ -86,131 +77,96 @@ fun GenreScreen(genreId: String, genreName: String) {
             modifier = Modifier.padding(16.dp)
         )
 
-        // Trending Carousel
-        Text(
-            text = "Trending",
-            fontSize = 25.sp,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(start = 24.dp, end = 24.dp)
-        )
-        Divider(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            thickness = 1.dp,
-            color = Color.Gray
-        )
-
-        // Assuming that `albums` is a list of albums and we are showing the first few for "Trending"
-        val trendingItems = albums.take(5)  // You can change this to a specific filter for trending albums
-        HorizontalCarousel(items = trendingItems, text = "Trending", onButtonClick = {
-            val intent = Intent(context, CollectionActivity::class.java)
-            context.startActivity(intent)
-        })
-
-        // New Releases Carousel
-        Text(
-            text = "New Releases",
-            fontSize = 25.sp,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(start = 24.dp, end = 24.dp)
-        )
-        HorizontalDivider(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            thickness = 1.dp,
-            color = Color.Gray
-        )
-
-        // Assuming that `albums` also holds new releases, you can filter them similarly
-        val newReleasesItems = albums.takeLast(5)  // You can change this to a specific filter for new releases
-        HorizontalCarousel(items = newReleasesItems, text = "New Releases", onButtonClick = {
-            val intent = Intent(context, CollectionActivity::class.java)
-            context.startActivity(intent)
-        })
-
-        // Genre-specific albums carousel
-        if (albums.isNotEmpty()) {
+        // Display Playlist Data
+        playlist?.let {
             Text(
-                text = "Popular Albums",
-                fontSize = 25.sp,
+                text = it.name ?: "Playlist",
+                fontSize = 24.sp,
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(start = 24.dp, end = 24.dp)
+                modifier = Modifier.padding(16.dp)
             )
-            HorizontalCarousel(
-                items = albums,  // Pass the whole album object here
-                text = "Popular Albums",
-                onButtonClick = {
-                    // Handle album click here, if necessary
-                }
-            )
-        } else {
-            Text("Loading albums...")  // Show a loading message if albums are not available yet
-        }
+
+            // Display Tracks
+            TrackCarousel(tracks = it.tracks.items)
+        } ?: Text("Loading playlist...") // Show loading text until the data is available
+    }
+}
+
+fun getPlaylistIdForGenre(genreId: String): String {
+    return when (genreId) {
+        "1" -> "0NZnOJB6zenH9Q3CBcIhCD" // Replace with your actual playlist ID for Rock
+        "2" -> "0ZqUav1B3JM0PNEJBJaxQI" // Replace with your actual playlist ID for Pop
+        "3" -> "HipHopPlaylistId" // Replace with your actual playlist ID for Hip Hop
+        "4" -> "EDMPlaylistId" // Replace with your actual playlist ID for EDM
+        "5" -> "JazzPlaylistId" // Replace with your actual playlist ID for Jazz
+        "6" -> "ClassicalPlaylistId" // Replace with your actual playlist ID for Classical
+        "7" -> "CountryPlaylistId" // Replace with your actual playlist ID for Country
+        "8" -> "RnBPlaylistId" // Replace with your actual playlist ID for R&B
+        "9" -> "ReggaePlaylistId" // Replace with your actual playlist ID for Reggae
+        "10" -> "BluesPlaylistId" // Replace with your actual playlist ID for Blues
+        "11" -> "MetalPlaylistId" // Replace with your actual playlist ID for Metal
+        "12" -> "LatinPlaylistId" // Replace with your actual playlist ID for Latin
+        else -> "DefaultPlaylistId" // Default playlist if genreId doesn't match
     }
 }
 
 @Composable
-fun HorizontalCarousel(items: List<Album>, text: String, onButtonClick: () -> Unit) {
-    Column(
-        modifier = Modifier.padding(top = 30.dp, bottom = 25.dp)
+fun TrackCarousel(tracks: List<Playlist.Tracks.Item>) {
+    LazyRow(
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Spacer(modifier = Modifier.height(8.dp))
-
-        LazyRow(
-            contentPadding = PaddingValues(horizontal = 0.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(items.size) { index ->
-                CarouselItem(album = items[index])  // Pass the whole album object
-            }
+        items(tracks.size) { index ->
+            val trackItem = tracks[index]
+            TrackItem(track = trackItem.track)
         }
     }
 }
 
 @Composable
-fun CarouselItem(album: Album) {
+fun TrackItem(track: Playlist.Tracks.Track) {
     Card(
         modifier = Modifier
             .width(150.dp)
             .height(150.dp)
-            .padding(4.dp), // You can adjust the padding as needed
+            .padding(4.dp),
         shape = CircleShape
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            val imageUrl = album.images.firstOrNull()?.url  // Use the first image URL from the album
+            val imageUrl = track.album.images.firstOrNull()?.url
             if (imageUrl != null) {
                 Image(
-                    painter = rememberImagePainter(imageUrl), // Use Coil or any image loading library
-                    contentDescription = album.name,
-                    contentScale = ContentScale.Crop,
+                    painter = rememberImagePainter(imageUrl),
+                    contentDescription = track.name,
                     modifier = Modifier.fillMaxSize()
                 )
             } else {
-                // Display a default image or placeholder if the album has no images
                 Image(
                     painter = painterResource(id = R.drawable.latina),
                     contentDescription = "Default image",
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
+                    modifier = Modifier.fillMaxSize()
                 )
             }
 
             Text(
-                text = album.name,
+                text = track.name,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
-                    .padding(8.dp) // Adjust the padding for the text
+                    .padding(8.dp)
             )
         }
     }
 }
 
-
-
-
+// Preview Composable
 @Preview(showBackground = true)
 @Composable
-fun PreviewGenre() {
-    GenreScreen(genreId = "1", genreName = "Pop") // Example data for preview
+fun PreviewGenreScreen() {
+    GenreScreen(
+        genreId = "1",
+        genreName = "Rock" // Sample genre name
+    )
 }

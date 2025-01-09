@@ -1,14 +1,18 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
+import GridItem
 import HomeGenreList
+import HorizontalCarousel
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,12 +21,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.BottomAppBar
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.HomeTopBar
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.SearchBar
-import pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels.NewReleasesCollectionViewModel
-import GridItem
-import HorizontalCarousel
-import android.annotation.SuppressLint
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels.AlbumViewModel
-
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +48,7 @@ fun HomeScreen(onButtonClick: () -> Unit) {
 
     // Fetch new releases when the screen is first loaded
     LaunchedEffect(Unit) {
-        val token = "Bearer BQAay7OufkW4jNgJZIl1MJ-hQmyQd39EnqCWJKXNrcdnYX_SX9G5Qh5qjIGh81NhW9OS-FCAiFhsDPoVdIhN27l43b4356gsIsfDMRSH5wRCS47nqiU" // Replace with your actual token
+        val token = "Bearer BQAy5039FuyxfUTQFXV6ZYpgapYEOtDOjSzfkF3xLW0MSfi36Vx_vBu6PJf2y4HdUg3RSQILBdqFPm5opHRuc_obeMz734wUUz5r7Y7zauYbJ19ChYI" // Replace with your actual token
         albumViewModel.fetchNewReleases(token)
     }
 
@@ -119,15 +118,21 @@ fun HomeScreen(onButtonClick: () -> Unit) {
             }
 
             HomeGenreList(items = genreItems) { clickedItem ->
-                val intent = Intent(context, GenreActivity::class.java).apply {
-                    putExtra("GENRE_ID", clickedItem.id)
-                    putExtra("GENRE_NAME", clickedItem.label)
+                // Check if clickedItem has valid data before starting GenreActivity
+                if (clickedItem.id != null && clickedItem.label.isNotEmpty()) {
+                    val intent = Intent(context, GenreActivity::class.java).apply {
+                        putExtra("GENRE_ID", clickedItem.id.toString()) // Pass the genre ID
+                        putExtra("GENRE_NAME", clickedItem.label) // Pass the genre name
+                    }
+                    context.startActivity(intent)
+                } else {
+                    Log.e("HomeScreen", "Invalid genre data: id = ${clickedItem.id}, label = ${clickedItem.label}")
                 }
-                context.startActivity(intent)
             }
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
