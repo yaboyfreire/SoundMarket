@@ -46,6 +46,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.AuthService
@@ -313,4 +314,10 @@ fun RegisterScreen(onTextClick: () -> Unit) {
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun RegisterPreview(){
+    RegisterScreen(onTextClick = {})
 }
