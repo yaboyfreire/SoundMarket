@@ -16,4 +16,17 @@ class SpotifyRepository {
 
         return response
     }
+    // Fetch albums based on genre
+    suspend fun searchAlbums(token: String, genreName: String): Response<NewReleasesResponse> {
+        val response = RetrofitClient.api.searchAlbums(
+            authorization = token,
+            query = genreName,
+            type = "album",
+            limit = 10
+        )
+        return response
+    }
+
+
+
 }

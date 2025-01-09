@@ -7,9 +7,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,20 +24,45 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.rememberImagePainter
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels.AlbumViewModel
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 
 class GenreActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Get genreId and genreName from Intent
+        val genreId = intent.getStringExtra("GENRE_ID") ?: ""
+        val genreName = intent.getStringExtra("GENRE_NAME") ?: ""
+
         setContent {
-            GenreScreen()
+            // Pass genreId and genreName as parameters to GenreScreen
+            GenreScreen(genreId = genreId, genreName = genreName)
         }
     }
 }
 
 @Composable
-fun GenreScreen() {
+fun GenreScreen(genreId: String, genreName: String) {
     val context = LocalContext.current
-    Column {
+
+    // Access the AlbumViewModel
+    val albumViewModel: AlbumViewModel = viewModel()
+    val albums = albumViewModel.albums.value
+
+    // Fetch albums for the specific genre
+    LaunchedEffect(genreName) {
+        val token = "Bearer BQAay7OufkW4jNgJZIl1MJ-hQmyQd39EnqCWJKXNrcdnYX_SX9G5Qh5qjIGh81NhW9OS-FCAiFhsDPoVdIhN27l43b4356gsIsfDMRSH5wRCS47nqiU" // Replace with your actual token
+        albumViewModel.fetchAlbumsByGenre(token, genreName)
+    }
+
+    Column (
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())  // Making the page scrollable
+    ){
         // App Header
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -50,6 +78,14 @@ fun GenreScreen() {
             )
         }
 
+        // Genre Name
+        Text(
+            text = genreName,
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(16.dp)
+        )
+
         // Trending Carousel
         Text(
             text = "Trending",
@@ -62,12 +98,9 @@ fun GenreScreen() {
             thickness = 1.dp,
             color = Color.Gray
         )
-        val trendingItems =
-            listOf( "Trending 1",
-                    "Trending 2",
-                    "Trending 3",
-                    "Trending 4",
-                    "Trending 5")
+
+        // Assuming that `albums` is a list of albums and we are showing the first few for "Trending"
+        val trendingItems = albums.take(5)  // You can change this to a specific filter for trending albums
         HorizontalCarousel(items = trendingItems, text = "Trending", onButtonClick = {
             val intent = Intent(context, CollectionActivity::class.java)
             context.startActivity(intent)
@@ -85,59 +118,37 @@ fun GenreScreen() {
             thickness = 1.dp,
             color = Color.Gray
         )
-        val newReleasesItems = listOf("Release 1", "Release 2", "Release 3", "Release 4", "Release 5")
+
+        // Assuming that `albums` also holds new releases, you can filter them similarly
+        val newReleasesItems = albums.takeLast(5)  // You can change this to a specific filter for new releases
         HorizontalCarousel(items = newReleasesItems, text = "New Releases", onButtonClick = {
             val intent = Intent(context, CollectionActivity::class.java)
             context.startActivity(intent)
         })
 
-        // Artists Carousel with Images
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+        // Genre-specific albums carousel
+        if (albums.isNotEmpty()) {
             Text(
-                text = "Artists",
+                text = "Popular Albums",
                 fontSize = 25.sp,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(start = 24.dp, end = 24.dp)
             )
-        }
-        HorizontalDivider(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            thickness = 1.dp,
-            color = Color.Gray
-        )
-
-        val artistItems = listOf("Artist 1", "Artist 2", "Artist 3", "Artist 4", "Artist 5")
-        LazyRow(
-            contentPadding = PaddingValues(horizontal = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(artistItems.size) { index ->
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(
-                        painter = painterResource(id = R.drawable.blues), // replace with dynamic resource if available
-                        contentDescription = "Artist",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .size(120.dp)
-                            .clip(CircleShape)
-                    )
-                    Text(
-                        text = artistItems[index],
-                        fontSize = 16.sp,
-                        modifier = Modifier.padding(top = 8.dp)
-                    )
+            HorizontalCarousel(
+                items = albums,  // Pass the whole album object here
+                text = "Popular Albums",
+                onButtonClick = {
+                    // Handle album click here, if necessary
                 }
-            }
+            )
+        } else {
+            Text("Loading albums...")  // Show a loading message if albums are not available yet
         }
     }
 }
 
 @Composable
-fun HorizontalCarousel(items: List<String>, text: String, onButtonClick: () -> Unit) {
+fun HorizontalCarousel(items: List<Album>, text: String, onButtonClick: () -> Unit) {
     Column(
         modifier = Modifier.padding(top = 30.dp, bottom = 25.dp)
     ) {
@@ -148,30 +159,58 @@ fun HorizontalCarousel(items: List<String>, text: String, onButtonClick: () -> U
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(items.size) { index ->
-                CarouselItem(item = items[index])
+                CarouselItem(album = items[index])  // Pass the whole album object
             }
         }
     }
 }
 
 @Composable
-fun CarouselItem(item: String) {
+fun CarouselItem(album: Album) {
     Card(
         modifier = Modifier
             .width(150.dp)
-            .height(150.dp),
+            .height(150.dp)
+            .padding(4.dp), // You can adjust the padding as needed
+        shape = CircleShape
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Text(text = item, style = MaterialTheme.typography.labelLarge)
+            val imageUrl = album.images.firstOrNull()?.url  // Use the first image URL from the album
+            if (imageUrl != null) {
+                Image(
+                    painter = rememberImagePainter(imageUrl), // Use Coil or any image loading library
+                    contentDescription = album.name,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            } else {
+                // Display a default image or placeholder if the album has no images
+                Image(
+                    painter = painterResource(id = R.drawable.latina),
+                    contentDescription = "Default image",
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop
+                )
+            }
+
+            Text(
+                text = album.name,
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(8.dp) // Adjust the padding for the text
+            )
         }
     }
 }
 
+
+
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewGenre() {
-    GenreScreen()
+    GenreScreen(genreId = "1", genreName = "Pop") // Example data for preview
 }
