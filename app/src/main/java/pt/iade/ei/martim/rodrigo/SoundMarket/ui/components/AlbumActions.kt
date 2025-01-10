@@ -26,9 +26,14 @@ fun AlbumActions(album: Album) {
     ) {
         Button(
             onClick = {
-                // Create an intent to open the Spotify link dynamically
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(album.externalUrls.spotify))
-                context.startActivity(intent)
+                // Ensure the URL is valid and open it correctly
+                val spotifyUrl = "https://open.spotify.com/album/${album.id}"
+                if (spotifyUrl.isNotBlank()) {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(spotifyUrl))
+                    // Adding flags to ensure it opens in the appropriate browser
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context.startActivity(intent)
+                }
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1DB954))
         ) {

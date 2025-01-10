@@ -47,7 +47,7 @@ class PlaylistViewModel : ViewModel() {
     }
 
     // Function to fetch playlist data from Spotify
-    fun getPlaylist(token: String, playlistId: String) {
+    /*fun getPlaylist(token: String, playlistId: String) {
         viewModelScope.launch {
             try {
                 val response = spotifyRepository.getPlaylistDetails(token, playlistId)
@@ -63,5 +63,5 @@ class PlaylistViewModel : ViewModel() {
                 // Handle error if necessary
             }
         }
-    }
+    } */
 }

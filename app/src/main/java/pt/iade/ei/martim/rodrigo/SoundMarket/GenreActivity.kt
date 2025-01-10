@@ -57,13 +57,13 @@ fun GenreScreen(genreId: String, genreName: String) {
     val playlist = playlistViewModel.playlist.value
     val context = LocalContext.current
 
-    LaunchedEffect(genreId) {
+    /*LaunchedEffect(genreId) {
         val token = "Bearer BQAAKN2h3CVZbKV-BtfgqRxpK6olO2NlkuamUG3LC607IXzu3YFTuqefqnHlfEQ9d6GW0yzcPPMSBj2YsJyz9_hXwj_CyNI55aBOHs5_kJjOaVVPuk0"
         if (token.isNotEmpty()) {
             val playlistId = getPlaylistIdForGenre(genreId)
             playlistViewModel.getPlaylist(token, playlistId)
         }
-    }
+    } */
 
     Column(
         modifier = Modifier
