@@ -1,7 +1,9 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket.network
 
+
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.NewReleasesResponse
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.PlaylistResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -25,7 +27,7 @@ interface SpotifyApiService {
         @Query("offset") offset: Int = 5
     ): Response<NewReleasesResponse>
 
-    // Add a method to search for albums based on genre
+    // Fetch albums by genre
     @GET("v1/browse/categories/{genre_id}/albums")
     suspend fun getAlbumsByGenre(
         @Header("Authorization") authorization: String,
@@ -39,5 +41,6 @@ interface SpotifyApiService {
         @Path("id") albumId: String,
         @Header("Authorization") authToken: String
     ): Response<Album>
+
 
 }
