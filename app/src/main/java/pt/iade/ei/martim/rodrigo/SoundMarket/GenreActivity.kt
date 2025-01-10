@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
-import pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels.PlaylistViewModel
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.Playlist
 
 class GenreActivity : ComponentActivity() {
@@ -52,16 +51,16 @@ class GenreActivity : ComponentActivity() {
 }
 
 @Composable
-fun GenreScreen(genreId: String, genreName: String) {
-    val playlistViewModel: PlaylistViewModel = viewModel()
-    val playlist = playlistViewModel.playlist.value
+fun GenreScreen(genreId: String, genreName: String) {}
+ /*  val playlistViewModel: PlaylistViewModel = viewModel()
+   // val playlist = playlistViewModel.playlist.value
     val context = LocalContext.current
 
     LaunchedEffect(genreId) {
         val token = "Bearer BQAAKN2h3CVZbKV-BtfgqRxpK6olO2NlkuamUG3LC607IXzu3YFTuqefqnHlfEQ9d6GW0yzcPPMSBj2YsJyz9_hXwj_CyNI55aBOHs5_kJjOaVVPuk0"
         if (token.isNotEmpty()) {
             val playlistId = getPlaylistIdForGenre(genreId)
-            playlistViewModel.getPlaylist(token, playlistId)
+          //  playlistViewModel.getPlaylist(token, playlistId)
         }
     }
 
@@ -180,3 +179,4 @@ fun PreviewGenreScreen() {
         genreName = "Rock"
     )
 }
+*/

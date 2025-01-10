@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import pt.iade.ei.martim.rodrigo.SoundMarket.R
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
+import androidx.compose.ui.text.style.TextOverflow
 
 @Composable
 fun AlbumDetailsSection(album: Album) {
@@ -36,9 +37,18 @@ fun AlbumDetailsSection(album: Album) {
 
         // Display album name, artist, and release year
         Column {
-            Text(text = album.name, fontWeight = FontWeight.Bold)
+            Text(
+                text = album.name,
+                fontWeight = FontWeight.Bold,
+                maxLines = 1, // Limit to one line
+                overflow = TextOverflow.Ellipsis // Add "..." if overflow
+            )
             album.artists.firstOrNull()?.let { artist ->
-                Text(text = "${artist.name} • ${album.release_date.take(4)}")
+                Text(
+                    text = "${artist.name} • ${album.release_date.take(4)}",
+                    maxLines = 2, // Limit to one line
+                    overflow = TextOverflow.Ellipsis // Add "..." if overflow
+                )
             }
         }
 
@@ -55,7 +65,9 @@ fun AlbumDetailsSection(album: Album) {
                 modifier = Modifier.padding(16.dp)
             ) {
                 Text(text = "8.7/10", color = Color.Black) // You can dynamically update the rating later
-                Text(text = "SoundRating", color = Color.Black)
+                Text(text = "SoundRating", color = Color.Black,maxLines = 1, // Limit to one line
+                    overflow = TextOverflow.Ellipsis) // Add "..." if overflow)
+
             }
         }
     }

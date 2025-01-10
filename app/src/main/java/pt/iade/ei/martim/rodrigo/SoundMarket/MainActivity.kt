@@ -49,7 +49,7 @@ fun HomeScreen(onButtonClick: () -> Unit) {
 
     // Fetch new releases when the screen is first loaded
     LaunchedEffect(Unit) {
-        val token = "Bearer BQBKZj5F5Xbo0s1ESJpbLC07MciV891JIXyW6NGz0HUlZWifQswDL7zTbOk1z6D3qkc5Bw9PV06NKmtt_lHzVpTPUi-mSkHv33giEjz-RqO-w3sPKFc" // Replace with your actual token
+        val token = "Bearer BQAPLgx1d8ynA4_yQlnthxTNQosZ3KrCL9f3-LrIaQLHLcuDB96ibTmffN8eWcbGOmk4SHbj-1HityEheQoHCitQPdODch6uITl6yLpgZiq3OmiaBgc" // Replace with your actual token
         albumViewModel.fetchNewReleases(token)
     }
 
