@@ -7,83 +7,87 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels.AlbumViewModel
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.*
 
 class AlbumActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val albumName = intent.getStringExtra("ALBUM_NAME") ?: "Unknown Album"
-        val albumArtist = intent.getStringExtra("ALBUM_ARTIST") ?: "Unknown Artist"
-        val albumImageUrl = intent.getStringExtra("ALBUM_IMAGE_URL") ?: ""
-        val albumTracks = intent.getStringExtra("ALBUM_TRACKS")?.split(",") ?: emptyList()
-        val albumReleaseDate = intent.getStringExtra("ALBUM_RELEASE_DATE") ?: "Unknown Date"
-        val albumGenre = intent.getStringExtra("ALBUM_GENRE") ?: "Unknown Genre"
-
         setContent {
-            AlbumScreen(
-                albumName = albumName,
-                albumArtist = albumArtist,
-                albumImageUrl = albumImageUrl,
-                albumTracks = albumTracks,
-                albumReleaseDate = albumReleaseDate,
-                albumGenre = albumGenre
-            )
+            // Pass mock data for preview or actual parameters for dynamic content
+            val albumId = intent.getStringExtra("ALBUM_ID") ?: ""
+            val authToken = intent.getStringExtra("AUTH_TOKEN") ?: ""
+            AlbumScreen(albumId = albumId, authToken = authToken)
         }
     }
 }
 
 @Composable
-fun AlbumScreen(
-    albumName: String,
-    albumArtist: String,
-    albumImageUrl: String,
-    albumTracks: List<String>,
-    albumReleaseDate: String,
-    albumGenre: String
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-            .verticalScroll(rememberScrollState())
-    ) {
-        AlbumTopBar()
-        Spacer(modifier = Modifier.height(16.dp))
+fun AlbumScreen(albumId: String, authToken: String) {
+    val albumViewModel: AlbumViewModel = viewModel()
+    val album by albumViewModel.album.observeAsState()
 
-        AlbumDetailsSection(
-            albumName = albumName,
-            artistName = albumArtist,
-            albumImageUrl = albumImageUrl
-        )
+    // Fetch album data when screen is first launched
+    LaunchedEffect(albumId) {
+        val token="Bearer BQBKZj5F5Xbo0s1ESJpbLC07MciV891JIXyW6NGz0HUlZWifQswDL7zTbOk1z6D3qkc5Bw9PV06NKmtt_lHzVpTPUi-mSkHv33giEjz-RqO-w3sPKFc"
+        albumViewModel.fetchAlbum(albumId, token)
+    }
 
-        Spacer(modifier = Modifier.height(16.dp))
-        AlbumActions()
-        Spacer(modifier = Modifier.height(16.dp))
-
-        TrackListSection(albumTracks = albumTracks)
-        Spacer(modifier = Modifier.height(16.dp))
-
-        AlbumMetadata(releaseDate = albumReleaseDate, genre = albumGenre)
-        Spacer(modifier = Modifier.height(16.dp))
-
-        AlbumCopiesButton()
+    // Show loading indicator while waiting for album data
+    if (album == null) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center // Align the loading indicator to the center
+        ) {
+            CircularProgressIndicator()
+        }
+    } else {
+        // Display album data when available
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
+            album?.let { albumData ->
+                // Pass the correct data to the composables
+                AlbumTopBar()  // Add any parameters if needed here
+                Spacer(modifier = Modifier.height(16.dp))
+                AlbumDetailsSection(album = albumData)  // Pass 'albumData' to AlbumDetailsSection
+                Spacer(modifier = Modifier.height(16.dp))
+                AlbumActions(album = albumData)  // Pass 'albumData' to AlbumActions
+                Spacer(modifier = Modifier.height(16.dp))
+                TrackListSection(tracks = albumData.tracks.items)  // Pass the tracks list from 'albumData'
+                Spacer(modifier = Modifier.height(16.dp))
+                AlbumMetadata(album = albumData)  // Pass 'albumData' to AlbumMetadata
+                Spacer(modifier = Modifier.height(16.dp))
+                AlbumCopiesButton()  // Add parameters if needed
+            }
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun AlbumScreenPreview() {
-    AlbumScreen(
-        albumName = "Sample Album",
-        albumArtist = "Sample Artist",
-        albumImageUrl = "https://example.com/sample.jpg",
-        albumTracks = listOf("Track 1", "Track 2", "Track 3", "Track 4"),
-        albumReleaseDate = "January 1, 2025",
-        albumGenre = "Hip Hop"
+    // Mocked data for preview
+    val mockAlbum = Album(
+        id = "12345",
+        name = "Mock Album",
+        release_date = "2023-12-25",
+        artists = listOf(Album.Artist(name = "Mock Artist")),
+        images = listOf(Album.Image(url = "https://example.com/album_cover.jpg", height = 250, width = 250)),
+        tracks = Album.Tracks(items = listOf(Album.Track(name = "Track 1", duration_ms = 200000))),
+        externalUrls = Album.ExternalUrls(spotify = "https://spotify.com")
     )
+
+    AlbumScreen(albumId = mockAlbum.id, authToken = "mockAuthToken")
 }

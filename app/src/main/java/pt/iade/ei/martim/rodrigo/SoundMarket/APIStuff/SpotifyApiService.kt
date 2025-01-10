@@ -35,17 +35,12 @@ interface SpotifyApiService {
         @Query("limit") limit: Int = 5
     ): Response<NewReleasesResponse>
 
-    // Fetch playlist details
-    @GET("v1/playlists/{playlist_id}")
-    suspend fun getPlaylistDetails(
-        @Header("Authorization") authorization: String,
-        @Path("playlist_id") playlistId: String
-    ): Response<PlaylistResponse>
 
-    @GET("v1/albums/{albumId}")
-    suspend fun getAlbumById(
-        @Header("Authorization") token: String,
-        @Path("albumId") albumId: String
-    ): Response<PlaylistResponse>
+    @GET("v1/albums/{id}")
+    suspend fun getAlbum(
+        @Path("id") albumId: String,
+        @Header("Authorization") authToken: String
+    ): Response<Album>
+
 
 }

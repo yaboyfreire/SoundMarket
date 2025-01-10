@@ -148,7 +148,6 @@ fun ProfileScreen(onClick: () -> Unit, albums: List<Album>, userProfile: User?) 
                     .clickable { onClick() },
                 contentAlignment = Alignment.BottomEnd
             ) {
-                // Use default placeholder image for profile picture
                 Image(
                     painter = painterResource(id = R.drawable.account_circle), // Placeholder image
                     contentDescription = "Profile Picture",
@@ -172,7 +171,6 @@ fun ProfileScreen(onClick: () -> Unit, albums: List<Album>, userProfile: User?) 
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Use userProfile data or fallback to static data
             Text(userProfile?.userName ?: "Rodrigo Freire", fontSize = 24.sp, fontWeight = FontWeight.Bold)
             Text(userProfile?.email ?: "rfreire750@gmail.com", fontSize = 16.sp, color = Color.Gray)
         }
@@ -183,7 +181,7 @@ fun ProfileScreen(onClick: () -> Unit, albums: List<Album>, userProfile: User?) 
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("Country: ", fontWeight = FontWeight.Bold)
-                Text(userProfile?.country ?: "Edit to change your country") // Fallback country
+                Text(userProfile?.country ?: "Edit to change your country")
             }
             Spacer(modifier = Modifier.height(8.dp))
             Text("About me", fontWeight = FontWeight.Bold)
@@ -199,6 +197,10 @@ fun ProfileScreen(onClick: () -> Unit, albums: List<Album>, userProfile: User?) 
             onButtonClick = {
                 val intent = Intent(context, CollectionActivity::class.java)
                 context.startActivity(intent)
+            },
+            onAlbumClick = { album ->
+                // Handle album click for Collection
+                Toast.makeText(context, "Clicked on ${album.name}", Toast.LENGTH_SHORT).show()
             }
         )
 
@@ -206,7 +208,11 @@ fun ProfileScreen(onClick: () -> Unit, albums: List<Album>, userProfile: User?) 
             albums = albums.take(1), // Example for Wishlist
             text = "Wishlist",
             onButtonClick = {
-
+                // Wishlist button click handler
+            },
+            onAlbumClick = { album ->
+                // Handle album click for Wishlist
+                Toast.makeText(context, "Clicked on ${album.name}", Toast.LENGTH_SHORT).show()
             }
         )
 
@@ -214,7 +220,11 @@ fun ProfileScreen(onClick: () -> Unit, albums: List<Album>, userProfile: User?) 
             albums = albums.take(1), // Example for Selling
             text = "Selling",
             onButtonClick = {
-
+                // Selling button click handler
+            },
+            onAlbumClick = { album ->
+                // Handle album click for Selling
+                Toast.makeText(context, "Clicked on ${album.name}", Toast.LENGTH_SHORT).show()
             }
         )
     }

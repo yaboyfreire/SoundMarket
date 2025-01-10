@@ -5,49 +5,45 @@ import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.constraintlayout.compose.HorizontalAlign
-import pt.iade.ei.martim.rodrigo.SoundMarket.AddToCollectionFromAlbumActivity
-import pt.iade.ei.martim.rodrigo.SoundMarket.AddToCollectionFromAlbumScreen
 import pt.iade.ei.martim.rodrigo.SoundMarket.AddToCollectionFromCollectionActivity
-import pt.iade.ei.martim.rodrigo.SoundMarket.CollectionActivity
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 
 @Composable
-fun AlbumActions() {
+fun AlbumActions(album: Album) {
     val context = LocalContext.current
 
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxWidth(),
-
     ) {
-        androidx.compose.material.Button(
+        Button(
             onClick = {
-                // Create an intent to open the Spotify link
-                val intent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("https://open.spotify.com/album/5wtE5aLX5r7jOosmPhJhhk?si=Aendik6ZQnGl0T-10gE_ag")
-                )
+                // Create an intent to open the Spotify link dynamically
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(album.externalUrls.spotify))
                 context.startActivity(intent)
             },
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF1DB954))
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1DB954))
         ) {
-            androidx.compose.material.Text(text = "Listen Here")
+            Text(text = "Listen Here")
         }
 
-        androidx.compose.material.Button(
-            onClick = { val intent = Intent(context, AddToCollectionFromCollectionActivity::class.java)
-                context.startActivity(intent) },
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF4CAF50))
+        Button(
+            onClick = {
+                val intent = Intent(context, AddToCollectionFromCollectionActivity::class.java)
+                intent.putExtra("albumId", album.id)  // You can pass more album details here if needed
+                context.startActivity(intent)
+            },
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
         ) {
-            androidx.compose.material.Text(text = "Add to Collection")
+            Text(text = "Add to Collection")
         }
     }
 }
@@ -55,5 +51,11 @@ fun AlbumActions() {
 @Preview(showBackground = true)
 @Composable
 fun AlbumActionsPreview() {
-    AlbumActions()
+    val sampleAlbum = Album(
+        id = "123",
+        name = "Swimming",
+        artists = listOf(Album.Artist(name = "Mac Miller")),
+        externalUrls = Album.ExternalUrls(spotify = "https://open.spotify.com/album/5wtE5aLX5r7jOosmPhJhhk?si=Aendik6ZQnGl0T-10gE_ag")
+    )
+    AlbumActions(album = sampleAlbum)
 }
