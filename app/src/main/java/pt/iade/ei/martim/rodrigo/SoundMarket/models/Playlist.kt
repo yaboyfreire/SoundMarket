@@ -14,16 +14,24 @@ data class Playlist(
         data class Track(
             val id: String,
             val name: String,
-            val album: Album
+            val album: Album,
+
         )
 
         data class Album(
             val name: String,
-            val images: List<Image>
+            val artists: List<Artist>, // Artists should be a list
+            val images: List<Image>,
+            val id : String
+        )
+
+        data class Artist(
+            val name: String // Artist's name
         )
 
         data class Image(
-            val url: String
+            val url: String // URL of the album image
         )
+
     }
 }

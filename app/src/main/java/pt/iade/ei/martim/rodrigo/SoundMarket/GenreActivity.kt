@@ -1,10 +1,13 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
@@ -18,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -53,26 +57,22 @@ class GenreActivity : ComponentActivity() {
 fun GenreScreen(genreId: String, genreName: String) {
     val playlistViewModel: PlaylistViewModel = viewModel()
     val playlist = playlistViewModel.playlist.value
+    val context = LocalContext.current
 
-    // Fetch the playlist when genreId changes
     LaunchedEffect(genreId) {
-        val token = "Bearer BQAy5039FuyxfUTQFXV6ZYpgapYEOtDOjSzfkF3xLW0MSfi36Vx_vBu6PJf2y4HdUg3RSQILBdqFPm5opHRuc_obeMz734wUUz5r7Y7zauYbJ19ChYI" // Replace with your actual token
-
-        // Check if the token is valid before making the request
+        val token = "Bearer BQB3Vr7urJPhF1TH3ClnhAOVlZj-jA8lR-wG49TSPNJVAY_jLqo1rXTDrr6Q8mYPhllPAf2IOvWUXbzAZxjXHQGBJ5UniFkbtkCUaKlYHcAFH_MHilM" // Replace with your actual token
         if (token.isNotEmpty()) {
             val playlistId = getPlaylistIdForGenre(genreId)
             playlistViewModel.getPlaylist(token, playlistId)
-        } else {
-            Log.e("GenreScreen", "Token is empty or invalid!")
         }
     }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState()) // Making the page scrollable
+            .verticalScroll(rememberScrollState())
     ) {
-        // Genre Name
+        // Genre Title
         Text(
             text = genreName,
             fontSize = 30.sp,
@@ -80,20 +80,32 @@ fun GenreScreen(genreId: String, genreName: String) {
             modifier = Modifier.padding(16.dp)
         )
 
-        // Display Playlist Data
+        // Playlist Tracks Carousel
         playlist?.let {
             Text(
-                text = it.name ?: "Playlist",
+                text = it.name,  // Display the playlist name
                 fontSize = 24.sp,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(16.dp)
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = 8.dp)
             )
+            TrackCarousel(
+                tracks = it.tracks.items,
+                onAlbumClick = { track ->
+                    val intent = Intent(context, AlbumActivity::class.java).apply {
+                        putExtra("ALBUM_NAME", track.album.name)
+                        putExtra("ALBUM_IMAGE_URL", track.album.images.firstOrNull()?.url ?: "")
+                        putExtra("ALBUM_ARTIST", track.album.artists.joinToString(", ") { it.name } ?: "")
+                        putExtra("ALBUM_ID", track.album.id) // Pass the album ID for fetching tracks
+                    }
+                    context.startActivity(intent)
+                }
 
-            // Display Tracks
-            TrackCarousel(tracks = it.tracks.items)
-        } ?: Text("Loading playlist...") // Show loading text until the data is available
+            )
+        }
+            ?: Text("Loading playlist...") // Show loading text until the data is available
     }
 }
+
 
 fun getPlaylistIdForGenre(genreId: String): String {
     return when (genreId) {
@@ -114,56 +126,59 @@ fun getPlaylistIdForGenre(genreId: String): String {
 }
 
 @Composable
-fun TrackCarousel(tracks: List<Playlist.Tracks.Item>) {
+fun TrackCarousel(
+    tracks: List<Playlist.Tracks.Item>,
+    onAlbumClick: (Playlist.Tracks.Track) -> Unit // Callback for album clicks
+) {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         items(tracks.size) { index ->
             val trackItem = tracks[index]
-            TrackItem(track = trackItem.track)
+            TrackItem(track = trackItem.track, onClick = { onAlbumClick(trackItem.track) })
         }
     }
 }
 
+
 @Composable
-fun TrackItem(track: Playlist.Tracks.Track) {
+fun TrackItem(track: Playlist.Tracks.Track, onClick: () -> Unit) {
     Card(
         modifier = Modifier
-            .width(160.dp) // Adjusted for consistent design
-            .height(160.dp)
-            .padding(4.dp),
+            .width(160.dp)
+            .height(160.dp) // Set height to match width for a square card
+            .clickable { onClick() }, // Trigger the callback when clicked
         shape = RoundedCornerShape(20.dp),
-         // Added elevation for better visual separation
+        elevation = CardDefaults.cardElevation(8.dp) // Optional: Add shadow for depth
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            // Image Section
-            val imageUrl = track.album.images.firstOrNull()?.url
-            if (imageUrl != null) {
-                Image(
-                    painter = rememberImagePainter(imageUrl),
-                    contentDescription = track.name,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxSize(), // Fills the entire available space of the Card
-                contentScale = ContentScale.Crop // Ensures the image fills without distortion
-                )
-            } else {
-                Image(
-                    painter = painterResource(id = R.drawable.latina),
-                    contentDescription = "Default image",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(120.dp),
-                    contentScale = ContentScale.Crop
+        val imageUrl = track.album.images.firstOrNull()?.url
+        if (imageUrl != null) {
+            Image(
+                painter = rememberImagePainter(imageUrl),
+                contentDescription = track.album.name, // Better to describe the album
+                modifier = Modifier
+                    .fillMaxSize(),  // Fill the entire card with the image
+                contentScale = ContentScale.Crop  // Crop to fill the card without distortion
+            )
+        } else {
+            // Placeholder if image is null
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Gray),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "No Image",
+                    color = Color.White
                 )
             }
         }
     }
 }
+
+
 
 
 // Preview Composable

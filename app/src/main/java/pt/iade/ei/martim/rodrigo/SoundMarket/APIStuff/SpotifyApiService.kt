@@ -1,5 +1,7 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket.network
 
+
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.NewReleasesResponse
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.PlaylistResponse
 import retrofit2.Response
@@ -39,4 +41,11 @@ interface SpotifyApiService {
         @Header("Authorization") authorization: String,
         @Path("playlist_id") playlistId: String
     ): Response<PlaylistResponse>
+
+    @GET("v1/albums/{albumId}")
+    suspend fun getAlbumById(
+        @Header("Authorization") token: String,
+        @Path("albumId") albumId: String
+    ): Response<PlaylistResponse>
+
 }

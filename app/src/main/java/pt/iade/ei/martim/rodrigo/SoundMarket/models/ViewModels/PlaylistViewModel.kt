@@ -22,16 +22,22 @@ class PlaylistViewModel : ViewModel() {
         val tracks = response.tracks.items.map {
             Playlist.Tracks.Item(
                 track = Playlist.Tracks.Track(
-                    id = it.track.id,
+                    id = it.track.id, // Make sure this is non-null and passed correctly
                     name = it.track.name,
                     album = Playlist.Tracks.Album(
+                        id = it.track.id, // Pass album id here
                         name = it.track.album.name,
+                        artists = it.track.album.artists.map { artist ->
+                            Playlist.Tracks.Artist(name = artist.name) // Ensure the artists are mapped correctly
+                        },
                         images = it.track.album.images.map { image ->
                             Playlist.Tracks.Image(url = image.url)
                         }
                     )
                 )
             )
+
+
         }
 
         return Playlist(
