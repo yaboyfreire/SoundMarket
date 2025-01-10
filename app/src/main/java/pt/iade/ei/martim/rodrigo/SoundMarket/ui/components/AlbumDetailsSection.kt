@@ -13,43 +13,26 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberImagePainter
 import pt.iade.ei.martim.rodrigo.SoundMarket.R
 
 @Composable
-fun AlbumDetailsSection() {
+fun AlbumDetailsSection(albumName: String, artistName: String, albumImageUrl: String) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(R.drawable.latina),
+            painter = rememberImagePainter(albumImageUrl),
             contentDescription = "Album Cover",
             modifier = Modifier.size(100.dp)
         )
         Spacer(modifier = Modifier.width(16.dp))
         Column {
-            Text(text = "Swimming", fontWeight = FontWeight.Bold)
-            Text(text = "mac miller • 2018")
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        Surface(
-            color = Color(0xFF4CAF50),
-            shape = RoundedCornerShape(8.dp),
-            modifier = Modifier.padding(8.dp)
-        ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(16.dp)
-            ) {
-                Text(text = "8.7/10", color = Color.Black)
-                Text(text = "SoundRating", color = Color.Black)
-            }
+            Text(text = albumName, fontWeight = FontWeight.Bold)
+            Text(text = artistName)
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun AlbumDetailsSectionPreview() {
-    AlbumDetailsSection()
-}
+
