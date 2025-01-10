@@ -11,11 +11,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
@@ -28,6 +30,7 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -38,7 +41,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -81,6 +86,7 @@ fun RegisterScreen(onTextClick: () -> Unit) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var aboutMe by remember { mutableStateOf("") }
 
     // For Country Dropdown
     var countryExpanded by remember { mutableStateOf(false) }
@@ -125,13 +131,41 @@ fun RegisterScreen(onTextClick: () -> Unit) {
         }
 
         item {
+            Box(
+                modifier = Modifier
+                    .size(150.dp)
+                    .clickable { /* Handle click event here */ },
+                contentAlignment = Alignment.BottomEnd
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.defaultpfp),
+                    contentDescription = "Profile Picture",
+                    modifier = Modifier
+                        .size(150.dp)
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop
+                )
+                androidx.compose.material3.Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = "Edit Profile Picture",
+                    modifier = Modifier
+                        .size(32.dp)
+                        .clip(CircleShape)
+                        .background(Color.LightGray)
+                        .padding(4.dp)
+                )
+            }
+        }
+
+
+        item {
             // Name Field
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
                 label = { Text("Name") },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true
+                trailingIcon = { IconButton(onClick = { name = "" }) { Icon(painterResource(R.drawable.close), contentDescription = "Clear Name") } },
+                modifier = Modifier.fillMaxWidth()
             )
         }
 
@@ -140,8 +174,8 @@ fun RegisterScreen(onTextClick: () -> Unit) {
                 value = username,
                 onValueChange = { username = it },
                 label = { Text("Username") },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true
+                trailingIcon = { IconButton(onClick = { username = "" }) { Icon(painterResource(R.drawable.close), contentDescription = "Clear Username") } },
+                modifier = Modifier.fillMaxWidth()
             )
         }
 
@@ -150,6 +184,7 @@ fun RegisterScreen(onTextClick: () -> Unit) {
                 value = email,
                 onValueChange = { email = it },
                 label = { Text("Email") },
+                trailingIcon = { IconButton(onClick = { email = "" }) { Icon(painterResource(R.drawable.close), contentDescription = "Clear Email") } },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
@@ -162,13 +197,18 @@ fun RegisterScreen(onTextClick: () -> Unit) {
                 value = password,
                 onValueChange = { password = it },
                 label = { Text("Password") },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
                 visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 trailingIcon = {
-                    IconButton(onClick = { passwordVisible = !passwordVisible }) {}
-                }
+                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                        Icon(
+                            painter = if (passwordVisible) painterResource(R.drawable.visibility)
+                            else painterResource(R.drawable.visibility_off),
+                            contentDescription = if (passwordVisible) "Hide password" else "Show password"
+                        )
+                    }
+                },
+                modifier = Modifier.fillMaxWidth(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
         }
 
@@ -271,6 +311,17 @@ fun RegisterScreen(onTextClick: () -> Unit) {
         }
 
         item {
+            // AboutMe Field
+            OutlinedTextField(
+                value = aboutMe,
+                onValueChange = { aboutMe = it },
+                label = { Text("AboutMe") },
+                trailingIcon = { IconButton(onClick = { aboutMe = "" }) { Icon(painterResource(R.drawable.close), contentDescription = "Clear Name") } },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+
+        item {
             // Register Button
             Button(
                 onClick = { authService.register(RegisterRequestDTO(email,password,name,selectedGender,username,selectedCountry)).enqueue(object : retrofit2.Callback<ResponseDTO> {
@@ -316,8 +367,8 @@ fun RegisterScreen(onTextClick: () -> Unit) {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun RegisterPreview(){
-    RegisterScreen(onTextClick = {})
+fun RegisterScreenPreview() {
+    RegisterScreen(onTextClick = {  })
 }
