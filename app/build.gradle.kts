@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout.compose.android)
     implementation(libs.androidx.foundation.android)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.runtime.livedata)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

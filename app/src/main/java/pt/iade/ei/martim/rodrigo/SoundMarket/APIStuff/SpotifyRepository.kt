@@ -2,7 +2,9 @@ package pt.iade.ei.martim.rodrigo.SoundMarket.repository
 
 import android.util.Log
 import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.RetrofitClient
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.NewReleasesResponse
+import pt.iade.ei.martim.rodrigo.SoundMarket.network.SpotifyApiService
 import retrofit2.Response
 
 class SpotifyRepository {
@@ -25,6 +27,15 @@ class SpotifyRepository {
             limit = 10
         )
         return response
+    }
+
+    suspend fun getAlbumById(albumId: String, authToken: String): Album? {
+        val response = RetrofitClient.api.getAlbum(albumId, authToken)
+        return if (response.isSuccessful) {
+            response.body()
+        } else {
+            null
+        }
     }
 
 

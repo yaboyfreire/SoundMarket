@@ -49,7 +49,7 @@ fun HomeScreen(onButtonClick: () -> Unit) {
 
     // Fetch new releases when the screen is first loaded
     LaunchedEffect(Unit) {
-        val token = "Bearer BQAay7OufkW4jNgJZIl1MJ-hQmyQd39EnqCWJKXNrcdnYX_SX9G5Qh5qjIGh81NhW9OS-FCAiFhsDPoVdIhN27l43b4356gsIsfDMRSH5wRCS47nqiU" // Replace with your actual token
+        val token = "Bearer BQBKZj5F5Xbo0s1ESJpbLC07MciV891JIXyW6NGz0HUlZWifQswDL7zTbOk1z6D3qkc5Bw9PV06NKmtt_lHzVpTPUi-mSkHv33giEjz-RqO-w3sPKFc" // Replace with your actual token
         albumViewModel.fetchNewReleases(token)
     }
 
@@ -113,6 +113,13 @@ fun HomeScreen(onButtonClick: () -> Unit) {
                     albums = albums, // Now using the albums from the ViewModel
                     text = "New Releases",
                     onButtonClick = onButtonClick,
+                    onAlbumClick = { album ->
+                        val intent = Intent(context, AlbumActivity::class.java).apply {
+                            putExtra("ALBUM_ID", album.id) // Pass album details
+                            putExtra("ALBUM_NAME", album.name)
+                        }
+                        context.startActivity(intent)
+                    }
                 )
             } else {
                 Text("Loading albums...")

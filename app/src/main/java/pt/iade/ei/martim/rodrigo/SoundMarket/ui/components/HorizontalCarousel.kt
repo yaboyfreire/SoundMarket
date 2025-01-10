@@ -11,26 +11,26 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.ButtonText
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberAsyncImagePainter
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 
 
 @Composable
-fun HorizontalCarousel(albums: List<Album>, text: String, onButtonClick: () -> Unit) {
+fun HorizontalCarousel(albums: List<Album>, text: String, onButtonClick: () -> Unit, onAlbumClick: (Album) -> Unit) {
     Column(
-        modifier = Modifier.padding(top = 15.dp, bottom = 5.dp) // Padding around the carousel
+        modifier = Modifier.padding(top = 15.dp, bottom = 5.dp)
     ) {
-
-        ButtonText(text = text, onClick = onButtonClick)  // onButtonClick passed here
-        Spacer(modifier = Modifier.height(8.dp)) // Spacing between the ButtonText and the carousel
+        ButtonText(text = text, onClick = onButtonClick)
+        Spacer(modifier = Modifier.height(8.dp))
 
         LazyRow(
             contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(albums.size) { index ->
-                CarouselItem(album = albums[index])
+                CarouselItem(album = albums[index], onAlbumClick = onAlbumClick)
             }
         }
     }
@@ -39,11 +39,12 @@ fun HorizontalCarousel(albums: List<Album>, text: String, onButtonClick: () -> U
 
 
 @Composable
-fun CarouselItem(album: Album) {
+fun CarouselItem(album: Album, onAlbumClick: (Album) -> Unit) {
     Card(
         modifier = Modifier
             .width(160.dp)
-            .height(180.dp), // Adjusted height for album details
+            .height(180.dp)
+            .clickable { onAlbumClick(album) }, // Handle click
         shape = RoundedCornerShape(20.dp)
     ) {
         Column(
@@ -87,7 +88,7 @@ fun PreviewCarouselScreen() {
                 )
             ),
             availableMarkets = listOf("US", "GB", "CA"),
-            externalUrls = Album.ExternalUrls("https://spotify.com/album1"), // Correct usage here
+            externalUrls = Album.ExternalUrls("https://spotify.com/album1"),
             href = "https://api.spotify.com/v1/albums/album1",
             id = "album1",
             images = listOf(
@@ -114,7 +115,7 @@ fun PreviewCarouselScreen() {
                 )
             ),
             availableMarkets = listOf("US", "GB", "CA"),
-            externalUrls = Album.ExternalUrls("https://spotify.com/album2"), // Correct usage here
+            externalUrls = Album.ExternalUrls("https://spotify.com/album2"),
             href = "https://api.spotify.com/v1/albums/album2",
             id = "album2",
             images = listOf(
@@ -130,6 +131,13 @@ fun PreviewCarouselScreen() {
         )
     )
 
-    // Pass the dummy albums to the HorizontalCarousel
-    HorizontalCarousel(albums = dummyAlbums, text = "Trending", onButtonClick = {})
+    // Preview with mocked onButtonClick and onAlbumClick
+    HorizontalCarousel(
+        albums = dummyAlbums,
+        text = "Trending",
+        onButtonClick = { /* Mock behavior */ },
+        onAlbumClick = { album ->
+            println("Clicked on album: ${album.name}") // Mock behavior for album click
+        }
+    )
 }
