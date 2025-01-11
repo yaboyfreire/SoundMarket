@@ -8,12 +8,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.AuthService
+import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.RetrofitClientSoundMarket
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.AlbumRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 import pt.iade.ei.martim.rodrigo.SoundMarket.repository.SpotifyRepository
 
 class AlbumViewModel : ViewModel() {
 
     private val spotifyRepository = SpotifyRepository()  // Assuming you have this
+    private val apiService = RetrofitClientSoundMarket.instance.create(AuthService::class.java)
 
     // State to hold the albums list
     private val _albums = mutableStateOf<List<Album>>(emptyList())
@@ -77,6 +81,19 @@ class AlbumViewModel : ViewModel() {
         }
     }
 
-
+    fun addAlbumToCollection(album: AlbumRequestDTO, authToken: String) {
+        viewModelScope.launch {
+            try {
+                val response = apiService.addAlbumToCollection(album, "Bearer $authToken")
+                if (response.isSuccessful) {
+                    Log.d("Album", "Album added to collection: ${response.body()}")
+                } else {
+                    Log.e("Album", "Error: ${response.code()} - ${response.errorBody()?.string()}")
+                }
+            } catch (e: Exception) {
+                Log.e("Album", "Exception: ${e.message}")
+            }
+        }
+    }
 
 }

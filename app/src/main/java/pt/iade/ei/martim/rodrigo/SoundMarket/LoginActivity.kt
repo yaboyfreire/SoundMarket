@@ -31,6 +31,7 @@ import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.RetrofitClientSoundMarket
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.LoginRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.ResponseDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.utils.SessionManager
+import pt.iade.ei.martim.rodrigo.SoundMarket.utils.TokenManager
 
 class LoginActivity : ComponentActivity() {
 
@@ -135,11 +136,12 @@ fun LoginScreen(onTextClick: () -> Unit, sessionManager: SessionManager) {
                         if (response.isSuccessful) {
                             val token = response.body()?.token
                             val userId = response.body()?.userId
+                            TokenManager.saveToken(context, token ?: "")
 
                             if (token != null && userId != null) {
-                                // Save token and userId in SessionManager
+                                // Save both token and userId in SessionManager
                                 sessionManager.saveAuthToken(token)
-                                sessionManager.saveUserId(userId) // Save the userId received from the backend
+                                sessionManager.saveUserId(userId) // Store the userId
 
                                 Log.d("Login", "Token: $token, User ID: $userId")
 
@@ -165,6 +167,7 @@ fun LoginScreen(onTextClick: () -> Unit, sessionManager: SessionManager) {
         ) {
             Text(text = "Login", color = Color.White)
         }
+
 
         Spacer(modifier = Modifier.height(20.dp))
 

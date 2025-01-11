@@ -1,7 +1,9 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -24,42 +26,74 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.AlbumRequestDTO
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels.AlbumViewModel
+import pt.iade.ei.martim.rodrigo.SoundMarket.utils.SessionManager
+import pt.iade.ei.martim.rodrigo.SoundMarket.utils.TokenManager
+import pt.iade.ei.martim.rodrigo.SoundMarket.network.SpotifyApiService
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.Response
 
 class AddToCollectionFromAlbumActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val albumSpotifyID = intent.getStringExtra("albumId") ?: ""
         setContent {
-
-            AddToCollectionFromCollectionScreen()
-
+            AddToCollectionFromAlbumScreen(albumSpotifyID)
         }
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun AddToCollectionFromAlbumScreen() {
+fun AddToCollectionFromAlbumScreen(albumSpotifyID: String) {
     var albumName by remember { mutableStateOf("") }
+    var artistName by remember { mutableStateOf("") }
+    var genre by remember { mutableStateOf("") }
     var format by remember { mutableStateOf("") }
     var condition by remember { mutableStateOf("") }
+    var isLoading by remember { mutableStateOf(true) }
 
-    // State for dropdown menus
-    var isFormatDropdownExpanded by remember { mutableStateOf(false) }
-    var isConditionDropdownExpanded by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val albumViewModel: AlbumViewModel = viewModel()
+    val sessionManager = SessionManager(context)
 
-    // Options for dropdown menus
+    val authToken = TokenManager.getToken(context) ?: ""
+    val userId = sessionManager.getUserId()
+
     val formatOptions = listOf("Vinyl", "CD")
     val conditionOptions = listOf("New", "Very Good", "Good", "Used", "Damaged")
 
-    // State for size and selected text
+    var isFormatDropdownExpanded by remember { mutableStateOf(false) }
+    var isConditionDropdownExpanded by remember { mutableStateOf(false) }
     var formatTextFieldSize by remember { mutableStateOf(Size.Zero) }
     var conditionTextFieldSize by remember { mutableStateOf(Size.Zero) }
 
-    // Icons for dropdown
     val formatIcon = if (isFormatDropdownExpanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
     val conditionIcon = if (isConditionDropdownExpanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
 
-    val context = LocalContext.current
+    // Fetch album details from Spotify API
+    val spotifyApiService = remember { SpotifyApiService.create() }
+
+    LaunchedEffect(albumSpotifyID) {
+        try {
+            val response = spotifyApiService.getAlbumDetails(albumSpotifyID, "Bearer $authToken")
+            if (response.isSuccessful) {
+                val albumDetails = response.body()
+                albumName = albumDetails?.name ?: "Unknown Title"
+                artistName = albumDetails?.artists?.firstOrNull()?.name ?: "Unknown Artist"
+                genre = albumDetails?.genres?.firstOrNull() ?: "Unknown Genre"
+
+                Log.d("AddToCollection", "Album Details: $albumName, $artistName, $genre")
+            } else {
+                Log.e("AddToCollection", "Failed to fetch album details: ${response.code()}")
+            }
+        } catch (e: Exception) {
+            Log.e("AddToCollection", "Error fetching album details: ${e.message}")
+        }
+        isLoading = false
+    }
 
     Column(
         modifier = Modifier
@@ -68,36 +102,29 @@ fun AddToCollectionFromAlbumScreen() {
             .background(Color(0xFFF5F5F5)),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        // Toolbar with logo
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp)
+            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.logo), // replace with your logo
+                painter = painterResource(id = R.drawable.logo),
                 contentDescription = "Logo",
                 modifier = Modifier.size(300.dp, 100.dp),
             )
         }
 
-
         Spacer(modifier = Modifier.height(16.dp))
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize() // Makes the Column fill the parent container
-                .padding(16.dp), // Adds padding around the entire Column
-            verticalArrangement = Arrangement.Top, // Aligns items to the top
-            horizontalAlignment = Alignment.CenterHorizontally // Centers items horizontally
-        ) {
+        if (isLoading) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+        } else {
+            Text("Album: $albumName")
+            Text("Artist: $artistName")
+            Text("Genre: $genre")
 
+            Spacer(modifier = Modifier.height(16.dp))
 
-            Spacer(modifier = Modifier.height(48.dp))
-
-            // Format Dropdown
             OutlinedTextField(
                 value = format,
                 onValueChange = { format = it },
@@ -110,11 +137,9 @@ fun AddToCollectionFromAlbumScreen() {
                     )
                 },
                 readOnly = true,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .onGloballyPositioned { coordinates ->
-                        formatTextFieldSize = coordinates.size.toSize()
-                    }
+                modifier = Modifier.fillMaxWidth().onGloballyPositioned {
+                    formatTextFieldSize = it.size.toSize()
+                }
             )
 
             DropdownMenu(
@@ -127,14 +152,13 @@ fun AddToCollectionFromAlbumScreen() {
                         format = option
                         isFormatDropdownExpanded = false
                     }) {
-                        Text(text = option)
+                        Text(option)
                     }
                 }
             }
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // Condition Dropdown
             OutlinedTextField(
                 value = condition,
                 onValueChange = { condition = it },
@@ -143,17 +167,13 @@ fun AddToCollectionFromAlbumScreen() {
                     Icon(
                         imageVector = conditionIcon,
                         contentDescription = "Dropdown Icon",
-                        Modifier.clickable {
-                            isConditionDropdownExpanded = !isConditionDropdownExpanded
-                        }
+                        Modifier.clickable { isConditionDropdownExpanded = !isConditionDropdownExpanded }
                     )
                 },
                 readOnly = true,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .onGloballyPositioned { coordinates ->
-                        conditionTextFieldSize = coordinates.size.toSize()
-                    }
+                modifier = Modifier.fillMaxWidth().onGloballyPositioned {
+                    conditionTextFieldSize = it.size.toSize()
+                }
             )
 
             DropdownMenu(
@@ -166,20 +186,32 @@ fun AddToCollectionFromAlbumScreen() {
                         condition = label
                         isConditionDropdownExpanded = false
                     }) {
-                        Text(text = label)
+                        Text(label)
                     }
                 }
             }
 
             Spacer(modifier = Modifier.height(250.dp))
 
-            // Add To Collection Button
             Button(
-                onClick = { val intent = Intent(context, CollectionActivity::class.java)
-                    context.startActivity(intent) },
-                modifier = Modifier
-                    .width(200.dp) // Set a specific width
-                    .height(50.dp), // Keep the height as is
+                onClick = {
+                    // Make sure the userId is available
+                    if (userId != null) {
+                        val albumDTO = AlbumRequestDTO(
+                            albumSpotifyID = albumSpotifyID,
+                            title = albumName,
+                            artist = artistName,
+                            genre = genre,
+                            format = format,
+                            condition = condition,
+                            utilizadorId = userId // Pass the userId here
+                        )
+                        albumViewModel.addAlbumToCollection(albumDTO, authToken)
+                    } else {
+                        Log.e("AddToCollection", "User ID is null, cannot add album to collection")
+                    }
+                },
+                modifier = Modifier.width(200.dp).height(50.dp),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF4CAF50))
             ) {
                 Text("Add To Collection", color = Color.White)
@@ -187,8 +219,10 @@ fun AddToCollectionFromAlbumScreen() {
         }
     }
 }
+
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewAddToCollectionFromAlbum() {
-    AddToCollectionFromAlbumScreen()
+    AddToCollectionFromAlbumScreen(albumSpotifyID = "1a2b3c4d5e6f7g8h9i0j")
 }

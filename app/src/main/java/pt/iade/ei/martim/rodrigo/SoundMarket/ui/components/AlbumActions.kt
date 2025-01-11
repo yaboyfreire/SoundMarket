@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import pt.iade.ei.martim.rodrigo.SoundMarket.AddToCollectionFromAlbumActivity
 import pt.iade.ei.martim.rodrigo.SoundMarket.AddToCollectionFromCollectionActivity
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 
@@ -42,7 +43,7 @@ fun AlbumActions(album: Album) {
 
         Button(
             onClick = {
-                val intent = Intent(context, AddToCollectionFromCollectionActivity::class.java)
+                val intent = Intent(context, AddToCollectionFromAlbumActivity::class.java)
                 intent.putExtra("albumId", album.id)  // You can pass more album details here if needed
                 context.startActivity(intent)
             },

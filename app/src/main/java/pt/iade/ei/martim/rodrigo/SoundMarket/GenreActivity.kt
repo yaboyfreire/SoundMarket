@@ -40,7 +40,7 @@ fun GenreScreen(genreId: String, genreName: String) {
 
     // Fetch genre-specific albums
     LaunchedEffect(genreId) {
-        val token = "Bearer BQCg8UIAN8uxP4EqBVhuB3VxzumJE8InsEqN6Gp_YgcE7M5dhSL-eE71n3HBJUczGUkvfsEnx-hpLTEEPbDTzG3-ywb3BbgWbPRJesoyAipEdj-sQIQ"
+        val token = "Bearer BQCtNWZ6V-wamhDo0Fyv52v0j0z4R5FrnZcDfRV9DPX_wMYiDjXtBWQrx9ZnL9O91hKUJbZGGNWDtoQZuc1AuBKTji5cyIT0s565LROMV8OwStPbZPk" // Replace with your actual token
         albumViewModel.fetchAlbumsByGenre(token, genreId)
     }
 
