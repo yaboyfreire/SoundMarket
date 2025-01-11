@@ -37,13 +37,10 @@ fun AlbumItem(album: Album, onGoToAlbumClick: () -> Unit) {
             .clickable {
                 // Launch the AlbumActivity
                 val intent = Intent(context, AlbumActivity::class.java).apply {
-                    putExtra("ALBUM_TITLE", album.name)
-                    putExtra("ALBUM_ARTIST", album.artists.firstOrNull()?.name ?: "Unknown Artist")
-                    putExtra("ALBUM_YEAR", album.release_date)
+                    putExtra("ALBUM_ID", album.id) // Pass album details
+                    putExtra("ALBUM_NAME", album.name)
                 }
                 context.startActivity(intent)
-                // Optionally call the passed callback
-                onGoToAlbumClick()
             }
     ) {
         Row {

@@ -5,12 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -36,18 +38,27 @@ fun GenreScreen(genreId: String, genreName: String) {
     val albumViewModel: AlbumViewModel = viewModel() // Get the AlbumViewModel
     val albums = albumViewModel.albums.value // Observe albums from the ViewModel
 
-    // Fetch genre-specific albums when the screen is first loaded
+    // Fetch genre-specific albums
     LaunchedEffect(genreId) {
-        val token = "Bearer BQDNEoFK4WgHw69IuquQgaVpQlGPyIrB8WU5pxAYHUOongit7OYPZLnLVdxFReb3g0AcWS4UTBz9fTpB6onvh0HHjs6_IJS59o7p1VLnF4rURmUrOvU"
+        val token = "Bearer BQCg8UIAN8uxP4EqBVhuB3VxzumJE8InsEqN6Gp_YgcE7M5dhSL-eE71n3HBJUczGUkvfsEnx-hpLTEEPbDTzG3-ywb3BbgWbPRJesoyAipEdj-sQIQ"
         albumViewModel.fetchAlbumsByGenre(token, genreId)
     }
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(text = genreName) },
-                navigationIcon = { /* Back button logic, if needed */ }
-            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "App Logo",
+                    modifier = Modifier.size(300.dp, 130.dp)
+                )
+            }
         }
     ) { innerPadding ->
         Column(
@@ -55,6 +66,11 @@ fun GenreScreen(genreId: String, genreName: String) {
                 .padding(innerPadding)
                 .fillMaxSize()
         ) {
+
+            TopAppBar(
+                title = { Text(text = genreName) }
+            )
+
             if (albums.isNotEmpty()) {
                 HorizontalCarousel(
                     albums = albums,
@@ -62,20 +78,22 @@ fun GenreScreen(genreId: String, genreName: String) {
                     onButtonClick = {},
                     onAlbumClick = { album ->
                         val intent = Intent(context, AlbumActivity::class.java).apply {
-                            putExtra("ALBUM_ID", album.id) // Pass album details
+                            putExtra("ALBUM_ID", album.id)
                             putExtra("ALBUM_NAME", album.name)
                         }
                         context.startActivity(intent)
                     }
                 )
             } else {
-                Text(
-                    text = "Loading albums...",
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .wrapContentHeight(Alignment.CenterVertically),
-                    style = MaterialTheme.typography.bodyLarge
-                )
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "Loading albums...",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
             }
         }
     }
