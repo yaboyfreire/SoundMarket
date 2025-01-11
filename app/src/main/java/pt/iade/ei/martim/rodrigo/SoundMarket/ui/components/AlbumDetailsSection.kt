@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
@@ -20,7 +21,9 @@ import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 @Composable
 fun AlbumDetailsSection(album: Album) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         // Display album cover image
@@ -35,24 +38,40 @@ fun AlbumDetailsSection(album: Album) {
         Spacer(modifier = Modifier.width(16.dp))
 
         // Display album name, artist, and release year
-        Column {
-            Text(text = album.name, fontWeight = FontWeight.Bold)
+        Column(
+            modifier = Modifier.weight(1f) // Use weight to allocate space for the text content
+        ) {
+            // Album Title with wrapping
+            Text(
+                text = album.name,
+                fontWeight = FontWeight.Bold,
+                overflow = TextOverflow.Clip,
+                maxLines = 3 // Allow wrapping to two lines if needed
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            // Artist Name and Year with wrapping
             album.artists.firstOrNull()?.let { artist ->
-                Text(text = "${artist.name} • ${album.release_date.take(4)}")
+                Text(
+                    text = "${artist.name} • ${album.release_date.take(4)}",
+                    overflow = TextOverflow.Clip,
+                    maxLines = 3 // Allow wrapping to two lines if needed
+                )
             }
         }
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.width(16.dp))
 
         // Display album rating and "SoundRating"
         Surface(
             color = Color(0xFF4CAF50),
             shape = RoundedCornerShape(8.dp),
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier
+                .padding(8.dp)
+                .align(Alignment.CenterVertically) // Ensure it's vertically centered
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(8.dp)
             ) {
                 Text(text = "8.7/10", color = Color.Black) // You can dynamically update the rating later
                 Text(text = "SoundRating", color = Color.Black)

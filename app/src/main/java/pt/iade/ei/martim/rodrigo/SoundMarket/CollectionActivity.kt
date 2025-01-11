@@ -2,25 +2,30 @@ package pt.iade.ei.martim.rodrigo.SoundMarket
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels.NewReleasesCollectionViewModel
+import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.AlbumItem
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.BottomAppBar
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.HomeTopBar
-import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.SearchBar
-import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
-import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.AlbumItem
-import androidx.lifecycle.viewmodel.compose.viewModel
-import pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels.NewReleasesCollectionViewModel
 
 
 class CollectionActivity : ComponentActivity() {
@@ -35,7 +40,8 @@ class CollectionActivity : ComponentActivity() {
 
             // Fetch new releases when the screen is first loaded
             LaunchedEffect(Unit) {
-                val token = "Bearer BQCtNWZ6V-wamhDo0Fyv52v0j0z4R5FrnZcDfRV9DPX_wMYiDjXtBWQrx9ZnL9O91hKUJbZGGNWDtoQZuc1AuBKTji5cyIT0s565LROMV8OwStPbZPk" // Replace with your actual token
+                val token = "Bearer BQDdYi5mCjzgcRs13xmiaWXSXpv3wrexeVYXankAe73IdYQo-MUBlxHdx4HxHD5EWcdH9a3nnD1H8aBTyX7X5u9_CR25umLVrIMQ6g-f1cUTC0m6lkM"
+
                 newReleasesCollectionViewModel.fetchNewReleases(token)
             }
 
@@ -80,9 +86,9 @@ fun CollectionScreen(
                 .padding(horizontal = 16.dp)
         ) {
             // Pass the query and search change handler to the SearchBar
-            SearchBar(onSearchQueryChanged = { newQuery ->
+            /*SearchBar(onSearchQueryChanged = { newQuery ->
                 onSearchQueryChange(newQuery) // Update the search query in CollectionActivity
-            })
+            })*/
 
             if (filteredAlbums.isNotEmpty()) {
                 LazyColumn(

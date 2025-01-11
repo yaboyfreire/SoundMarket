@@ -40,6 +40,8 @@
         <activity android:name=".AlbumActivity" />
         <activity android:name=".AddToCollectionFromCollectionActivity" />
         <activity android:name=".AddToCollectionFromAlbumActivity" />
+        <activity android:name=".SearchResultsActivity" />
+
 
     </application>
 </manifest>

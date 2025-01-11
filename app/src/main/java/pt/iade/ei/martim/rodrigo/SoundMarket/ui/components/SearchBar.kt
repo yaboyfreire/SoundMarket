@@ -2,46 +2,75 @@ package pt.iade.ei.martim.rodrigo.SoundMarket.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.AlertDialogDefaults.shape
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(
+    query: String,
     onSearchQueryChanged: (String) -> Unit,
-    shape: Shape = RoundedCornerShape(16.dp)
+    onSearchAction: (String) -> Unit
 ) {
-    var query by remember { mutableStateOf(TextFieldValue("")) }
+    var localQuery by remember { mutableStateOf(query) }
 
-    TextField(
-        value = query,
-        onValueChange = { newText ->
-            query = newText
-            onSearchQueryChanged(newText.text)
+    OutlinedTextField(
+        value = localQuery,
+        onValueChange = { newQuery ->
+            localQuery = newQuery
+            onSearchQueryChanged(newQuery)
         },
-        modifier = Modifier
-            .fillMaxWidth() // Make sure the search bar takes the full width
-            .padding(bottom = 16.dp), // Add padding at the bottom of the SearchBar
-        shape = RoundedCornerShape(50.dp),
-        placeholder = { Text(text = "Search") },
+        label = { Text("Search for albums...") },
+        trailingIcon = {
+            IconButton(
+                onClick = { onSearchAction(localQuery) }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = "Search Icon",
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+        },
+        keyboardActions = KeyboardActions(
+            onDone = {
+                onSearchAction(localQuery)
+            }
+        ),
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Done
+        ),
         singleLine = true,
-        colors = TextFieldDefaults.textFieldColors(
-            disabledTextColor = Color.Transparent,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent
+        shape = MaterialTheme.shapes.medium,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp,bottom =20.dp),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = MaterialTheme.colorScheme.primary,
+            unfocusedBorderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+            cursorColor = MaterialTheme.colorScheme.primary,
+            containerColor = MaterialTheme.colorScheme.surface
         )
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewSearchBar() {
+    MaterialTheme {
+        SearchBar(
+            query = "",
+            onSearchQueryChanged = {},
+            onSearchAction = {}
+        )
+    }
 }

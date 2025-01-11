@@ -17,7 +17,7 @@ interface SpotifyApiService {
     @GET("v1/browse/new-releases")
     suspend fun getNewReleases(
         @Header("Authorization") authorization: String,
-        @Query("limit") limit: Int = 3
+        @Query("limit") limit: Int = 4
     ): Response<NewReleasesResponse>
 
     @GET("v1/search")
