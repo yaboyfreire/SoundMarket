@@ -18,6 +18,7 @@ data class PlaylistResponse(
         )
 
         data class Album(
+            val id: String,
             val name: String,
             val artists: List<Artist>,
             val images: List<Image>

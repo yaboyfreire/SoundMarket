@@ -1,9 +1,13 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket.repository
 
 import android.util.Log
+import com.google.gson.Gson
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.RetrofitClient
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.NewReleasesResponse
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.PlaylistResponse
 import pt.iade.ei.martim.rodrigo.SoundMarket.network.SpotifyApiService
 
 
@@ -40,5 +44,22 @@ class SpotifyRepository {
         }
     }
 
+    private val apiService = SpotifyApiService.create()
+
+    suspend fun fetchPlaylist(token: String, playlistId: String): PlaylistResponse {
+        val response: Response<PlaylistResponse> = apiService.getPlaylist("Bearer $token", playlistId)
+        Log.d("SpotifyRepository", "Request Token: Bearer $token")
+        if (!response.isSuccessful) {
+            val errorBody = response.errorBody()?.string()
+            Log.e("SpotifyRepository", "Error response: $errorBody")
+            throw Exception("Failed to fetch playlist: $errorBody")
+        }
+        if (response.isSuccessful) {
+            return response.body() ?: throw Exception("Empty response body")
+        } else {
+            throw Exception("Failed to fetch playlist: ${response.errorBody()?.string()}")
+        }
+
+    }
 
 }
