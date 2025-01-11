@@ -41,6 +41,7 @@ class CollectionActivity : ComponentActivity() {
             // Fetch new releases when the screen is first loaded
             LaunchedEffect(Unit) {
                 val token = "Bearer BQDdYi5mCjzgcRs13xmiaWXSXpv3wrexeVYXankAe73IdYQo-MUBlxHdx4HxHD5EWcdH9a3nnD1H8aBTyX7X5u9_CR25umLVrIMQ6g-f1cUTC0m6lkM"
+
                 newReleasesCollectionViewModel.fetchNewReleases(token)
             }
 
