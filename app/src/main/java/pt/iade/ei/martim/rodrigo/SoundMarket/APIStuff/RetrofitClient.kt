@@ -19,7 +19,7 @@ object RetrofitClient {
     }
 }
 object RetrofitClientSoundMarket {
-    private const val BASE_URL = "http://192.168.1.102:8080"
+    private const val BASE_URL = "http://192.168.1.147:8080"
 
     val instance: Retrofit by lazy {
         Retrofit.Builder()
