@@ -35,7 +35,7 @@ class CollectionActivity : ComponentActivity() {
 
             // Fetch new releases when the screen is first loaded
             LaunchedEffect(Unit) {
-                val token = "Bearer BQDSPyigZKKu_Ugy54ynAVh3co9UsTSpXraOpGbFrRAoGJQB-W2xuPrVOj2-7usREyaFxFv1Mr9QDJV4qCl7p2XD33rwZCNz2T5708F7SmEcGJ-CivE"
+                val token = "Bearer BQCycbLOAjsXKAuDrjl-KgkVgXmCvViZELl_FxCgKavUGQP7mQELvWYYdNBB-B7ek0WnYBI6mkWhLNJN_e73j9n5pKOEJby59zY4nse0qgro_Iu9vbk"
                 newReleasesCollectionViewModel.fetchNewReleases(token)
             }
 
@@ -80,9 +80,9 @@ fun CollectionScreen(
                 .padding(horizontal = 16.dp)
         ) {
             // Pass the query and search change handler to the SearchBar
-            SearchBar(onSearchQueryChanged = { newQuery ->
+            /*SearchBar(onSearchQueryChanged = { newQuery ->
                 onSearchQueryChange(newQuery) // Update the search query in CollectionActivity
-            })
+            })*/
 
             if (filteredAlbums.isNotEmpty()) {
                 LazyColumn(

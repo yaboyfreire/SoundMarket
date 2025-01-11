@@ -1,9 +1,6 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket.repository
 
 import android.util.Log
-import com.google.gson.Gson
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.RetrofitClient
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.NewReleasesResponse
@@ -30,6 +27,15 @@ class SpotifyRepository {
         return RetrofitClient.api.searchAlbums(
             authorization = token,
             query = genreName,
+            type = "album",
+            limit = 10
+        )
+    }
+
+    suspend fun searchAlbumsByTitle(token: String, title: String): Response<NewReleasesResponse> {
+        return RetrofitClient.api.searchAlbums(
+            authorization = token,
+            query = title,
             type = "album",
             limit = 10
         )

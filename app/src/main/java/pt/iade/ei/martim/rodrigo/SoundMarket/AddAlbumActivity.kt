@@ -95,12 +95,12 @@ fun AddAlbumScreen(
             )
 
             // Search bar
-            SearchBar(
+           /* SearchBar(
                 onSearchQueryChanged = { query ->
                     searchQuery = query
                     onSearchQueryChange(query) // Update the parent with the query
                 }
-            )
+            )*/
 
             Spacer(modifier = Modifier.height(8.dp))
 

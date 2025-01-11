@@ -45,12 +45,15 @@ fun HomeScreen(onButtonClick: () -> Unit) {
     val context = LocalContext.current
     val albumViewModel: AlbumViewModel = viewModel() // Get the AlbumViewModel
     val albums = albumViewModel.albums.value // Observe albums from the ViewModel
+    val token = "Bearer BQCycbLOAjsXKAuDrjl-KgkVgXmCvViZELl_FxCgKavUGQP7mQELvWYYdNBB-B7ek0WnYBI6mkWhLNJN_e73j9n5pKOEJby59zY4nse0qgro_Iu9vbk"
 
     // Fetch new releases when the screen is first loaded
     LaunchedEffect(Unit) {
-        val token = "Bearer BQDSPyigZKKu_Ugy54ynAVh3co9UsTSpXraOpGbFrRAoGJQB-W2xuPrVOj2-7usREyaFxFv1Mr9QDJV4qCl7p2XD33rwZCNz2T5708F7SmEcGJ-CivE"
         albumViewModel.fetchNewReleases(token)
     }
+
+    // State to store the search query
+    var searchQuery by remember { mutableStateOf("") }
 
     val genreItems = listOf(
         GridItem(1, R.drawable.rock, "Rock"),
@@ -105,11 +108,22 @@ fun HomeScreen(onButtonClick: () -> Unit) {
                 .padding(horizontal = 16.dp),
         ) {
 
-            SearchBar(onSearchQueryChanged = { query -> /* Handle search query change */ })
+            // Pass the onSearchAction function that triggers the navigation
+            SearchBar(
+                query = searchQuery, // Pass the current search query as a parameter
+                onSearchQueryChanged = { query -> searchQuery = query }, // Update the search query
+                onSearchAction = { query ->
+                    val intent = Intent(context, SearchResultsActivity::class.java).apply {
+                        putExtra("QUERY", query)  // Make sure the key matches
+                        putExtra("TOKEN", token)  // Pass the token as well
+                    }
+                    context.startActivity(intent)
+                }
+            )
 
             if (albums.isNotEmpty()) {
                 HorizontalCarousel(
-                    albums = albums, // Now using the albums from the ViewModel
+                    albums = albums,
                     text = "New Releases",
                     onButtonClick = onButtonClick,
                     onAlbumClick = { album ->
