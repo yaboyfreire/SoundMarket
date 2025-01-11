@@ -45,7 +45,7 @@ fun HomeScreen(onButtonClick: () -> Unit) {
     val context = LocalContext.current
     val albumViewModel: AlbumViewModel = viewModel() // Get the AlbumViewModel
     val albums = albumViewModel.albums.value // Observe albums from the ViewModel
-    val token = "Bearer BQCycbLOAjsXKAuDrjl-KgkVgXmCvViZELl_FxCgKavUGQP7mQELvWYYdNBB-B7ek0WnYBI6mkWhLNJN_e73j9n5pKOEJby59zY4nse0qgro_Iu9vbk"
+    val token = "Bearer BQDdYi5mCjzgcRs13xmiaWXSXpv3wrexeVYXankAe73IdYQo-MUBlxHdx4HxHD5EWcdH9a3nnD1H8aBTyX7X5u9_CR25umLVrIMQ6g-f1cUTC0m6lkM"
 
     // Fetch new releases when the screen is first loaded
     LaunchedEffect(Unit) {

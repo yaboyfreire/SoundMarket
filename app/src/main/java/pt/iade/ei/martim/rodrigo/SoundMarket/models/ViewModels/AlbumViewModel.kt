@@ -20,7 +20,7 @@ class AlbumViewModel : ViewModel() {
     val albums: State<List<Album>> = _albums
 
     // Fetch new releases from Spotify using the repository
-    fun fetchNewReleases(token: String, limit: Int = 3) {
+    fun fetchNewReleases(token: String, limit: Int = 10) {
         viewModelScope.launch {
             try {
                 val response = spotifyRepository.getNewReleases(token, limit)  // Call to the repository

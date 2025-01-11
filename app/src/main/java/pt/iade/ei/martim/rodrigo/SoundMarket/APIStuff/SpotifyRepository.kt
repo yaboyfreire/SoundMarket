@@ -14,7 +14,7 @@ import retrofit2.Response
 class SpotifyRepository {
 
     // Fetch new releases from Spotify API
-    suspend fun getNewReleases(token: String, limit: Int): Response<NewReleasesResponse> {
+    suspend fun getNewReleases(token : String, limit: Int): Response<NewReleasesResponse> {
         val response = RetrofitClient.api.getNewReleases(authorization = token, limit = limit)
 
         Log.d("SpotifyRepository", "API Response: ${response.body()}")
