@@ -135,6 +135,10 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção.
 
 ---
 
+[Manual do Utilizador](https://github.com/yaboyfreire/SoundMarket/blob/Relat%C3%B3rioFinal/Docs/ManualUtilizador.pdf)
+
+---
+
 ## Planificação (Gráfico de Gantt)
 
 As tarefas foram divididas de forma a garantir que os aspetos mais importantes estivessem concluídos a tempo da segunda entrega, com o restante a ser finalizado até a data final de entrega.
