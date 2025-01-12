@@ -1,6 +1,7 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class User(
     val id: Int,
@@ -27,4 +28,8 @@ data class UserAlbum(
     @SerializedName("album_added_date") val albumAddedDate: String,  // Maps JSON "album_added_date" to albumAddedDate
     val imageURL: String,
     val userId: Int  // Associated user
+): Serializable
+
+data class UserAlbums(
+    val UserAlbums: List<UserAlbum>
 )

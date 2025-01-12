@@ -37,6 +37,6 @@
         <activity android:name=".AddToCollectionFromCollectionActivity" />
         <activity android:name=".AddToCollectionFromAlbumActivity" />
         <activity android:name=".SearchResultsActivity" />
-
+        <activity android:name=".UserCollectionActivity" />
     </application>
 </manifest>
