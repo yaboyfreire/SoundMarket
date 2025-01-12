@@ -43,9 +43,13 @@ fun AlbumActions(album: Album) {
 
         Button(
             onClick = {
+                // Prepare the Intent to launch the AddToCollectionFromAlbumActivity
                 val intent = Intent(context, AddToCollectionFromAlbumActivity::class.java)
-                intent.putExtra("albumId", album.id)  // You can pass more album details here if needed
-                context.startActivity(intent)
+                intent.putExtra("albumId", album.id)  // Pass the album ID
+                intent.putExtra("albumTitle", album.name)  // Pass the album name
+                intent.putExtra("albumArtist", album.artists.firstOrNull()?.name ?: "Unknown Artist")  // Pass the artist name
+                intent.putExtra("imageURL", album.images.firstOrNull()?.url ?: "")  // Pass the image URL (or an empty string if not available)
+                context.startActivity(intent)  // Start the activity
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
         ) {

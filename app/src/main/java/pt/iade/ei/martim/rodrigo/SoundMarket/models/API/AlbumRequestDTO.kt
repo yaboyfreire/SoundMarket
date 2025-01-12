@@ -7,5 +7,7 @@ data class AlbumRequestDTO(
     val genre: String?,
     val format: String,
     val condition: String,
-    val utilizadorId : String
+    val utilizadorId : String,
+    val imageURL: String
+
 )

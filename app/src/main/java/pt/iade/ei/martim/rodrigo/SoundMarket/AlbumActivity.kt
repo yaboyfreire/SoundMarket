@@ -27,6 +27,7 @@ class AlbumActivity : ComponentActivity() {
             val authToken = intent.getStringExtra("AUTH_TOKEN") ?: ""
             AlbumScreen(albumId = albumId, authToken = authToken)
         }
+
     }
 }
 
@@ -39,7 +40,7 @@ fun AlbumScreen(albumId: String, authToken: String) {
     LaunchedEffect(albumId) {
 
 
-        val token = "Bearer BQBLYJpTJ0jji40x0B92lWqgLmqoDjQXnvpsbiorC4W3Wz5U7ZEKthupmEfkDBYAefGFgx5HD4A823ao5Wz29l3pQff_m2wST-dsNX4jkSb2oXgc6jA"
+        val token = "Bearer BQDYIB6O7ah9LdPtmGnhVmCzrxFJAfp2y1iZfGirxbKP2GsfRtj_lIE1cZVu9XYVol9zIpKIlaosDlgzzaqSpadNdx0E3MXQuvQpRsIDxTVPDKHCmJ8"
 
         albumViewModel.fetchAlbum(albumId, token)
     }

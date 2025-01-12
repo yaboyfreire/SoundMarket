@@ -1,5 +1,6 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.rememberImagePainter
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.AlbumRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels.AlbumViewModel
 import pt.iade.ei.martim.rodrigo.SoundMarket.utils.SessionManager
@@ -39,17 +41,36 @@ import retrofit2.Response
 class AddToCollectionFromAlbumActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Retrieve the data passed via the Intent
         val albumSpotifyID = intent.getStringExtra("albumId") ?: ""
+        val albumTitle = intent.getStringExtra("albumTitle") ?: ""
+        val albumArtist = intent.getStringExtra("albumArtist") ?: ""
+        val imageURL = intent.getStringExtra("imageURL") ?: ""
+
+        // Pass the data to the AddToCollectionFromAlbumScreen composable
         setContent {
-            AddToCollectionFromAlbumScreen(albumSpotifyID)
+            AddToCollectionFromAlbumScreen(
+                albumSpotifyID = albumSpotifyID,
+                albumTitle = albumTitle,
+                albumArtist = albumArtist,
+                imageURL = imageURL
+
+            )
+            Log.d("AddToCollection", "Received Data: $albumSpotifyID, $albumTitle, $albumArtist, $imageURL")
+
         }
     }
 }
 
+
 @Composable
-fun AddToCollectionFromAlbumScreen(albumSpotifyID: String) {
-    var albumName by remember { mutableStateOf("") }
-    var artistName by remember { mutableStateOf("") }
+fun AddToCollectionFromAlbumScreen(
+    albumSpotifyID: String,
+    albumTitle: String,
+    albumArtist: String,
+    imageURL: String
+) {
     var genre by remember { mutableStateOf("") }
     var format by remember { mutableStateOf("") }
     var condition by remember { mutableStateOf("") }
@@ -73,7 +94,7 @@ fun AddToCollectionFromAlbumScreen(albumSpotifyID: String) {
     val formatIcon = if (isFormatDropdownExpanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
     val conditionIcon = if (isConditionDropdownExpanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
 
-    // Fetch album details from Spotify API
+    // Fetch album details from Spotify API (optional, as the data is already passed)
     val spotifyApiService = remember { SpotifyApiService.create() }
 
     LaunchedEffect(albumSpotifyID) {
@@ -81,11 +102,8 @@ fun AddToCollectionFromAlbumScreen(albumSpotifyID: String) {
             val response = spotifyApiService.getAlbumDetails(albumSpotifyID, "Bearer $authToken")
             if (response.isSuccessful) {
                 val albumDetails = response.body()
-                albumName = albumDetails?.name ?: "Unknown Title"
-                artistName = albumDetails?.artists?.firstOrNull()?.name ?: "Unknown Artist"
                 genre = albumDetails?.genres?.firstOrNull() ?: "Unknown Genre"
-
-                Log.d("AddToCollection", "Album Details: $albumName, $artistName, $genre")
+                Log.d("AddToCollection", "Album Details: $albumTitle, $albumArtist, $genre")
             } else {
                 Log.e("AddToCollection", "Failed to fetch album details: ${response.code()}")
             }
@@ -102,16 +120,11 @@ fun AddToCollectionFromAlbumScreen(albumSpotifyID: String) {
             .background(Color(0xFFF5F5F5)),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = "Logo",
-                modifier = Modifier.size(300.dp, 100.dp),
-            )
+        // Display the album's image if available
+        if (imageURL.isNotEmpty()) {
+            Image(painter = rememberImagePainter(imageURL), contentDescription = "Album Image", modifier = Modifier.size(200.dp))
+            Log.d("AddToCollection", "Received Data: $albumSpotifyID, $albumTitle, $albumArtist, $imageURL")
+
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -119,10 +132,12 @@ fun AddToCollectionFromAlbumScreen(albumSpotifyID: String) {
         if (isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
         } else {
-
+            Text("Album: $albumTitle")
+            Text("Artist: $albumArtist")
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            // Format Dropdown
             OutlinedTextField(
                 value = format,
                 onValueChange = { format = it },
@@ -157,6 +172,7 @@ fun AddToCollectionFromAlbumScreen(albumSpotifyID: String) {
 
             Spacer(modifier = Modifier.height(32.dp))
 
+            // Condition Dropdown
             OutlinedTextField(
                 value = condition,
                 onValueChange = { condition = it },
@@ -193,16 +209,17 @@ fun AddToCollectionFromAlbumScreen(albumSpotifyID: String) {
 
             Button(
                 onClick = {
-                    // Make sure the userId is available
                     if (userId != null) {
                         val albumDTO = AlbumRequestDTO(
                             albumSpotifyID = albumSpotifyID,
-                            title = albumName,
-                            artist = artistName,
+                            title = albumTitle,
+                            artist = albumArtist,
                             genre = genre,
                             format = format,
                             condition = condition,
-                            utilizadorId = userId // Pass the userId here
+                            utilizadorId = userId,
+                            imageURL = imageURL
+
                         )
                         albumViewModel.addAlbumToCollection(albumDTO, authToken)
                     } else {
@@ -222,5 +239,11 @@ fun AddToCollectionFromAlbumScreen(albumSpotifyID: String) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewAddToCollectionFromAlbum() {
-    AddToCollectionFromAlbumScreen(albumSpotifyID = "1a2b3c4d5e6f7g8h9i0j")
+    // Provide dummy values for the missing parameters
+    AddToCollectionFromAlbumScreen(
+        albumSpotifyID = "1a2b3c4d5e6f7g8h9i0j",
+        albumTitle = "Sample Album",
+        albumArtist = "Sample Artist",
+        imageURL = "https://example.com/sample_image.jpg"
+    )
 }
