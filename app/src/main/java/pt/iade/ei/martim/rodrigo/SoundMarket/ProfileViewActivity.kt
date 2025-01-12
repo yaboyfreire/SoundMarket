@@ -33,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
+import coil.compose.rememberImagePainter
 import kotlinx.coroutines.launch
 import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.AuthService
 import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.RetrofitClientSoundMarket
@@ -63,9 +64,8 @@ class ProfileViewActivity : ComponentActivity() {
 
         // Load user profile in a coroutine scope
         lifecycleScope.launch {
-            // Get the userId from sessionManager and ensure it's a Long
             val userId = sessionManager.getUserId()
-            Log.d("ProfileViewActivity", "User ID retrieved: $userId")
+            val token = sessionManager.getAuthToken()
             if (userId != null) {
                 profileViewModel.loadUserProfile(userId.toLong())
             } else {
@@ -77,29 +77,16 @@ class ProfileViewActivity : ComponentActivity() {
         lifecycleScope.launchWhenStarted {
             profileViewModel.loading.collect { isLoading ->
                 if (isLoading) {
-                    // Show loading spinner
                     setContent {
                         LoadingSpinner(isLoading = true)
                     }
                 } else {
-                    // Once loading is complete, display the profile screen
                     profileViewModel.user.collect { userProfile ->
                         userProfile?.let {
                             val dummyAlbums = listOf(
-                                Album(
-                                    albumType = "album",
-                                    artists = listOf(Album.Artist(name = "Artist 1")),
+                                Album(albumType = "album", artists = listOf(Album.Artist(name = "Artist 1")),
                                     images = listOf(Album.Image(url = "https://via.placeholder.com/300")),
-                                    name = "Album 1",
-                                    release_date = "2024-01-01"
-                                ),
-                                Album(
-                                    albumType = "album",
-                                    artists = listOf(Album.Artist(name = "Artist 2")),
-                                    images = listOf(Album.Image(url = "https://via.placeholder.com/300")),
-                                    name = "Album 2",
-                                    release_date = "2024-02-01"
-                                )
+                                    name = "Album 1", release_date = "2024-01-01")
                             )
                             setContent {
                                 ProfileScreen(
@@ -122,7 +109,6 @@ class ProfileViewActivity : ComponentActivity() {
         startActivity(intent)
     }
 }
-
 
 
 @Composable
@@ -149,7 +135,9 @@ fun ProfileScreen(onClick: () -> Unit, albums: List<Album>, userProfile: User?) 
                 contentAlignment = Alignment.BottomEnd
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.account_circle), // Placeholder image
+                    painter = rememberImagePainter(
+                        data = userProfile?.userImage ?: R.drawable.account_circle // Fallback to placeholder if image is null
+                    ),
                     contentDescription = "Profile Picture",
                     modifier = Modifier
                         .size(150.dp)
@@ -236,19 +224,21 @@ fun ProfileScreen(onClick: () -> Unit, albums: List<Album>, userProfile: User?) 
 @Preview(showBackground = true)
 @Composable
 fun ProfileScreenPreview() {
-    // Create dummy albums for the preview
-    val UserProfile = User(
+    // Create a mock user profile for the preview
+    val mockUser = User(
         id = 1,
         user_name = "Rodrigo Freire",
         gender = "Male",
         userName = "Rodrigo",
         birthdate = "11-07-2004",
         email = "rfreire@gmail.com",
-        country = "Edit to add your country",
-        userImage = null,
-        aboutMe = "Ah e tal",
-        password = "As"
+        country = "Portugal", // Example country
+        userImage = null, // Mocking a null image, which could be replaced with an image URL or resource
+        aboutMe = "Ah e tal", // Sample bio
+        password = "secret"
     )
+
+    // Dummy albums for the preview
     val dummyAlbums = listOf(
         Album(
             albumType = "album",
@@ -266,6 +256,10 @@ fun ProfileScreenPreview() {
         )
     )
 
-    // Pass the dummy albums to ProfileScreen
-    ProfileScreen(albums = dummyAlbums, userProfile = UserProfile, onClick = { /* Preview click handler */ })
+    // Pass the mock user and dummy albums to ProfileScreen for preview
+    ProfileScreen(
+        albums = dummyAlbums,
+        userProfile = mockUser,
+        onClick = { /* Preview click handler for editing profile */ }
+    )
 }

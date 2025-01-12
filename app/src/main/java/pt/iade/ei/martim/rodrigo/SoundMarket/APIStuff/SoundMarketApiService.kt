@@ -3,6 +3,7 @@ package pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.LoginRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.RegisterRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.ResponseDTO
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.User
 import retrofit2.Call
 import retrofit2.http.Body
@@ -23,5 +24,7 @@ interface AuthService {
         @Header("Authorization") authToken: String,  // Move the header annotation here
         @Path("id") userId: String
     ): User
+
+
 }
 

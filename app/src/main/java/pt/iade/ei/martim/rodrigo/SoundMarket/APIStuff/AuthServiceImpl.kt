@@ -2,6 +2,7 @@ package pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff
 
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.LoginRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.RegisterRequestDTO
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.User
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,5 +20,6 @@ class AuthServiceImpl(private val retrofit: Retrofit) : AuthService {
     override suspend fun getUserProfile(authToken: String, userId: String): User {
         return authService.getUserProfile(authToken, userId)
     }
+
 }
 
