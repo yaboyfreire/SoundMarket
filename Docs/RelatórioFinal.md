@@ -68,7 +68,6 @@ Matemática discreta-
 
 O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção.
 ### Adicionar um álbum à coleção
-#### 1º Processo
 
 1. O utilizador João Silva vai registar-se na aplicação.
 2. Depois de se registar, faz login e é redirecionado para a home page.
@@ -78,20 +77,21 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção.
 
 ---
 
+### Ver um álbum na coleção
+
+1. O utilizador faz login na aplicação
+2. Na home page no canto superior direito, o utilizador vai encontrar três símbolos e vai carregar no primeiro
+3. Quando estiver na página do perfil, vai encontrar algumas informações sobre o seu perfil e em baixo um carrossel com alguns dos álbuns disponiveis na sua coleção
+4. Em cima desse carrossel ele vai ver um botão e carregar nesse botão
+5. Esse botão leva o utilizador para outra página onde estão a ser mostrados todos os álbuns na coleção do utilizador 
+
+---
+
 ### Colocar um álbum à venda
 
 1. Na home page, em baixo no centro do ecrã, vai aparecer a opção “sell” e o utilizador João Silva vai carregar nesse botão.
 2. O utilizador será levado para outra página onde irá encontrar uma barra de pesquisa (search bar) para procurar o nome do álbum (aparecerão apenas os álbuns que estão presentes na coleção do utilizador), um botão para escolher o formato, outro para escolher a condição do disco, um espaço para colocar o preço de venda e ainda uma caixa de texto para adicionar uma descrição ao produto.
 3. Depois de preencher tudo, o João carrega no botão que diz “list item” e o item é colocado à venda.
-
----
-
-### Procurar um álbum e fazer uma proposta ao vendedor
-
-1. Na home page, haverá uma barra de pesquisa (search bar) e a utilizadora Maria Costa vai procurar o álbum que deseja.
-2. Ao carregar no álbum, aparecerão várias informações sobre ele e, perto do fim da página, irá aparecer um botão com a quantidade de vendedores que naquele momento têm o disco à venda. A utilizadora terá de carregar nesse botão.
-3. Após carregar no botão, Maria será apresentada com todas as listings desse álbum, e também com o respetivo formato, condição e preço.
-4. Depois de escolher a listing desejada, ela terá de carregar num botão que a levará para um chat com o vendedor. A partir daí, ela poderá ou não negociar o preço com o vendedor e tratar de todos os detalhes para comprar o disco.
 
 ---
 
