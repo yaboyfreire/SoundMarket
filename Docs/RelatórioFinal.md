@@ -1,5 +1,5 @@
 ![logo uni](Anexos/Logo.png)
-# Relatório do Projeto
+# Relatório Final do Projeto
 ### Projeto de Desenvolvimento Móvel
 
 Trabalho realizado por:
@@ -13,25 +13,47 @@ Trabalho realizado por:
 **Link github**: [https://github.com/yaboyfreire/SoundMarket](https://github.com/yaboyfreire/SoundMarket)
 
 ---
-## Palavras-chave
+A SoundMarket é uma aplicação que tem como objetivo servir de marketplace e um biblioteca móvel para o utilizador. Nesta aplicação é possível procurar por álbuns, ver quais estão à venda, adicionar álbuns à coleção e ainda adicionar álbuns a uma lista de desejos. Com esta aplicação estamos a resolver um problema já existente no mercado, procura e compra de álbuns de forma intuitiva sem complicações.
 
-- Vinyl
-- Records
-- CDs
-- Albums
-- Marketplace
 
-## Enquadramento do projeto
+Um dos objetivos principais do projeto era criar uma aplicação que conseguisse guardar os álbuns que o utilizador tem em sua casa, sendo eles em cd ou vinil e ao mesmo tempo conseguir colocar esses álbuns à venda e ter a possibilidade de comprar outros álbuns que o utilizador já estivesse à procura há algum tempo. A motivação inicial deste projeto foi a vontade de ter uma aplicação no telefone que fosse possível guardar e ver toda a coleção de música em formato físico que tinha em casa, rapidamente foi proposta a ideia da aplicação conseguir também realizar a compra e venda de álbuns.
 
-A SoundMarket começou com uma ideia de criar uma aplicação para guardar os álbuns todos que tinha na coleção sendo eles em vinil ou em cd, e rapidamente foi colocada a ideia de fazer com que também fosse possível comprar e vender álbuns para facilitar a parte de colecionar e também para criar uma comunidade que partilhasse o mesmo interesse.
+O público alvo desta aplicação é toda a gente que tem uma coleção em formato físico e quer sempre estar a par do que tem estando onde estiver, mas por ser uma aplicação de fácil utilização pode-se dizer que a aplicação acaba por ser direcionada para toda a gente que gosta de música uma vez que as pessoas que queiram começar a colecionar ou só a comprar os seus álbuns favoritos podem utilizar a nossa aplicação, é também por isto que a nossa aplicação não tem nenhuma faixa etária alvo, podendo ser usada desde crianças até idosos 
 
-O público-alvo do SoundMarket é bastante diversificado, abrangendo desde os colecionadores mais experientes até aqueles que estão agora a começar a aventurar-se no universo da música em formato físico. Esta plataforma não é exclusiva para especialistas, mas também é acessível para iniciantes, que podem beneficiar das funcionalidades de pesquisa e categorização de discos. Assim, além de um marketplace, a SoundMarket tem a ambição de se tornar uma ferramenta de descoberta para aqueles que ainda estão a aprender sobre a diversidade dos formatos físicos de música.
+Existem algumas aplicações com alguns conceitos semelhantes ao SoundMarket mas nenhuma delas tem todos os conceitos no mesmo sítio como a nossa. Algumas destas aplicações são o Discogs que é um marketplace já existente há muitos anos no mercado, que também permite guardar a música numa coleção e o que se destaca no Discogs é a vasta biblioteca de álbuns que a aplicação tem sendo muito fácil de se encontrar o que se procura o que se pode apontar como um ponto fraco desta aplicação é a dificuldade na compra e venda de artigos, mais na compra que não é nada intuitiva e certamente para alguém que queira comprar algo pela primeira vez na aplicação vai ter dificuldades. Outras aplicações que também se podem comparar com o SoundMarket são a vinted, o ebay e a amazon estas aplicações são todas marketplaces e o que elas tem todas em comum é a facilidade em comprar, sendo já muito mais fácil para quem compra pela primeira vez por outro lado a parte não tão boa destas aplicações é que por venderem tanto tipo de artigos acaba por ser bastante complicado de se encontrar o que se procura se for algo mais especifico. Por fim ainda existem todas as aplicações de lojas de música que acabam por ter uma grande variedade de artigos mas que não permitem guardar a nossa coleção.
 
-Atualmente, existem plataformas que oferecem algumas das funcionalidades desejadas, como o OLX, eBay e Vinted, todas conhecidas por facilitar a compra e venda de itens variados. No entanto, essas plataformas não são especializadas em música e, por isso, não possuem os filtros e categorias específicas que poderiam facilitar a procura por álbuns específicos ou edições limitadas. Para o colecionador, isso torna o processo de busca mais demorado e menos intuitivo, uma vez que esses sites não possuem as ferramentas adequadas para diferenciar as versões e informações essenciais para quem é exigente com a sua coleção.
+A aplicação desenvolvida permite aos utilizadores procurarem os álbuns favoritos, ouvi-los no spotify bem como adiciona-los a uma coleção personalizada. A app proporciona uma experiencia intuitiva e personalizada, permitindo a gestão eficiente dos conteúdos musicais.
 
-Em contrapartida, existe o Discogs, uma plataforma dedicada ao mercado de música que oferece um catálogo vasto e uma comunidade ativa. No entanto, apesar da sua especialização, o Discogs pode ser complicado de usar, especialmente para aqueles que não estão familiarizados com os processos mais técnicos de catalogação e venda de álbuns. A interface e os procedimentos de compra e venda podem parecer complexos e pouco intuitivos para novos usuários, o que limita a acessibilidade da plataforma e afasta potenciais colecionadores.
+Enquadramento das diversas UCs:
 
-Com o SoundMarket, pretendemos unir o melhor dos dois mundos: a simplicidade e acessibilidade de plataformas generalistas como o OLX e eBay, com a profundidade e especialização de um catálogo completo de música do Discogs. A nossa visão é criar um ambiente onde os usuários possam facilmente procurar, comprar e vender álbuns, enquanto desfrutam de uma experiência otimizada para colecionadores.
+Programação de dispositivos móveis- Esta UC permitiu-nos fazer o desenvolvimento do design da aplicação e a implementação das APIs tanto a do Spotify como a nossa.
+
+Programação orientada a objetos- Nesta UC desenvolvemos tudo o que era relacionado com a nossa API e o diagrama de classes do projeto
+
+Bases de dados- Em bases de dados neste projetos fomos auxiliados na criação da nossa base de dados. Começando com o modelo entidade relação até à documentação da Base de dados 
+
+Competências comunicacionais- A UC de competências comunicacionais ajudou-nos e bastante em todos os documentos que eram relacionados com o projeto, de apresentações, vídeos, powerpoints, a posters 
+
+Matemática discreta-  
+
+
+Requisitos Técnicos:
+ * Backend - No nosso backend foi utilizado Spring Boot v3.2.4 e Mysql
+ * Frontend - no Frontend foi utilizado o Android Studio
+ * APIs - No nosso projeto foram usadas a API do Spotify e a nossa própria API 
+
+Arquitetura da solução:
+ *Arquitetura cliente-servidor- A app Android comunica com o backend desenvolvido em Spring Boot
+ *Camadas:
+   *Frontend- interface em kotlin
+   *Backend -API REST em Spring Boot
+   *Base de dados- MySQL para armazenamento de dados 
+
+Tecnologias usadas;
+ *linguagens- Kotlin(Android Studio), Java(Api), MySQl(Base De Dados)
+ *Frameworks- Spring Boot(Backend), Retrofit (APIs) 
+ *API- Spotify Web API, SoundMarket API (A nossa API)
+ *Ferramentas- Android Studio, Vscode, MySQl workbench, Postman (testes API), GitHub 
 
 ## Personas
 
@@ -41,7 +63,7 @@ Com o SoundMarket, pretendemos unir o melhor dos dois mundos: a simplicidade e a
 
 ## Caso de utilização do objeto “core” do projeto
 
-O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (existem 2 processos possíveis para este caso).
+O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção.
 ### Adicionar um álbum à coleção
 #### 1º Processo
 
@@ -50,14 +72,6 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (
 3. Na home page, vai ter uma barra de pesquisa (search bar) para encontrar o álbum.
 4. Ao encontrar e carregar no álbum, irá aparecer no topo da página a opção “add to collection”.
 5. Depois de escolher o formato e a condição, o utilizador carrega no botão que diz "add to collection" e o álbum será adicionado à coleção.
-
-#### 2º Processo
-
-1. A utilizadora Maria Costa vai registar-se na aplicação.
-2. Depois de se registar, faz login e é redirecionada para a home page.
-3. A utilizadora vai até ao perfil e carrega onde diz “my collection”.
-4. Ao entrar em “my collection”, vai ver um botão redondo no canto inferior direito com um símbolo "+"
-5. Depois de carregar no botão irá procurar o álbum, escolher o formato e a condição e, por fim, irá carregar no botão que diz “add to collection”.
 
 ---
 
@@ -75,55 +89,6 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção (
 2. Ao carregar no álbum, aparecerão várias informações sobre ele e, perto do fim da página, irá aparecer um botão com a quantidade de vendedores que naquele momento têm o disco à venda. A utilizadora terá de carregar nesse botão.
 3. Após carregar no botão, Maria será apresentada com todas as listings desse álbum, e também com o respetivo formato, condição e preço.
 4. Depois de escolher a listing desejada, ela terá de carregar num botão que a levará para um chat com o vendedor. A partir daí, ela poderá ou não negociar o preço com o vendedor e tratar de todos os detalhes para comprar o disco.
-
----
-
-## Project Charter
-
-- Programação de Desenvolvimento Móvel:
-  Desenvolvimento da aplicação.
-- Bases de Dados:
-  Construção da base de dados.
-- Programação Orientada a Objetos:
-  Desenvolvimento do servidor da aplicação.
-- Matemática Discreta:
-  Estatísticas relacionadas aos dados da aplicação.
-- Competências Comunicacionais:
-  Desenvolvimento do vídeo e do poster da aplicação.
-
----
-
-## Ferramentas a utilizar/utilizadas
-
-### Aplicação
-- Api do Spotify- vai ser utilizada a api do spotify para termos acesso a todas as informações dos álbuns que vamos utilizar na aplicação
-- Android Studio- Desenvolvimento da aplicação
-- MySql- Desenvolvimento da base de dados
-- Vs Code - Desenvolvimento do servidor em java
-
-### Poster
-A aplicação que utilizamos para fazer o poster foi o canva e para fazer o design do poster utilizamos e alteramos uma template, a imagem usada como home screen veio do mockup.
-
-### Vídeo
-Foram utilizados dois sites: online-video-cutter.com e promo.com para editar o vídeo. O voice-over foi feito com ChatGPT.
-
----
-
-## Requisitos Funcionais e Não Funcionais
-
-### Requisitos Funcionais
-- Registo na aplicação
-- Login
-- Edição de perfil
-- Procura de álbuns
-- Adicionar álbuns à coleção.
-- Colocar álbuns à venda.
-- Adicionar álbuns à wishlist.
-- Comunicar com outros vendedores.
-- Ouvir álbum (redireciona para o spotify)
-### Requisitos Não Funcionais
-- Alterar informações não importantes do perfil (ex. foto de perfil).
-- Alternar entre tema escuro e tema claro.
 
 ---
 
