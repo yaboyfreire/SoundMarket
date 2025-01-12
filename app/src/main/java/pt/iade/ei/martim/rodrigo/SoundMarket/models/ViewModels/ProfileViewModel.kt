@@ -1,6 +1,5 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels
 
-import android.util.Base64
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -14,7 +13,7 @@ import pt.iade.ei.martim.rodrigo.SoundMarket.models.User
 
 class ProfileViewModel(
     private val authService: AuthService,
-    private val sessionManager: SessionManager
+    private val sessionManager: SessionManager // Added sessionManager
 ) : ViewModel() {
 
     private val _user = MutableStateFlow<User?>(null)
@@ -40,11 +39,13 @@ class ProfileViewModel(
                     val tokenWithBearer = "Bearer $authToken"
                     Log.d("ProfileViewModel", "Authorization token: $tokenWithBearer")
 
-                    // Make sure userId is passed as expected by your API
+                    // Make the API call to fetch the user profile
                     val response = authService.getUserProfile(tokenWithBearer, userId.toString())
                     Log.d("ProfileViewModel", "Response: $response")
+
+                    // If the response is not null, update the user data
                     if (response != null) {
-                        _user.value = response // No need to decode here, leave Base64 string as is
+                        _user.value = response  // Set the user object with the fetched response
                     } else {
                         _error.value = "Failed to load profile: No data received."
                     }
@@ -61,7 +62,8 @@ class ProfileViewModel(
         }
     }
 
-    // Factory for creating the ViewModel
+
+    // Factory for creating the ViewModel with the required parameters
     class Factory(
         private val authService: AuthService,
         private val sessionManager: SessionManager
