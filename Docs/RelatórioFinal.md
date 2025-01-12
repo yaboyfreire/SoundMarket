@@ -43,17 +43,17 @@ Requisitos Técnicos:
  * APIs - No nosso projeto foram usadas a API do Spotify e a nossa própria API 
 
 Arquitetura da solução:
- *Arquitetura cliente-servidor- A app Android comunica com o backend desenvolvido em Spring Boot
- *Camadas:
-   *Frontend- interface em kotlin
-   *Backend -API REST em Spring Boot
-   *Base de dados- MySQL para armazenamento de dados 
+ * Arquitetura cliente-servidor- A app Android comunica com o backend desenvolvido em Spring Boot
+ * Camadas:
+   * Frontend- interface em kotlin
+   * Backend -API REST em Spring Boot
+   * Base de dados- MySQL para armazenamento de dados 
 
 Tecnologias usadas;
- *linguagens- Kotlin(Android Studio), Java(Api), MySQl(Base De Dados)
- *Frameworks- Spring Boot(Backend), Retrofit (APIs) 
- *API- Spotify Web API, SoundMarket API (A nossa API)
- *Ferramentas- Android Studio, Vscode, MySQl workbench, Postman (testes API), GitHub 
+ * linguagens- Kotlin(Android Studio), Java(Api), MySQl(Base De Dados)
+ * Frameworks- Spring Boot(Backend), Retrofit (APIs) 
+ * API- Spotify Web API, SoundMarket API (A nossa API)
+ * Ferramentas- Android Studio, Vscode, MySQl workbench, Postman (testes API), GitHub 
 
 ## Personas
 
@@ -92,10 +92,27 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção.
 
 ---
 
-## Mockups e Interfaces
-O mockup inclui as seguintes páginas: login, register, home page, genre, album, collection, album copies, chat, sell, settings, profile e edit profile.
-![logo uni](Mockup/Mockup.png)
-[Link para o Mockup](https://www.figma.com/design/Q4pxEINEOY3B1p7glMqx0L/SoundMarket?node-id=3-2601&node-type=frame&t=UlXLVgEmpXikRqoW-0)
+## Diagrama de classes
+![Diagrama de classes](Anexos/Diagramadeclasses.png)
+
+---
+
+## Guia de dados
+![MER](Anexos/MER.png)
+
+---
+
+## Dicionário de dados
+![Tabela_User](Anexos/BibliotecaDeDados/BD_USER.png)
+![Tabela_admin](Anexos/BibliotecaDeDados/BD_ADMINISTRATOR.png)
+![Tabela_Wishlist](Anexos/BibliotecaDeDados/BD_WISHLIST.png)
+![Tabela_Album](Anexos/BibliotecaDeDados/BD_Album_Final.png)
+![Tabela_Selling](Anexos/BibliotecaDeDados/BD_SELLING.png)
+![Tabela_Buy](Anexos/BibliotecaDeDados/BD_BUY.png)
+![Tabela_Chat](Anexos/BibliotecaDeDados/BD_CHAT.png)
+![Tabela_Message](Anexos/BibliotecaDeDados/BD_MESSAGE.png)
+![Tabela_Status](Anexos/BibliotecaDeDados/BD_STATUS.png)
+![Tabela_Buy_Status](Anexos/BibliotecaDeDados/BD_BUY_STATUS.png)
 
 ---
 
@@ -105,9 +122,6 @@ As tarefas foram divididas de forma a garantir que os aspetos mais importantes e
 
 ![gráfico de gantt](Anexos/Gantt.png)
 ---
-
-## Diagrama de classes
-![Diagrama de classes](Anexos/Diagramadeclasses.png)
 
 ## Documentação Rest
 Documentação da nossa API
@@ -127,24 +141,6 @@ Documentação da API do spotify
 ![Get_TrackInfoExampleRequest](Anexos/API/GetTrackInfoExampleRequest.png)
 ![Get_NewReleases](Anexos/API/GetNewReleases.png)
 ![Get_NewReleasesExampleRequest](Anexos/API/GetNewReleasesExampleRequest.png)
-
----
-## Dicionário de dados
-![Tabela_User](Anexos/BibliotecaDeDados/BD_USER.png)
-![Tabela_admin](Anexos/BibliotecaDeDados/BD_ADMINISTRATOR.png)
-![Tabela_Wishlist](Anexos/BibliotecaDeDados/BD_WISHLIST.png)
-![Tabela_Album](Anexos/BibliotecaDeDados/BD_ALBUM.png)
-![Tabela_Selling](Anexos/BibliotecaDeDados/BD_SELLING.png)
-![Tabela_Buy](Anexos/BibliotecaDeDados/BD_BUY.png)
-![Tabela_Chat](Anexos/BibliotecaDeDados/BD_CHAT.png)
-![Tabela_Message](Anexos/BibliotecaDeDados/BD_MESSAGE.png)
-![Tabela_Status](Anexos/BibliotecaDeDados/BD_STATUS.png)
-![Tabela_Buy_Status](Anexos/BibliotecaDeDados/BD_BUY_STATUS.png)
-
-
-
-## Guia de dados
-![MER](Anexos/MER.png)
 
 --- 
 ## Conclusão
