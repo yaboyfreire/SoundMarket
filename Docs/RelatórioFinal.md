@@ -44,6 +44,18 @@ A UC de competências comunicacionais ajudou-nos e bastante em todos os document
 
 ### Matemática discreta
 
+A matemática discreta é essencial para o desenvolvimento de aplicações, e a nossa não é exceção. 
+Conceitos como aos que demos em aulas, lógica proposicional, conjuntos(entre outros) são utilizados para estruturar e garantir o funcionamento lógico de qualquer aplicação.
+
+A lógica proposicional aparece em funcionalidades como a Search e o login. 
+Na Search, P representa o utilizador inserir um termo válido, e Q o return dos resultados. A implicação P -> Q diz nos que, se o termo for válido, os resultados vão ser mostrados,  caso contrário (~P), uma mensagem de erro é exibida no lugar dos resultados. No login, P são credenciais corretas e Q o acesso ao resto da app, seguindo a mesma lógica P -> Q, com mensagens de erro em ~P.
+
+Os conjuntos podem modelar coleções de álbuns e resultados de pesquisa. A coleção de um utilizador é um conjunto C, onde C != vazio indica que a coleção será exibida, caso contrário, uma mensagem informa que a sua coleção está vazia ou simplesmente não aparece. As operações de união (U) e interseção (∩) permitem comparar coleções entre usuários, como encontrar álbuns em comum (C1 ∩ C2) . Na busca, o conjunto S representa todos os álbuns do Spotify, e B ⊆ S os álbuns que atendem ao termo de pesquisa.
+
+As relações são usadas para associar utilizadores a álbuns. Cada par (u, a) conecta um utilizador u a um álbum a, formando uma tabela relacional. 
+
+Princípios de contagem ajudam em análises, como calcular quantos utilizadores ainda não possuem álbuns na coleção.
+
 
 ## Requisitos Técnicos:
  * Backend - No nosso backend foi utilizado Spring Boot v3.2.4 e Mysql
