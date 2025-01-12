@@ -1,0 +1,13 @@
+C:\Users\Leonardo\Downloads\Executáveis\login-app-backend-main\login-app-backend-main\src\main\java\com\example\loginauthapi\domain\user\User.java
+C:\Users\Leonardo\Downloads\Executáveis\login-app-backend-main\login-app-backend-main\src\main\java\com\example\loginauthapi\controllers\UserController.java
+C:\Users\Leonardo\Downloads\Executáveis\login-app-backend-main\login-app-backend-main\src\main\java\com\example\loginauthapi\infra\security\SecurityFilter.java
+C:\Users\Leonardo\Downloads\Executáveis\login-app-backend-main\login-app-backend-main\src\main\java\com\example\loginauthapi\repositories\UserRepository.java
+C:\Users\Leonardo\Downloads\Executáveis\login-app-backend-main\login-app-backend-main\src\main\java\com\example\loginauthapi\controllers\AuthController.java
+C:\Users\Leonardo\Downloads\Executáveis\login-app-backend-main\login-app-backend-main\src\main\java\com\example\loginauthapi\infra\security\TokenService.java
+C:\Users\Leonardo\Downloads\Executáveis\login-app-backend-main\login-app-backend-main\src\main\java\com\example\loginauthapi\dto\ResponseDTO.java
+C:\Users\Leonardo\Downloads\Executáveis\login-app-backend-main\login-app-backend-main\src\main\java\com\example\loginauthapi\LoginAuthApiApplication.java
+C:\Users\Leonardo\Downloads\Executáveis\login-app-backend-main\login-app-backend-main\src\main\java\com\example\loginauthapi\infra\cors\CorsConfig.java
+C:\Users\Leonardo\Downloads\Executáveis\login-app-backend-main\login-app-backend-main\src\main\java\com\example\loginauthapi\infra\security\CustomUserDetailsService.java
+C:\Users\Leonardo\Downloads\Executáveis\login-app-backend-main\login-app-backend-main\src\main\java\com\example\loginauthapi\dto\RegisterRequestDTO.java
+C:\Users\Leonardo\Downloads\Executáveis\login-app-backend-main\login-app-backend-main\src\main\java\com\example\loginauthapi\dto\LoginRequestDTO.java
+C:\Users\Leonardo\Downloads\Executáveis\login-app-backend-main\login-app-backend-main\src\main\java\com\example\loginauthapi\infra\security\SecurityConfig.java
