@@ -134,10 +134,11 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção.
 ![Tabela_Buy_Status](Anexos/BibliotecaDeDados/BD_BUY_STATUS.png)
 
 ---
-
+### Manual Do Utilizador
 [Manual do Utilizador](https://github.com/yaboyfreire/SoundMarket/blob/Relat%C3%B3rioFinal/Docs/ManualUtilizador.pdf)
 
----
+### Documentação Rest
+[Documentação Rest](https://github.com/yaboyfreire/SoundMarket/blob/Relat%C3%B3rioFinal/Docs/SoundMarket_SpotifyAPI.pdf)
 
 ## Planificação (Gráfico de Gantt)
 
@@ -145,27 +146,7 @@ As tarefas foram divididas de forma a garantir que os aspetos mais importantes e
 
 ![gráfico de gantt](Anexos/Gantt.png)
 ---
-
-## Documentação Rest
-Documentação da nossa API
-
-![Register](Anexos/API/Register.png)
-![RegisterExampleRequest](Anexos/API/RegisterExampleRequest.png)
-![Get_Login](Anexos/API/GetLogin.png)
-![Get_LoginExampleRequest](Anexos/API/GetLoginExampleRequest.png)
-
-Documentação da API do spotify
-
-![Get_Token](Anexos/API/GetToken.png)
-![Get_TokenExampleRequest](Anexos/API/GetTokenExampleRequest.png)
-![Get_AlbunsByName](Anexos/API/GetAlbunsByName.png)
-![Get_AlbunsByNameExampleRequest](Anexos/API/GetAlbunsByNameExampleRequest.png)
-![Get_TrackInfo](Anexos/API/GetTrackInfo.png)
-![Get_TrackInfoExampleRequest](Anexos/API/GetTrackInfoExampleRequest.png)
-![Get_NewReleases](Anexos/API/GetNewReleases.png)
-![Get_NewReleasesExampleRequest](Anexos/API/GetNewReleasesExampleRequest.png)
-
---- 
+ 
 ## Conclusão
 
 Com o desenvolvimento da SoundMarket, o objetivo é criar uma plataforma simples e acessível que facilite a gestão, compra e venda de álbuns em formato físico. Pretendemos conectar uma comunidade de entusiastas de música, proporcionando uma experiência eficiente para colecionadores experientes e novos utilizadores.
