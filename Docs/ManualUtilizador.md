@@ -7,6 +7,7 @@
  * Página do gênero
  * Álbum
  * Adicionar à coleção
+ * Perfil
  * Definições
 ### Página de login 
 ![login](Anexos/ManualDoUtilizador/AppLogin.png)
@@ -42,6 +43,10 @@ Quando carregar num álbum o utilizador será redirecionado para esta página, o
 ![AddToCollection](Anexos/ManualDoUtilizador/AppAddToCollection.png)
 
 Se o utilizador carregar no botão que diz "Add To Collection" será levado para esta página onde poderá escolher o formato e a condição do seu álbum. Depois de escolher, ele carrega no botão verde e o álbum é adicionado à sua coleção
+### Perfil
+![Profile](Anexos/ManualDoUtilizador/AppAppProfile.png)
+
+Se na página inicial o utilizador carregar no primeiro ícone no canto superior direito ele será redirecionado para esta página. Aqui estarão para ver as informações do utilizador, bem como os álbuns que ele tem na sua coleção, como nos outros carrosséis se carregar no botão será levado para uma página como a dos novos lançamentos onde estarão todos os álbuns que estão na sua coleção
 
 ### Definições 
 ![Settings](Anexos/ManualDoUtilizador/AppSettings.png)
