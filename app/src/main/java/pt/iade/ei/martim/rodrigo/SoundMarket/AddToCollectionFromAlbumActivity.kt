@@ -119,9 +119,7 @@ fun AddToCollectionFromAlbumScreen(albumSpotifyID: String) {
         if (isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
         } else {
-            Text("Album: $albumName")
-            Text("Artist: $artistName")
-            Text("Genre: $genre")
+
 
             Spacer(modifier = Modifier.height(16.dp))
 
