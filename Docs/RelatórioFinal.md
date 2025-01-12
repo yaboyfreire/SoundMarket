@@ -30,37 +30,41 @@ A aplicação desenvolvida permite aos utilizadores procurarem os álbuns favori
 
 ## Enquadramento das diversas UCs:
 
-Programação de dispositivos móveis- Esta UC permitiu-nos fazer o desenvolvimento do design da aplicação e a implementação das APIs tanto a do Spotify como a nossa.
+### Programação de dispositivos móveis
+Esta UC permitiu-nos fazer o desenvolvimento do design da aplicação e a implementação das APIs tanto a do Spotify como a nossa.
 
-Programação orientada a objetos- Nesta UC desenvolvemos tudo o que era relacionado com a nossa API e o diagrama de classes do projeto
+### Programação orientada a objetos
+Nesta UC desenvolvemos tudo o que era relacionado com a nossa API e o diagrama de classes do projeto
 
-Bases de dados- Em bases de dados neste projetos fomos auxiliados na criação da nossa base de dados. Começando com o modelo entidade relação até à documentação da Base de dados 
+### Bases de dados
+Em bases de dados neste projetos fomos auxiliados na criação da nossa base de dados. Começando com o modelo entidade relação até à documentação da Base de dados 
 
-Competências comunicacionais- A UC de competências comunicacionais ajudou-nos e bastante em todos os documentos que eram relacionados com o projeto, de apresentações, vídeos, powerpoints, a posters 
+### Competências comunicacionais
+A UC de competências comunicacionais ajudou-nos e bastante em todos os documentos que eram relacionados com o projeto, de apresentações, vídeos, powerpoints, a posters 
 
-Matemática discreta-  
+### Matemática discreta
 
 
-### Requisitos Técnicos:
+## Requisitos Técnicos:
  * Backend - No nosso backend foi utilizado Spring Boot v3.2.4 e Mysql
  * Frontend - no Frontend foi utilizado o Android Studio
  * APIs - No nosso projeto foram usadas a API do Spotify e a nossa própria API 
 
-### Arquitetura da solução:
+## Arquitetura da solução:
  * Arquitetura cliente-servidor- A app Android comunica com o backend desenvolvido em Spring Boot
  * Camadas:
    * Frontend- interface em kotlin
    * Backend -API REST em Spring Boot
    * Base de dados- MySQL para armazenamento de dados 
 
-### Tecnologias usadas:
+## Tecnologias usadas:
  * linguagens- Kotlin(Android Studio), Java(Api), MySQl(Base De Dados)
  * Frameworks- Spring Boot(Backend), Retrofit (APIs) 
  * API- Spotify Web API, SoundMarket API (A nossa API)
  * Ferramentas- Android Studio, Vscode, MySQl workbench, Postman (testes API), GitHub
 
 ## Caso de utilização do objeto “core” do projeto
-## Personas
+### Personas
 
 ![Persona1](Anexos/Persona1JoaoSilva.png)
 
