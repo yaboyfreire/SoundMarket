@@ -1,6 +1,6 @@
 ![logo uni](Anexos/Logo.png)
 # Relatório Final do Projeto
-### Projeto de Desenvolvimento Móvel
+## Projeto de Desenvolvimento Móvel
 
 Trabalho realizado por:
 - **Leonardo Nguyen** nº20230805
@@ -13,6 +13,10 @@ Trabalho realizado por:
 **Link github**: [https://github.com/yaboyfreire/SoundMarket](https://github.com/yaboyfreire/SoundMarket)
 
 ---
+## Divisão de tarefas
+![Divisão de tarefas](Anexos/SOUNDMARKET_DIVISAO_TAREFAS.png)
+
+
 A SoundMarket é uma aplicação que tem como objetivo servir de marketplace e um biblioteca móvel para o utilizador. Nesta aplicação é possível procurar por álbuns, ver quais estão à venda, adicionar álbuns à coleção e ainda adicionar álbuns a uma lista de desejos. Com esta aplicação estamos a resolver um problema já existente no mercado, procura e compra de álbuns de forma intuitiva sem complicações.
 
 
@@ -24,7 +28,7 @@ Existem algumas aplicações com alguns conceitos semelhantes ao SoundMarket mas
 
 A aplicação desenvolvida permite aos utilizadores procurarem os álbuns favoritos, ouvi-los no spotify bem como adiciona-los a uma coleção personalizada. A app proporciona uma experiencia intuitiva e personalizada, permitindo a gestão eficiente dos conteúdos musicais.
 
-Enquadramento das diversas UCs:
+## Enquadramento das diversas UCs:
 
 Programação de dispositivos móveis- Esta UC permitiu-nos fazer o desenvolvimento do design da aplicação e a implementação das APIs tanto a do Spotify como a nossa.
 
@@ -37,31 +41,30 @@ Competências comunicacionais- A UC de competências comunicacionais ajudou-nos 
 Matemática discreta-  
 
 
-Requisitos Técnicos:
+### Requisitos Técnicos:
  * Backend - No nosso backend foi utilizado Spring Boot v3.2.4 e Mysql
  * Frontend - no Frontend foi utilizado o Android Studio
  * APIs - No nosso projeto foram usadas a API do Spotify e a nossa própria API 
 
-Arquitetura da solução:
+### Arquitetura da solução:
  * Arquitetura cliente-servidor- A app Android comunica com o backend desenvolvido em Spring Boot
  * Camadas:
    * Frontend- interface em kotlin
    * Backend -API REST em Spring Boot
    * Base de dados- MySQL para armazenamento de dados 
 
-Tecnologias usadas;
+### Tecnologias usadas:
  * linguagens- Kotlin(Android Studio), Java(Api), MySQl(Base De Dados)
  * Frameworks- Spring Boot(Backend), Retrofit (APIs) 
  * API- Spotify Web API, SoundMarket API (A nossa API)
- * Ferramentas- Android Studio, Vscode, MySQl workbench, Postman (testes API), GitHub 
+ * Ferramentas- Android Studio, Vscode, MySQl workbench, Postman (testes API), GitHub
 
+## Caso de utilização do objeto “core” do projeto
 ## Personas
 
 ![Persona1](Anexos/Persona1JoaoSilva.png)
 
 ![Persona2](Anexos/Persona2MariaCosta.png)
-
-## Caso de utilização do objeto “core” do projeto
 
 O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção.
 ### Adicionar um álbum à coleção
