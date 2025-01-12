@@ -3,6 +3,7 @@ package pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.AlbumRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.LoginRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.RegisterRequestDTO
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.User
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -25,5 +26,6 @@ class AuthServiceImpl(private val retrofit: Retrofit) : AuthService {
     override suspend fun addAlbumToCollection(album: AlbumRequestDTO, token: String): Response<AlbumRequestDTO> {
         return authService.addAlbumToCollection(album, token)
     }
+
 }
 

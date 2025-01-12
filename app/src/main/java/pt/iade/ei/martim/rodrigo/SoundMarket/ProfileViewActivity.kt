@@ -33,13 +33,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
+import coil.compose.rememberImagePainter
 import kotlinx.coroutines.launch
 import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.AuthService
 import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.RetrofitClientSoundMarket
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.User
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.UserAlbum
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.ViewModels.ProfileViewModel
 import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.LoadingSpinner
+import pt.iade.ei.martim.rodrigo.SoundMarket.ui.components.UserAlbumCarousel
 import pt.iade.ei.martim.rodrigo.SoundMarket.utils.SessionManager
 import pt.iade.ei.martim.rodrigo.SoundMarket.utils.decodeBase64ToBitmap
 
@@ -63,9 +66,7 @@ class ProfileViewActivity : ComponentActivity() {
 
         // Load user profile in a coroutine scope
         lifecycleScope.launch {
-            // Get the userId from sessionManager and ensure it's a Long
             val userId = sessionManager.getUserId()
-            Log.d("ProfileViewActivity", "User ID retrieved: $userId")
             if (userId != null) {
                 profileViewModel.loadUserProfile(userId.toLong())
             } else {
@@ -73,47 +74,9 @@ class ProfileViewActivity : ComponentActivity() {
             }
         }
 
-        // Observe the user profile and loading state to update the UI
-        lifecycleScope.launchWhenStarted {
-            profileViewModel.loading.collect { isLoading ->
-                if (isLoading) {
-                    // Show loading spinner
-                    setContent {
-                        LoadingSpinner(isLoading = true)
-                    }
-                } else {
-                    // Once loading is complete, display the profile screen
-                    profileViewModel.user.collect { userProfile ->
-                        userProfile?.let {
-                            val dummyAlbums = listOf(
-                                Album(
-                                    albumType = "album",
-                                    artists = listOf(Album.Artist(name = "Artist 1")),
-                                    images = listOf(Album.Image(url = "https://via.placeholder.com/300")),
-                                    name = "Album 1",
-                                    release_date = "2024-01-01"
-                                ),
-                                Album(
-                                    albumType = "album",
-                                    artists = listOf(Album.Artist(name = "Artist 2")),
-                                    images = listOf(Album.Image(url = "https://via.placeholder.com/300")),
-                                    name = "Album 2",
-                                    release_date = "2024-02-01"
-                                )
-                            )
-                            setContent {
-                                ProfileScreen(
-                                    onClick = { navigateToEditProfileActivity() },
-                                    albums = dummyAlbums,
-                                    userProfile = it
-                                )
-                            }
-                        } ?: run {
-                            Toast.makeText(this@ProfileViewActivity, "User profile not found.", Toast.LENGTH_LONG).show()
-                        }
-                    }
-                }
-            }
+        // Observe state from the ViewModel
+        setContent {
+            ProfileScreenContent(viewModel = profileViewModel)
         }
     }
 
@@ -124,9 +87,8 @@ class ProfileViewActivity : ComponentActivity() {
 }
 
 
-
 @Composable
-fun ProfileScreen(onClick: () -> Unit, albums: List<Album>, userProfile: User?) {
+fun ProfileScreen(onClick: () -> Unit, userAlbums: List<UserAlbum>, userProfile: User?) {
     val scrollState = rememberScrollState()
     val context = LocalContext.current
 
@@ -149,7 +111,7 @@ fun ProfileScreen(onClick: () -> Unit, albums: List<Album>, userProfile: User?) 
                 contentAlignment = Alignment.BottomEnd
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.account_circle), // Placeholder image
+                    painter = rememberImagePainter(R.drawable.account_circle), // Default image
                     contentDescription = "Profile Picture",
                     modifier = Modifier
                         .size(150.dp)
@@ -190,41 +152,45 @@ fun ProfileScreen(onClick: () -> Unit, albums: List<Album>, userProfile: User?) 
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Carousel Sections
-        HorizontalCarousel(
-            albums = albums,
+        // Carousel Sections for the user albums
+        UserAlbumCarousel(
+            userAlbums = userAlbums, // Pass the correct user albums
             text = "Collection",
             onButtonClick = {
-                val intent = Intent(context, CollectionActivity::class.java)
+                val intent = Intent(context, UserCollectionActivity::class.java)
+                // Pass the userAlbums list to the intent
+                intent.putExtra("userAlbums", ArrayList(userAlbums)) // Convert to ArrayList if it's a List
                 context.startActivity(intent)
             },
-            onAlbumClick = { album ->
-                // Handle album click for Collection
-                Toast.makeText(context, "Clicked on ${album.name}", Toast.LENGTH_SHORT).show()
+            onAlbumClick = { userAlbum ->
+                // Handle album click and send albumSpotifyID
+                val intent = Intent(context, AlbumActivity::class.java)
+                intent.putExtra("ALBUM_ID", userAlbum.albumSpotifyID)
+                context.startActivity(intent)
             }
         )
 
-        HorizontalCarousel(
-            albums = albums.take(1), // Example for Wishlist
+        UserAlbumCarousel(
+            userAlbums = userAlbums.take(1), // Example for Wishlist
             text = "Wishlist",
             onButtonClick = {
                 // Wishlist button click handler
             },
-            onAlbumClick = { album ->
+            onAlbumClick = { userAlbum ->
                 // Handle album click for Wishlist
-                Toast.makeText(context, "Clicked on ${album.name}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Clicked on ${userAlbum.name}", Toast.LENGTH_SHORT).show()
             }
         )
 
-        HorizontalCarousel(
-            albums = albums.take(1), // Example for Selling
+        UserAlbumCarousel(
+            userAlbums = userAlbums.take(1), // Example for Selling
             text = "Selling",
             onButtonClick = {
                 // Selling button click handler
             },
-            onAlbumClick = { album ->
+            onAlbumClick = { userAlbum ->
                 // Handle album click for Selling
-                Toast.makeText(context, "Clicked on ${album.name}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Clicked on ${userAlbum.name}", Toast.LENGTH_SHORT).show()
             }
         )
     }
@@ -236,36 +202,91 @@ fun ProfileScreen(onClick: () -> Unit, albums: List<Album>, userProfile: User?) 
 @Preview(showBackground = true)
 @Composable
 fun ProfileScreenPreview() {
-    // Create dummy albums for the preview
-    val UserProfile = User(
+    // Create a mock user profile for the preview
+    val mockUser = User(
         id = 1,
         user_name = "Rodrigo Freire",
         gender = "Male",
         userName = "Rodrigo",
         birthdate = "11-07-2004",
         email = "rfreire@gmail.com",
-        country = "Edit to add your country",
-        userImage = null,
-        aboutMe = "Ah e tal",
-        password = "As"
+        country = "Portugal", // Example country
+        userImage = null, // Mocking a null image, which could be replaced with an image URL or resource
+        aboutMe = "Ah e tal", // Sample bio
+        password = "secret"
     )
+
+    // Dummy albums for the preview
     val dummyAlbums = listOf(
-        Album(
-            albumType = "album",
-            artists = listOf(Album.Artist(name = "Artist 1")),
-            images = listOf(Album.Image(url = "https://via.placeholder.com/300")),
+        UserAlbum(
+            id = 1,
             name = "Album 1",
-            release_date = "2024-01-01"
-        ),
-        Album(
-            albumType = "album",
-            artists = listOf(Album.Artist(name = "Artist 2")),
-            images = listOf(Album.Image(url = "https://via.placeholder.com/300")),
-            name = "Album 2",
-            release_date = "2024-02-01"
+            condition = "New",
+            format = "Vinyl",
+            artist = "Artist 1",
+            genre = "Pop",
+            albumSpotifyID = "123456",
+            albumAddedDate = "2024-01-01",
+            imageURL = "https://via.placeholder.com/300",
+            userId = 1
         )
     )
 
-    // Pass the dummy albums to ProfileScreen
-    ProfileScreen(albums = dummyAlbums, userProfile = UserProfile, onClick = { /* Preview click handler */ })
+    // Pass the mock user and dummy albums to ProfileScreen for preview
+    ProfileScreen(
+        userAlbums = dummyAlbums,
+        userProfile = mockUser,
+        onClick = { /* Preview click handler for editing profile */ }
+    )
+}
+
+@Composable
+fun ProfileScreenContent(viewModel: ProfileViewModel) {
+    val user = viewModel.user.collectAsState().value
+    val loading = viewModel.loading.collectAsState().value
+    val error = viewModel.error.collectAsState().value
+
+    when {
+        loading -> {
+            LoadingSpinner() // Show loading spinner while the profile is loading
+        }
+        error != null -> {
+            Text(
+                text = error,
+                color = Color.Red,
+                modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.Center),
+                style = MaterialTheme.typography.bodyLarge
+            )
+        }
+        user != null -> {
+            ProfileScreen(
+                userAlbums = user.albums ?: emptyList(),
+                userProfile = user,
+                onClick = { /* Handle edit profile click */ }
+            )
+        }
+        else -> {
+            Text(
+                text = "User profile not found.",
+                color = Color.Gray,
+                modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.Center),
+                style = MaterialTheme.typography.bodyLarge
+            )
+        }
+    }
+}
+
+@Composable
+fun LoadingSpinner() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0x80000000)), // Semi-transparent background
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator(
+            color = MaterialTheme.colorScheme.primary,
+            strokeWidth = 4.dp
+        )
+    }
 }

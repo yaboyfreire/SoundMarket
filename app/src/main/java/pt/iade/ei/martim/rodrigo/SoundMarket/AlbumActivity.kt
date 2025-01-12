@@ -38,7 +38,9 @@ fun AlbumScreen(albumId: String, authToken: String) {
     // Fetch album data when screen is first launched
     LaunchedEffect(albumId) {
 
+
         val token = "Bearer BQBLYJpTJ0jji40x0B92lWqgLmqoDjQXnvpsbiorC4W3Wz5U7ZEKthupmEfkDBYAefGFgx5HD4A823ao5Wz29l3pQff_m2wST-dsNX4jkSb2oXgc6jA"
+
         albumViewModel.fetchAlbum(albumId, token)
     }
 

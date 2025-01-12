@@ -4,6 +4,7 @@ import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.AlbumRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.LoginRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.RegisterRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.ResponseDTO
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.User
 import retrofit2.Call
 import retrofit2.Response
@@ -26,11 +27,13 @@ interface AuthService {
         @Path("id") userId: String
     ): User
 
+
     @POST("/albuns/user/collection")
     suspend fun addAlbumToCollection(
         @Body album: AlbumRequestDTO,
         @Header("Authorization") token: String
     ): Response<AlbumRequestDTO>
+
 
 }
 

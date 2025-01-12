@@ -58,14 +58,17 @@ import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.AuthService
 import pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff.RetrofitClientSoundMarket
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.RegisterRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.ResponseDTO
+import pt.iade.ei.martim.rodrigo.SoundMarket.utils.SessionManager
 import retrofit2.Call
 import java.util.Calendar
 
 class RegisterActivity : ComponentActivity() {
+    private lateinit var sessionManager: SessionManager
     override fun onCreate(savedInstanceState: Bundle?) {
+        sessionManager = SessionManager(this)
         super.onCreate(savedInstanceState)
         setContent {
-            RegisterScreen(onTextClick = { navigateToLoginActivity() })
+            RegisterScreen(onTextClick = { navigateToLoginActivity() }, sessionManager = sessionManager)
         }
     }
 
@@ -79,7 +82,8 @@ class RegisterActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen(onTextClick: () -> Unit) {
+fun RegisterScreen(onTextClick: () -> Unit,sessionManager: SessionManager) {
+
     var name by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
     var country by remember { mutableStateOf("") }
@@ -328,9 +332,19 @@ fun RegisterScreen(onTextClick: () -> Unit) {
                     override fun onResponse(call: Call<ResponseDTO>, response: retrofit2.Response<ResponseDTO>) {
                         if (response.isSuccessful) {
                             val token = response.body()?.token
+                            val userId = response.body()?.userId
                             // Save token and navigate
-                            val intent = Intent(context, MainActivity::class.java)
-                            context.startActivity(intent)
+                            if (token != null && userId != null) {
+                                // Save token and userId in SessionManager
+                                sessionManager.saveAuthToken(token)
+                                sessionManager.saveUserId(userId) // Save the userId received from the backend
+
+                                Log.d("Register", "Token: $token, User ID: $userId")
+
+                                // Proceed to the MainActivity after login
+                                val intent = Intent(context, MainActivity::class.java)
+                                context.startActivity(intent)
+                            }
                         } else {
                             // Log the error for debugging purposes
                             registerError = "Register failed: ${response.code()} - ${response.message()}"
@@ -370,5 +384,6 @@ fun RegisterScreen(onTextClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun RegisterScreenPreview() {
-    RegisterScreen(onTextClick = {  })
+    val sessionManager = SessionManager(LocalContext.current)
+    RegisterScreen(onTextClick = {  },  sessionManager = sessionManager)
 }
