@@ -3,7 +3,6 @@
 ## Projeto de Desenvolvimento Móvel
 
 Trabalho realizado por:
-- **Leonardo Nguyen** nº20230805
 - **Martim Conceição** nº20231206
 - **Rodrigo Freire** nº20230851
 
@@ -112,7 +111,7 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção.
 ---
 
 ## Diagrama de classes
-![Diagrama de classes](Anexos/Diagramadeclasses.png)
+![Diagrama de classes](Anexos/ClassDiagramFinal.png)
 
 ---
 
@@ -134,22 +133,26 @@ O caso aqui apresentado vai ser o processo de adicionar um álbum à coleção.
 ![Tabela_Buy_Status](Anexos/BibliotecaDeDados/BD_BUY_STATUS.png)
 
 ---
-### Manual Do Utilizador
-[Manual do Utilizador](https://github.com/yaboyfreire/SoundMarket/blob/Relat%C3%B3rioFinal/Docs/ManualUtilizador.pdf)
 
 ### Documentação Rest
 [Documentação Rest](https://github.com/yaboyfreire/SoundMarket/blob/Relat%C3%B3rioFinal/Docs/SoundMarket_SpotifyAPI.pdf)
 
-## Planificação (Gráfico de Gantt)
+### Manual Do Utilizador
+[Manual do Utilizador](https://github.com/yaboyfreire/SoundMarket/blob/Relat%C3%B3rioFinal/Docs/ManualUtilizador.pdf)
 
-As tarefas foram divididas de forma a garantir que os aspetos mais importantes estivessem concluídos a tempo da segunda entrega, com o restante a ser finalizado até a data final de entrega.
 
-![gráfico de gantt](Anexos/Gantt.png)
+## Planeamento e calendarização final (Gráfico de Gantt)
+Aqui está o gráfico de gantt final, não dá para ver tudo muito bem por isso também está aqui o link do clickup que redireciona para o gráfico de gantt
+[Gráfico de gantt no clickup](https://app.clickup.com/9012385181/v/g/8cjw5cx-492)
+
+![gráfico de gantt](Anexos/Gantt1aEntrega.png)
+![gráfico de gantt](Anexos/Gantt2aEntrega.png)
+![gráfico de gantt](Anexos/Gantt3aEntrega.png)
 ---
  
-## Conclusão
+## Auto-Avaliação
 
-Com o desenvolvimento da SoundMarket, o objetivo é criar uma plataforma simples e acessível que facilite a gestão, compra e venda de álbuns em formato físico. Pretendemos conectar uma comunidade de entusiastas de música, proporcionando uma experiência eficiente para colecionadores experientes e novos utilizadores.
+O projeto começou bem, e a parte do ui e navegação do projeto estavam a ser feitas rapidamente. isso mudou quando começamos a desenvolver a API devido a uma dificuldade que não nos era esperada,acabamos por isso a diminuir a velocidade com que desenvolviamos as coisas. tivemos então de voltar a aumentar o ritmo na fase final do projeto porque ainda tinhamos várias coisas em falta. O que fica por completar do projeto que foi defenido na 1ª entrega é colocar álbuns à venda, adicionar álbuns à wishlist e comunicar com outros vendedores, estas faltas acontecem porque como já disse encontramos várias dificuldades quando começamos a desenvolver a api, perdendo muito tempo no ínicio e não conseguimos recuperar esse tempo. Com isso tudo em conta achamos que a nossa nota deve ser 11
 
 ---
 
