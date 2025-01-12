@@ -1,11 +1,13 @@
 package pt.iade.ei.martim.rodrigo.SoundMarket.APIStuff
 
+import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.AlbumRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.LoginRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.RegisterRequestDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.API.ResponseDTO
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.Album
 import pt.iade.ei.martim.rodrigo.SoundMarket.models.User
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -24,6 +26,13 @@ interface AuthService {
         @Header("Authorization") authToken: String,  // Move the header annotation here
         @Path("id") userId: String
     ): User
+
+
+    @POST("/albuns/user/collection")
+    suspend fun addAlbumToCollection(
+        @Body album: AlbumRequestDTO,
+        @Header("Authorization") token: String
+    ): Response<AlbumRequestDTO>
 
 
 }

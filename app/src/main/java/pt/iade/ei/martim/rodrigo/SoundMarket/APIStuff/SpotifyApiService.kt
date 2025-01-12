@@ -64,4 +64,10 @@ interface SpotifyApiService {
         }
     }
 
+    @GET("v1/albums/{id}")
+    suspend fun getAlbumDetails(
+        @Path("id") albumId: String,
+        @Header("Authorization") authToken: String
+    ): Response<Album>
+
 }

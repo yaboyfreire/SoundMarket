@@ -49,6 +49,7 @@ fun HomeScreen(onButtonClick: () -> Unit) {
 
     // Fetch new releases when the screen is first loaded
     LaunchedEffect(Unit) {
+
         albumViewModel.fetchNewReleases(token)
     }
 
